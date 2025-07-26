@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 import 'package:in_porto/view/search/search_view.dart';
+import 'package:in_porto/view/settings/settings_view.dart';
 
 class ActionCenter extends StatefulWidget {
   const ActionCenter({super.key});
@@ -10,13 +11,28 @@ class ActionCenter extends StatefulWidget {
 }
 
 class _ActionCenterState extends State<ActionCenter> {
+  Widget _selectedView = const SearchView();
+
+  void _openSearchView() {
+    setState(() {
+      _selectedView = const SearchView();
+    });
+  }
+
+  void _openSettingsView() {
+    setState(() {
+      _selectedView = const SettingsView();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(25.0),
       child: OpenContainer(
+        tappable: false,
         transitionType: ContainerTransitionType.fade,
-        transitionDuration: const Duration(milliseconds: 600),
+        transitionDuration: const Duration(milliseconds: 700),
         closedElevation: 5,
         openElevation: 0,
         closedShape: RoundedRectangleBorder(
@@ -47,7 +63,10 @@ class _ActionCenterState extends State<ActionCenter> {
                   },
                 ),
                 InkWell(
-                  onTap: action,
+                  onTap: () {
+                    _openSearchView();
+                    action();
+                  },
                   borderRadius: BorderRadius.circular(25.0),
                   child: Container(
                     decoration: BoxDecoration(
@@ -79,7 +98,8 @@ class _ActionCenterState extends State<ActionCenter> {
                     color: Colors.black45,
                   ),
                   onPressed: () {
-                    // Handle settings button press
+                    _openSettingsView();
+                    action();
                   },
                 ),
               ],
@@ -87,7 +107,7 @@ class _ActionCenterState extends State<ActionCenter> {
           );
         },
         openBuilder: (context, action) {
-          return const SearchView();
+          return _selectedView;
         },
       ),
     );
