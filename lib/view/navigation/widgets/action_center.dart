@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:in_porto/view/favorites/favorites_view.dart';
 import 'package:in_porto/view/search/search_view.dart';
 import 'package:in_porto/view/settings/settings_view.dart';
 
@@ -12,6 +13,12 @@ class ActionCenter extends StatefulWidget {
 
 class _ActionCenterState extends State<ActionCenter> {
   Widget _selectedView = const SearchView();
+
+  void _openFavoritesView() {
+    setState(() {
+      _selectedView = const FavoritesView();
+    });
+  }
 
   void _openSearchView() {
     setState(() {
@@ -59,7 +66,8 @@ class _ActionCenterState extends State<ActionCenter> {
                     color: Colors.black45,
                   ),
                   onPressed: () {
-                    // Handle favorite button press
+                    _openFavoritesView();
+                    action();
                   },
                 ),
                 InkWell(
