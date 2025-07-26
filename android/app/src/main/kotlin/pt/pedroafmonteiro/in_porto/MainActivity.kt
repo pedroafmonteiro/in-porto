@@ -1,4 +1,4 @@
-package com.example.in_porto
+package pt.pedroafmonteiro.in_porto
 
 import io.flutter.embedding.android.FlutterActivity
 
