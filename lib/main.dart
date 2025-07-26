@@ -10,7 +10,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            // Set the predictive back transitions for Android.
+            TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+          },
+        ),
+      ),
       home: NavigationView(),
     );
   }
