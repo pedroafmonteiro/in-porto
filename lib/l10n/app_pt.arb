@@ -55,6 +55,11 @@
         "description": "Uma única licença",
         "type": "text"
     },
+    "supportMessage": "Feito com ❤️ no Porto.",
+    "@supportMessage": {
+        "description": "Mensagem para mostrar apoio ao projeto",
+        "type": "text"
+    },
     "search": "Pesquisar",
     "@search": {
         "description": "Texto de espaço reservado para a entrada de pesquisa",

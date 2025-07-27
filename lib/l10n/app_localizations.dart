@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'license'**
   String get license;
 
+  /// Message to show support for the project
+  ///
+  /// In en, this message translates to:
+  /// **'Made with ❤️ in Porto.'**
+  String get supportMessage;
+
   /// Placeholder text for the search input
   ///
   /// In en, this message translates to:

@@ -55,6 +55,11 @@
         "description": "A single license",
         "type": "text"
     },
+    "supportMessage": "Made with ❤️ in Porto.",
+    "@supportMessage": {
+        "description": "Message to show support for the project",
+        "type": "text"
+    },
     "search": "Search",
     "@search": {
         "description": "Placeholder text for the search input",

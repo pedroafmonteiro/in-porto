@@ -26,115 +26,136 @@ class SettingsView extends StatelessWidget {
           AppLocalizations.of(context)!.settingsTitle,
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
+      body: Column(
         children: [
-          Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              title: Text(AppLocalizations.of(context)!.appearanceTitle),
-              leading: Icon(Icons.palette_rounded),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                        ) => const AppearanceSettingsView(),
-                    transitionDuration: const Duration(milliseconds: 500),
-                    transitionsBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                          child,
-                        ) => SharedAxisTransition(
-                          animation: animation,
-                          secondaryAnimation: secondaryAnimation,
-                          transitionType: SharedAxisTransitionType.horizontal,
-                          child: child,
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                Card(
+                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    title: Text(AppLocalizations.of(context)!.appearanceTitle),
+                    leading: Icon(Icons.palette_rounded),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                              ) => const AppearanceSettingsView(),
+                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionsBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                                child,
+                              ) => SharedAxisTransition(
+                                animation: animation,
+                                secondaryAnimation: secondaryAnimation,
+                                transitionType:
+                                    SharedAxisTransitionType.horizontal,
+                                child: child,
+                              ),
                         ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+                Card(
+                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    title: Text(AppLocalizations.of(context)!.languageTitle),
+                    leading: Icon(Icons.language_rounded),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                              ) => const LanguageSettingsView(),
+                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionsBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                                child,
+                              ) => SharedAxisTransition(
+                                animation: animation,
+                                secondaryAnimation: secondaryAnimation,
+                                transitionType:
+                                    SharedAxisTransitionType.horizontal,
+                                child: child,
+                              ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Card(
+                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)!.openSourceLicensesTitle,
+                    ),
+                    leading: Icon(Icons.copyright_rounded),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                              ) => const LicensesView(),
+                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionsBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                                child,
+                              ) => SharedAxisTransition(
+                                animation: animation,
+                                secondaryAnimation: secondaryAnimation,
+                                transitionType:
+                                    SharedAxisTransitionType.horizontal,
+                                child: child,
+                              ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
-          Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              title: Text(AppLocalizations.of(context)!.languageTitle),
-              leading: Icon(Icons.language_rounded),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                        ) => const LanguageSettingsView(),
-                    transitionDuration: const Duration(milliseconds: 500),
-                    transitionsBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                          child,
-                        ) => SharedAxisTransition(
-                          animation: animation,
-                          secondaryAnimation: secondaryAnimation,
-                          transitionType: SharedAxisTransitionType.horizontal,
-                          child: child,
-                        ),
-                  ),
-                );
-              },
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).padding.bottom + 16.0,
             ),
-          ),
-          Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              title: Text(AppLocalizations.of(context)!.openSourceLicensesTitle),
-              leading: Icon(Icons.copyright_rounded),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                        ) => const LicensesView(),
-                    transitionDuration: const Duration(milliseconds: 500),
-                    transitionsBuilder:
-                        (
-                          context,
-                          animation,
-                          secondaryAnimation,
-                          child,
-                        ) => SharedAxisTransition(
-                          animation: animation,
-                          secondaryAnimation: secondaryAnimation,
-                          transitionType: SharedAxisTransitionType.horizontal,
-                          child: child,
-                        ),
-                  ),
-                );
-              },
+            child: Text(
+              AppLocalizations.of(context)!.supportMessage,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
             ),
           ),
         ],

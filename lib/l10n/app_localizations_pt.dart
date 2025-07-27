@@ -42,5 +42,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get license => 'licença';
 
   @override
+  String get supportMessage => 'Feito com ❤️ no Porto.';
+
+  @override
   String get search => 'Pesquisar';
 }
