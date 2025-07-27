@@ -11,15 +11,18 @@ class SettingsService {
   }
 
   static const _keyAppearance = 'appearance';
+  static const _keyLanguage = 'language';
 
   Future<Settings> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     final appearance = prefs.getString(_keyAppearance) ?? 'system';
-    return Settings(appearance: appearance);
+    final language = prefs.getString(_keyLanguage) ?? 'system';
+    return Settings(appearance: appearance, language: language);
   }
 
   Future<void> saveSettings(Settings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyAppearance, settings.appearance);
+    await prefs.setString(_keyLanguage, settings.language);
   }
 }

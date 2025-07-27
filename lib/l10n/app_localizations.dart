@@ -110,6 +110,12 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
+  /// Title for the system default mode setting
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get system;
+
   /// Title for the appearance settings
   ///
   /// In en, this message translates to:
@@ -128,11 +134,23 @@ abstract class AppLocalizations {
   /// **'Dark'**
   String get darkMode;
 
-  /// Title for the system mode setting
+  /// Title for the language settings
   ///
   /// In en, this message translates to:
-  /// **'System Default'**
-  String get systemMode;
+  /// **'Language'**
+  String get languageTitle;
+
+  /// Title for the Portuguese language option
+  ///
+  /// In en, this message translates to:
+  /// **'Portuguese'**
+  String get portuguese;
+
+  /// Title for the English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
 
   /// Placeholder text for the search input
   ///

@@ -38,6 +38,7 @@ class MainApp extends StatelessWidget {
           : ThemeMode.system,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(context.watch<SettingsViewModel>().settings.language),
       home: NavigationView(),
     );
   }

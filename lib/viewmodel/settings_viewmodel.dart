@@ -24,4 +24,10 @@ class SettingsViewModel extends ChangeNotifier {
     _service.saveSettings(_settings);
     notifyListeners();
   }
+
+  void setLanguage(String language) {
+    _settings = _settings.copyWith(language: language);
+    _service.saveSettings(_settings);
+    notifyListeners();
+  }
 }

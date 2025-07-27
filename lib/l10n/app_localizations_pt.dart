@@ -15,6 +15,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get settingsTitle => 'Definições';
 
   @override
+  String get system => 'Sistema';
+
+  @override
   String get appearanceTitle => 'Aparência';
 
   @override
@@ -24,7 +27,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get darkMode => 'Escuro';
 
   @override
-  String get systemMode => 'Padrão do Sistema';
+  String get languageTitle => 'Linguagem';
+
+  @override
+  String get portuguese => 'Português';
+
+  @override
+  String get english => 'Inglês';
 
   @override
   String get search => 'Pesquisar';

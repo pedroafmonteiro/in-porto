@@ -10,6 +10,11 @@
         "description": "Título para a página de definições",
         "type": "text"
     },
+    "system": "Sistema",
+    "@system": {
+        "description": "Título para a configuração do modo do sistema",
+        "type": "text"
+    },
     "appearanceTitle": "Aparência",
     "@appearanceTitle": {
         "description": "Título para as definições de aparência",
@@ -25,9 +30,19 @@
         "description": "Título para a configuração do modo escuro",
         "type": "text"
     },
-    "systemMode": "Padrão do Sistema",
-    "@systemMode": {
-        "description": "Título para a configuração do modo do sistema",
+    "languageTitle": "Linguagem",
+    "@languageTitle": {
+        "description": "Título para as definições de linguagem",
+        "type": "text"
+    },
+    "portuguese": "Português",
+    "@portuguese": {
+        "description": "Título para a opção de linguagem Português",
+        "type": "text"
+    },
+    "english": "Inglês",
+    "@english": {
+        "description": "Título para a opção de linguagem Inglês",
         "type": "text"
     },
     "search": "Pesquisar",

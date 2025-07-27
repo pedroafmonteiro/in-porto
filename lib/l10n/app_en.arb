@@ -10,6 +10,11 @@
         "description": "Title for the settings page",
         "type": "text"
     },
+    "system": "System Default",
+    "@system": {
+        "description": "Title for the system default mode setting",
+        "type": "text"
+    },
     "appearanceTitle": "Appearance",
     "@appearanceTitle": {
         "description": "Title for the appearance settings",
@@ -25,9 +30,19 @@
         "description": "Title for the dark mode setting",
         "type": "text"
     },
-    "systemMode": "System Default",
-    "@systemMode": {
-        "description": "Title for the system mode setting",
+    "languageTitle": "Language",
+    "@languageTitle": {
+        "description": "Title for the language settings",
+        "type": "text"
+    },
+    "portuguese": "Portuguese",
+    "@portuguese": {
+        "description": "Title for the Portuguese language option",
+        "type": "text"
+    },
+    "english": "English",
+    "@english": {
+        "description": "Title for the English language option",
         "type": "text"
     },
     "search": "Search",
