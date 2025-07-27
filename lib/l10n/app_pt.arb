@@ -45,6 +45,16 @@
         "description": "Título para a opção de idioma Inglês",
         "type": "text"
     },
+    "openSourceLicensesTitle": "Licenças de Código Aberto",
+    "@openSourceLicensesTitle": {
+        "description": "Título para as licenças de código aberto",
+        "type": "text"
+    },
+    "license": "licença",
+    "@license": {
+        "description": "Uma única licença",
+        "type": "text"
+    },
     "search": "Pesquisar",
     "@search": {
         "description": "Texto de espaço reservado para a entrada de pesquisa",

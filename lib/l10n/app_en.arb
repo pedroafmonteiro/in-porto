@@ -45,6 +45,16 @@
         "description": "Title for the English language option",
         "type": "text"
     },
+    "openSourceLicensesTitle": "Open Source Licenses",
+    "@openSourceLicensesTitle": {
+        "description": "Title for the open source licenses",
+        "type": "text"
+    },
+    "license": "license",
+    "@license": {
+        "description": "A single license",
+        "type": "text"
+    },
     "search": "Search",
     "@search": {
         "description": "Placeholder text for the search input",

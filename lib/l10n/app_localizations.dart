@@ -152,6 +152,18 @@ abstract class AppLocalizations {
   /// **'English'**
   String get english;
 
+  /// Title for the open source licenses
+  ///
+  /// In en, this message translates to:
+  /// **'Open Source Licenses'**
+  String get openSourceLicensesTitle;
+
+  /// A single license
+  ///
+  /// In en, this message translates to:
+  /// **'license'**
+  String get license;
+
   /// Placeholder text for the search input
   ///
   /// In en, this message translates to:

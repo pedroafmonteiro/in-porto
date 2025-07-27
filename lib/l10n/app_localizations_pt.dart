@@ -36,5 +36,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get english => 'Inglês';
 
   @override
+  String get openSourceLicensesTitle => 'Licenças de Código Aberto';
+
+  @override
+  String get license => 'licença';
+
+  @override
   String get search => 'Pesquisar';
 }

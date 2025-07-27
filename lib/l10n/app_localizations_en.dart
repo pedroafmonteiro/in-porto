@@ -36,5 +36,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get english => 'English';
 
   @override
+  String get openSourceLicensesTitle => 'Open Source Licenses';
+
+  @override
+  String get license => 'license';
+
+  @override
   String get search => 'Search';
 }
