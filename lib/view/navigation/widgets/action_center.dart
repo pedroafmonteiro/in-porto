@@ -39,14 +39,14 @@ class _ActionCenterState extends State<ActionCenter> {
       child: OpenContainer(
         tappable: false,
         transitionType: ContainerTransitionType.fade,
-        transitionDuration: const Duration(milliseconds: 500),
+        transitionDuration: const Duration(milliseconds: 5000),
         closedElevation: 5,
         openElevation: 0,
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(35.0),
         ),
-        closedColor: const Color(0xFFFFFAFA),
-        openColor: const Color(0xFFFFFAFA),
+        closedColor: Theme.of(context).colorScheme.surface,
+        openColor: Theme.of(context).colorScheme.surface,
         closedBuilder: (context, action) {
           return Container(
             padding: const EdgeInsets.symmetric(
@@ -54,16 +54,16 @@ class _ActionCenterState extends State<ActionCenter> {
               horizontal: 10.0,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFAFA),
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(35.0),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.favorite_rounded,
-                    color: Colors.black45,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   onPressed: () {
                     _openFavoritesView();
@@ -79,9 +79,9 @@ class _ActionCenterState extends State<ActionCenter> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25.0),
-                      color: const Color(0xFFE0E0E0),
+                      color: Theme.of(context).colorScheme.surfaceContainer,
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.only(
                         top: 10.0,
                         bottom: 10.0,
@@ -93,7 +93,11 @@ class _ActionCenterState extends State<ActionCenter> {
                         children: [
                           Text(
                             'Search',
-                            style: TextStyle(color: Colors.black45),
+                            style: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface,
+                            ),
                           ),
                         ],
                       ),
@@ -101,9 +105,9 @@ class _ActionCenterState extends State<ActionCenter> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.settings_rounded,
-                    color: Colors.black45,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   onPressed: () {
                     _openSettingsView();

@@ -29,7 +29,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFAFA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
@@ -47,7 +47,7 @@ class _SearchViewState extends State<SearchView> {
             hintText: 'Search',
             border: InputBorder.none,
           ),
-          style: const TextStyle(color: Colors.black87),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
     );

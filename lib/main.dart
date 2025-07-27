@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/theme.dart';
 import 'view/navigation/navigation_view.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    const MainApp(),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -11,14 +14,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: <TargetPlatform, PageTransitionsBuilder>{
-            // Set the predictive back transitions for Android.
-            TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-          },
-        ),
-      ),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.dark,
       home: NavigationView(),
     );
   }

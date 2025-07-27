@@ -6,7 +6,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFAFA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -15,7 +15,7 @@ class SettingsView extends StatelessWidget {
       body: Center(
         child: Text(
           'Settings Page',
-          style: TextStyle(fontSize: 24, color: Colors.black54),
+          style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
     );
