@@ -110,10 +110,10 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
-  /// Title for the system default mode setting
+  /// Title for the system mode setting
   ///
   /// In en, this message translates to:
-  /// **'System Default'**
+  /// **'System'**
   String get system;
 
   /// Title for the appearance settings

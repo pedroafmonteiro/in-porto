@@ -15,7 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
-  String get system => 'System Default';
+  String get system => 'System';
 
   @override
   String get appearanceTitle => 'Appearance';

@@ -27,7 +27,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get darkMode => 'Escuro';
 
   @override
-  String get languageTitle => 'Linguagem';
+  String get languageTitle => 'Idioma';
 
   @override
   String get portuguese => 'Português';

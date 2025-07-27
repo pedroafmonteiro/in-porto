@@ -10,9 +10,9 @@
         "description": "Title for the settings page",
         "type": "text"
     },
-    "system": "System Default",
+    "system": "System",
     "@system": {
-        "description": "Title for the system default mode setting",
+        "description": "Title for the system mode setting",
         "type": "text"
     },
     "appearanceTitle": "Appearance",
