@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class AppearanceSettingsView extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        title: Text('Appearance'),
+        title: Text(AppLocalizations.of(context)!.appearanceTitle),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
@@ -28,7 +29,7 @@ class AppearanceSettingsView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              title: Text('Light'),
+              title: Text(AppLocalizations.of(context)!.lightMode),
               leading: Icon(Icons.light_mode),
               trailing:
                   context.watch<SettingsViewModel>().settings.appearance ==
@@ -46,7 +47,7 @@ class AppearanceSettingsView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              title: Text('Dark'),
+              title: Text(AppLocalizations.of(context)!.darkMode),
               leading: Icon(Icons.dark_mode),
               trailing:
                   context.watch<SettingsViewModel>().settings.appearance ==
@@ -64,7 +65,7 @@ class AppearanceSettingsView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              title: Text('System Default'),
+              title: Text(AppLocalizations.of(context)!.systemMode),
               leading: Icon(Icons.brightness_6_rounded),
               trailing:
                   context.watch<SettingsViewModel>().settings.appearance ==

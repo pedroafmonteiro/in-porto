@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/settings/widgets/appearance_settings_view.dart';
 
 class SettingsView extends StatelessWidget {
@@ -20,7 +21,7 @@ class SettingsView extends StatelessWidget {
           },
         ),
         title: Text(
-          'Settings',
+          AppLocalizations.of(context)!.settingsTitle,
         ),
       ),
       body: ListView(
@@ -32,7 +33,7 @@ class SettingsView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              title: Text('Appearance'),
+              title: Text(AppLocalizations.of(context)!.appearanceTitle),
               leading: Icon(Icons.palette),
               trailing: Icon(Icons.chevron_right),
               onTap: () {

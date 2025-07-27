@@ -1,0 +1,38 @@
+{
+    "@@locale": "en",
+    "appTitle": "In Porto.",
+    "@appTitle": {
+        "description": "The title of the application",
+        "type": "text"
+    },
+    "settingsTitle": "Settings",
+    "@settingsTitle": {
+        "description": "Title for the settings page",
+        "type": "text"
+    },
+    "appearanceTitle": "Appearance",
+    "@appearanceTitle": {
+        "description": "Title for the appearance settings",
+        "type": "text"
+    },
+    "lightMode": "Light",
+    "@lightMode": {
+        "description": "Title for the light mode setting",
+        "type": "text"
+    },
+    "darkMode": "Dark",
+    "@darkMode": {
+        "description": "Title for the dark mode setting",
+        "type": "text"
+    },
+    "systemMode": "System Default",
+    "@systemMode": {
+        "description": "Title for the system mode setting",
+        "type": "text"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Placeholder text for the search input",
+        "type": "text"
+    }
+}

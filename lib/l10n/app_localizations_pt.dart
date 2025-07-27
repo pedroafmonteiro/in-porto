@@ -1,0 +1,31 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Portuguese (`pt`).
+class AppLocalizationsPt extends AppLocalizations {
+  AppLocalizationsPt([String locale = 'pt']) : super(locale);
+
+  @override
+  String get appTitle => 'In Porto.';
+
+  @override
+  String get settingsTitle => 'Definições';
+
+  @override
+  String get appearanceTitle => 'Aparência';
+
+  @override
+  String get lightMode => 'Claro';
+
+  @override
+  String get darkMode => 'Escuro';
+
+  @override
+  String get systemMode => 'Padrão do Sistema';
+
+  @override
+  String get search => 'Pesquisar';
+}

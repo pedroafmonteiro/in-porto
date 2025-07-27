@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/favorites/favorites_view.dart';
 import 'package:in_porto/view/search/search_view.dart';
 import 'package:in_porto/view/settings/settings_view.dart';
@@ -92,7 +93,7 @@ class _ActionCenterState extends State<ActionCenter> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Search',
+                            AppLocalizations.of(context)!.search,
                             style: TextStyle(
                               color: Theme.of(
                                 context,
