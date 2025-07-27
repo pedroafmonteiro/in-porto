@@ -39,7 +39,7 @@ class _ActionCenterState extends State<ActionCenter> {
       child: OpenContainer(
         tappable: false,
         transitionType: ContainerTransitionType.fade,
-        transitionDuration: const Duration(milliseconds: 700),
+        transitionDuration: const Duration(milliseconds: 500),
         closedElevation: 5,
         openElevation: 0,
         closedShape: RoundedRectangleBorder(
