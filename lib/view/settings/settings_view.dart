@@ -1,4 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:in_porto/view/settings/widgets/appearance_settings_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -8,15 +10,59 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         centerTitle: true,
-        title: const Text('Settings'),
-      ),
-      body: Center(
-        child: Text(
-          'Settings Page',
-          style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
+        title: Text(
+          'Settings',
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          Card(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            child: ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              title: Text('Appearance'),
+              leading: Icon(Icons.palette),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder:
+                        (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                        ) => const AppearanceSettingsView(),
+                    transitionDuration: const Duration(milliseconds: 500),
+                    transitionsBuilder:
+                        (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                          child,
+                        ) => SharedAxisTransition(
+                          animation: animation,
+                          secondaryAnimation: secondaryAnimation,
+                          transitionType: SharedAxisTransitionType.horizontal,
+                          child: child,
+                        ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
