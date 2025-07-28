@@ -1,0 +1,68 @@
+{
+    "@@locale": "pt",
+    "appTitle": "In Porto.",
+    "@appTitle": {
+        "description": "O nome da aplicação",
+        "type": "text"
+    },
+    "settingsTitle": "Definições",
+    "@settingsTitle": {
+        "description": "Título para a página de definições",
+        "type": "text"
+    },
+    "system": "Sistema",
+    "@system": {
+        "description": "Título para a configuração do modo do sistema",
+        "type": "text"
+    },
+    "appearanceTitle": "Aparência",
+    "@appearanceTitle": {
+        "description": "Título para as definições de aparência",
+        "type": "text"
+    },
+    "lightMode": "Claro",
+    "@lightMode": {
+        "description": "Título para a configuração do modo claro",
+        "type": "text"
+    },
+    "darkMode": "Escuro",
+    "@darkMode": {
+        "description": "Título para a configuração do modo escuro",
+        "type": "text"
+    },
+    "languageTitle": "Idioma",
+    "@languageTitle": {
+        "description": "Título para as definições de idioma",
+        "type": "text"
+    },
+    "portuguese": "Português",
+    "@portuguese": {
+        "description": "Título para a opção de idioma Português",
+        "type": "text"
+    },
+    "english": "Inglês",
+    "@english": {
+        "description": "Título para a opção de idioma Inglês",
+        "type": "text"
+    },
+    "openSourceLicensesTitle": "Licenças de Código Aberto",
+    "@openSourceLicensesTitle": {
+        "description": "Título para as licenças de código aberto",
+        "type": "text"
+    },
+    "license": "licença",
+    "@license": {
+        "description": "Uma única licença",
+        "type": "text"
+    },
+    "supportMessage": "Feito com ❤️ no Porto.",
+    "@supportMessage": {
+        "description": "Mensagem para mostrar apoio ao projeto",
+        "type": "text"
+    },
+    "search": "Pesquisar",
+    "@search": {
+        "description": "Texto de espaço reservado para a entrada de pesquisa",
+        "type": "text"
+    }
+}

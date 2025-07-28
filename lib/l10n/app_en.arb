@@ -1,0 +1,68 @@
+{
+    "@@locale": "en",
+    "appTitle": "In Porto.",
+    "@appTitle": {
+        "description": "The title of the application",
+        "type": "text"
+    },
+    "settingsTitle": "Settings",
+    "@settingsTitle": {
+        "description": "Title for the settings page",
+        "type": "text"
+    },
+    "system": "System",
+    "@system": {
+        "description": "Title for the system mode setting",
+        "type": "text"
+    },
+    "appearanceTitle": "Appearance",
+    "@appearanceTitle": {
+        "description": "Title for the appearance settings",
+        "type": "text"
+    },
+    "lightMode": "Light",
+    "@lightMode": {
+        "description": "Title for the light mode setting",
+        "type": "text"
+    },
+    "darkMode": "Dark",
+    "@darkMode": {
+        "description": "Title for the dark mode setting",
+        "type": "text"
+    },
+    "languageTitle": "Language",
+    "@languageTitle": {
+        "description": "Title for the language settings",
+        "type": "text"
+    },
+    "portuguese": "Portuguese",
+    "@portuguese": {
+        "description": "Title for the Portuguese language option",
+        "type": "text"
+    },
+    "english": "English",
+    "@english": {
+        "description": "Title for the English language option",
+        "type": "text"
+    },
+    "openSourceLicensesTitle": "Open Source Licenses",
+    "@openSourceLicensesTitle": {
+        "description": "Title for the open source licenses",
+        "type": "text"
+    },
+    "license": "license",
+    "@license": {
+        "description": "A single license",
+        "type": "text"
+    },
+    "supportMessage": "Made with ❤️ in Porto.",
+    "@supportMessage": {
+        "description": "Message to show support for the project",
+        "type": "text"
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Placeholder text for the search input",
+        "type": "text"
+    }
+}

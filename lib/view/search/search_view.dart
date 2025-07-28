@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -29,7 +30,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFAFA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
@@ -44,10 +45,10 @@ class _SearchViewState extends State<SearchView> {
           controller: _searchController,
           focusNode: _focusNode,
           decoration: InputDecoration(
-            hintText: 'Search',
+            hintText: AppLocalizations.of(context)!.search,
             border: InputBorder.none,
           ),
-          style: const TextStyle(color: Colors.black87),
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
     );
