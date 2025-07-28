@@ -2,13 +2,13 @@ class Agency {
   final String name;
   final String url;
   final String timezone;
-  final String language;
+  final String? language;
 
   Agency({
     required this.name,
     required this.url,
     required this.timezone,
-    required this.language,
+    this.language,
   });
 
   Agency copyWith({
