@@ -45,6 +45,36 @@
         "description": "Título para a opção de idioma Inglês",
         "type": "text"
     },
+    "publicTransportationTitle": "Transportes Públicos",
+    "@publicTransportationTitle": {
+        "description": "Título para as definições de transportes públicos",
+        "type": "text"
+    },
+    "metrodoporto": "Metro do Porto",
+    "@metrodoporto": {
+        "description": "Título para a opção de transporte público Metro do Porto",
+        "type": "text"
+    },
+    "stcp": "STCP",
+    "@stcp": {
+        "description": "Título para a opção de transporte público STCP",
+        "type": "text"
+    },
+    "stcpFull": "Sociedade de Transportes Coletivos do Porto",
+    "@stcpFull": {
+        "description": "Título para a opção de transporte público STCP",
+        "type": "text"
+    },
+    "cp": "CP",
+    "@cp": {
+        "description": "Título para a opção de transporte público CP",
+        "type": "text"
+    },
+    "cpFull": "Comboios de Portugal",
+    "@cpFull": {
+        "description": "Título para a opção de transporte público Comboios de Portugal",
+        "type": "text"
+    },
     "openSourceLicensesTitle": "Licenças de Código Aberto",
     "@openSourceLicensesTitle": {
         "description": "Título para as licenças de código aberto",

@@ -45,6 +45,36 @@
         "description": "Title for the English language option",
         "type": "text"
     },
+    "publicTransportationTitle": "Public Transportation",
+    "@publicTransportationTitle": {
+        "description": "Title for the public transportation settings",
+        "type": "text"
+    },
+    "metrodoporto": "Metro do Porto",
+    "@metrodoporto": {
+        "description": "Title for the Metro do Porto public transportation option",
+        "type": "text"
+    },
+    "stcp": "STCP",
+    "@stcp": {
+        "description": "Title for the STCP public transportation option",
+        "type": "text"
+    },
+    "stcpFull": "Sociedade de Transportes Coletivos do Porto",
+    "@stcpFull": {
+        "description": "Title for the STCP public transportation option",
+        "type": "text"
+    },
+    "cp": "CP",
+    "@cp": {
+        "description": "Title for the CP public transportation option",
+        "type": "text"
+    },
+    "cpFull": "Comboios de Portugal",
+    "@cpFull": {
+        "description": "Title for the Comboios de Portugal public transportation option",
+        "type": "text"
+    },
     "openSourceLicensesTitle": "Open Source Licenses",
     "@openSourceLicensesTitle": {
         "description": "Title for the open source licenses",

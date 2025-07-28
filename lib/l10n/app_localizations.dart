@@ -152,6 +152,42 @@ abstract class AppLocalizations {
   /// **'English'**
   String get english;
 
+  /// Title for the public transportation settings
+  ///
+  /// In en, this message translates to:
+  /// **'Public Transportation'**
+  String get publicTransportationTitle;
+
+  /// Title for the Metro do Porto public transportation option
+  ///
+  /// In en, this message translates to:
+  /// **'Metro do Porto'**
+  String get metrodoporto;
+
+  /// Title for the STCP public transportation option
+  ///
+  /// In en, this message translates to:
+  /// **'STCP'**
+  String get stcp;
+
+  /// Title for the STCP public transportation option
+  ///
+  /// In en, this message translates to:
+  /// **'Sociedade de Transportes Coletivos do Porto'**
+  String get stcpFull;
+
+  /// Title for the CP public transportation option
+  ///
+  /// In en, this message translates to:
+  /// **'CP'**
+  String get cp;
+
+  /// Title for the Comboios de Portugal public transportation option
+  ///
+  /// In en, this message translates to:
+  /// **'Comboios de Portugal'**
+  String get cpFull;
+
   /// Title for the open source licenses
   ///
   /// In en, this message translates to:
