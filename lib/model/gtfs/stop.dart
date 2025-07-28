@@ -34,14 +34,14 @@ class Stop {
 
   factory Stop.fromJson(Map<String, dynamic> json) {
     return Stop(
-      id: json['id'],
-      code: json['code'],
-      name: json['name'],
-      description: json['description'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      zoneId: json['zone_id'],
-      url: json['url'],
+      id: json['id'] as String,
+      code: json['code'] as String?,
+      name: json['name'] as String,
+      description: json['description'] as String?,
+      latitude: json['latitude'] as double,
+      longitude: json['longitude'] as double,
+      zoneId: json['zone_id'] as String?,
+      url: json['url'] as String?,
     );
   }
 }

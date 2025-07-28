@@ -36,10 +36,10 @@ class Agency {
 
   factory Agency.fromJson(Map<String, dynamic> json) {
     return Agency(
-      name: json['name'],
-      url: json['url'],
-      timezone: json['timezone'],
-      language: json['language'],
+      name: json['name'] as String,
+      url: json['url'] as String,
+      timezone: json['timezone'] as String,
+      language: json['language'] as String?,
     );
   }
 }
