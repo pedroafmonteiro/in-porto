@@ -36,6 +36,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get english => 'English';
 
   @override
+  String get publicTransportationTitle => 'Public Transportation';
+
+  @override
+  String get metrodoporto => 'Metro do Porto';
+
+  @override
+  String get stcp => 'STCP';
+
+  @override
+  String get stcpFull => 'Sociedade de Transportes Coletivos do Porto';
+
+  @override
+  String get cp => 'CP';
+
+  @override
+  String get cpFull => 'Comboios de Portugal';
+
+  @override
   String get openSourceLicensesTitle => 'Open Source Licenses';
 
   @override
