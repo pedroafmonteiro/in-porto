@@ -89,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -269,6 +277,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: "55d6c23a6c15db14920e037fe7e0dc32e7cdaf3b64b4b25df2d541b5b6b81c0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.1"
   matcher:
     dependency: transitive
     description:
@@ -293,6 +309,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  mime:
+    dependency: transitive
+    description:
+      name: mime
+      sha256: "41a20518f0cb1256669420fdba0cd90d21561e560ac240f26ef8322e45bb7ed6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   nested:
     dependency: transitive
     description:
@@ -498,6 +522,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.2"
+  sqflite_live:
+    dependency: "direct main"
+    description:
+      name: sqflite_live
+      sha256: c787a531728ebd5b76880a67bc638d29ff215babd8c04836af59c618ec6f9898
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   sqflite_platform_interface:
     dependency: transitive
     description:
