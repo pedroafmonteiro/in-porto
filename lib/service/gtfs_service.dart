@@ -23,6 +23,7 @@ class GTFSService {
   }
 
   static const _agencyTable = 'agencies';
+  static const _stopTable = 'stops';
   static const _routeTable = 'routes';
   static const _tripTable = 'trips';
   static const _stopTimeTable = 'stop_times';
@@ -35,78 +36,6 @@ class GTFSService {
         'https://opendata.porto.digital/dataset/5275c986-592c-43f5-8f87-aabbd4e4f3a4/resource/89a6854f-2ea3-4ba0-8d2f-6558a9df2a98/download/horarios_gtfs_stcp_16_04_2025.zip',
     'Comboios de Portugal': 'http://publico.cp.pt/gtfs/gtfs.zip',
   };
-
-  Future<void> cacheAgencies(List<Map<String, dynamic>> agencies) async {
-    final database = await db;
-    final batch = database.batch();
-    for (final agency in agencies) {
-      batch.insert(
-        _agencyTable,
-        agency,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    await batch.commit(noResult: true);
-  }
-
-  Future<List<Map<String, dynamic>>> loadAgencies() async {
-    final database = await db;
-    return await database.query(_agencyTable);
-  }
-
-  Future<void> cacheRoutes(List<Map<String, dynamic>> routes) async {
-    final database = await db;
-    final batch = database.batch();
-    for (final route in routes) {
-      batch.insert(
-        _routeTable,
-        route,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    await batch.commit(noResult: true);
-  }
-
-  Future<List<Map<String, dynamic>>> loadRoutes() async {
-    final database = await db;
-    return await database.query(_routeTable);
-  }
-
-  Future<void> cacheTrips(List<Map<String, dynamic>> trips) async {
-    final database = await db;
-    final batch = database.batch();
-    for (final trip in trips) {
-      batch.insert(
-        _tripTable,
-        trip,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    await batch.commit(noResult: true);
-  }
-
-  Future<List<Map<String, dynamic>>> loadTrips() async {
-    final database = await db;
-    return await database.query(_tripTable);
-  }
-
-  Future<void> cacheStopTimes(List<Map<String, dynamic>> stopTimes) async {
-    final database = await db;
-    final batch = database.batch();
-    for (final stopTime in stopTimes) {
-      batch.insert(
-        _stopTimeTable,
-        stopTime,
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-    }
-    await batch.commit(noResult: true);
-  }
-
-  Future<List<Map<String, dynamic>>> loadStopTimes() async {
-    final database = await db;
-    return await database.query(_stopTimeTable);
-  }
 
   Future<List<int>> fetchGtfsZip(
     String agencyName, {
@@ -190,7 +119,6 @@ class GTFSService {
           batchRows.clear();
         }
       }
-      // Insert any remaining rows
       if (batchRows.isNotEmpty) {
         final batch = database.batch();
         for (final row in batchRows) {
@@ -208,6 +136,11 @@ class GTFSService {
       await streamAndBatchInsert('agency.txt', _agencyTable);
     } catch (e) {
       // agency.txt not found or parse error
+    }
+    try {
+      await streamAndBatchInsert('stops.txt', _stopTable);
+    } catch (e) {
+      // stops.txt not found or parse error
     }
     try {
       await streamAndBatchInsert('routes.txt', _routeTable);
@@ -228,6 +161,7 @@ class GTFSService {
     // For compatibility, return empty lists (not used for anything)
     return {
       'agencies': [],
+      'stops': [],
       'routes': [],
       'trips': [],
       'stop_times': [],
@@ -240,6 +174,9 @@ class GTFSService {
     final agenciesCount = Sqflite.firstIntValue(
       await database.rawQuery('SELECT COUNT(*) FROM $_agencyTable'),
     ) ?? 0;
+    final stopsCount = Sqflite.firstIntValue(
+      await database.rawQuery('SELECT COUNT(*) FROM $_stopTable'),
+    ) ?? 0;
     final routesCount = Sqflite.firstIntValue(
       await database.rawQuery('SELECT COUNT(*) FROM $_routeTable'),
     ) ?? 0;
@@ -250,11 +187,12 @@ class GTFSService {
       await database.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable'),
     ) ?? 0;
     if (agenciesCount > 0 &&
+        stopsCount > 0 &&
         routesCount > 0 &&
         tripsCount > 0 &&
         stopTimesCount > 0) {
       print('GTFS data loaded locally. Agencies: $agenciesCount, '
-          'Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount');
+          'Stops: $stopsCount, Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount');
       return;
     }
     print('GTFS data not found locally. Loading from remote...');

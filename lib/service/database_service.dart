@@ -37,6 +37,25 @@ class DatabaseService {
           )
         ''');
         await db.execute('''
+          CREATE TABLE stops (
+            stop_id TEXT PRIMARY KEY,
+            stop_code TEXT,
+            stop_name TEXT NOT NULL,
+            tts_stop_name TEXT,
+            stop_desc TEXT,
+            stop_lat REAL NOT NULL,
+            stop_lon REAL NOT NULL,
+            zone_id TEXT,
+            stop_url TEXT,
+            location_type INTEGER,
+            parent_station TEXT,
+            stop_timezone TEXT,
+            wheelchair_boarding INTEGER,
+            level_id TEXT,
+            platform_code TEXT
+          )
+        ''');
+        await db.execute('''
           CREATE TABLE routes (
             route_id TEXT PRIMARY KEY,
             agency_id TEXT,
