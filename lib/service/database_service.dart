@@ -21,10 +21,10 @@ class DatabaseService {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, _dbName);
     return await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
+        path,
+        version: 1,
+        onCreate: (db, version) async {
+          await db.execute('''
           CREATE TABLE agencies (
             agency_id TEXT PRIMARY KEY,
             agency_name TEXT NOT NULL,
@@ -36,7 +36,7 @@ class DatabaseService {
             agency_email TEXT
           )
         ''');
-        await db.execute('''
+          await db.execute('''
           CREATE TABLE stops (
             stop_id TEXT PRIMARY KEY,
             stop_code TEXT,
@@ -55,7 +55,7 @@ class DatabaseService {
             platform_code TEXT
           )
         ''');
-        await db.execute('''
+          await db.execute('''
           CREATE TABLE routes (
             route_id TEXT PRIMARY KEY,
             agency_id TEXT,
@@ -73,7 +73,7 @@ class DatabaseService {
             FOREIGN KEY (agency_id) REFERENCES agencies (agency_id)
           )
         ''');
-        await db.execute('''
+          await db.execute('''
           CREATE TABLE trips (
             route_id TEXT NOT NULL,
             service_id TEXT NOT NULL,
@@ -86,10 +86,11 @@ class DatabaseService {
             wheelchair_accessible INTEGER,
             bikes_allowed INTEGER,
             cars_allowed INTEGER,
-            FOREIGN KEY (route_id) REFERENCES routes (route_id)
+            FOREIGN KEY (route_id) REFERENCES routes (route_id),
+            FOREIGN KEY (service_id) REFERENCES calendars (service_id)
           )
         ''');
-        await db.execute('''
+          await db.execute('''
           CREATE TABLE stop_times (
             trip_id TEXT NOT NULL,
             arrival_time TEXT,
@@ -110,10 +111,26 @@ class DatabaseService {
             pickup_booking_rule_id TEXT,
             drop_off_booking_rule_id TEXT,
             PRIMARY KEY (trip_id, stop_sequence),
-            FOREIGN KEY (trip_id) REFERENCES trips (trip_id)
+            FOREIGN KEY (trip_id) REFERENCES trips (trip_id),
+            FOREIGN KEY (stop_id) REFERENCES stops (stop_id)
           )
         ''');
-      },
-    )..live();
+          await db.execute('''
+          CREATE TABLE calendars (
+            service_id TEXT PRIMARY KEY,
+            monday INTEGER NOT NULL,
+            tuesday INTEGER NOT NULL,
+            wednesday INTEGER NOT NULL,
+            thursday INTEGER NOT NULL,
+            friday INTEGER NOT NULL,
+            saturday INTEGER NOT NULL,
+            sunday INTEGER NOT NULL,
+            start_date TEXT NOT NULL,
+            end_date TEXT NOT NULL
+          )
+        ''');
+        },
+      )
+      ..live();
   }
 }

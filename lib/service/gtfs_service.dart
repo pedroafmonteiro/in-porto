@@ -27,6 +27,7 @@ class GTFSService {
   static const _routeTable = 'routes';
   static const _tripTable = 'trips';
   static const _stopTimeTable = 'stop_times';
+  static const _calendarTable = 'calendars';
   static const _keyAgencyUrlOverrides = 'gtfs_agency_url_overrides';
 
   static const Map<String, String> _defaultAgencyUrls = {
@@ -157,6 +158,11 @@ class GTFSService {
     } catch (e) {
       // stop_times.txt not found or parse error
     }
+    try {
+      await streamAndBatchInsert('calendar.txt', _calendarTable);
+    } catch (e) {
+      // calendar.txt not found or parse error
+    }
 
     // For compatibility, return empty lists (not used for anything)
     return {
@@ -165,6 +171,7 @@ class GTFSService {
       'routes': [],
       'trips': [],
       'stop_times': [],
+      'calendars': [],
     };
   }
 
@@ -186,13 +193,17 @@ class GTFSService {
     final stopTimesCount = Sqflite.firstIntValue(
       await database.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable'),
     ) ?? 0;
+    final calendarsCount = Sqflite.firstIntValue(
+      await database.rawQuery('SELECT COUNT(*) FROM $_calendarTable'),
+    ) ?? 0;
     if (agenciesCount > 0 &&
         stopsCount > 0 &&
         routesCount > 0 &&
         tripsCount > 0 &&
-        stopTimesCount > 0) {
+        stopTimesCount > 0 &&
+        calendarsCount > 0) {
       print('GTFS data loaded locally. Agencies: $agenciesCount, '
-          'Stops: $stopsCount, Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount');
+          'Stops: $stopsCount, Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount, Calendars: $calendarsCount');
       return;
     }
     print('GTFS data not found locally. Loading from remote...');
