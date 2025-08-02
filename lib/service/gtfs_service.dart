@@ -28,6 +28,8 @@ class GTFSService {
   static const _tripTable = 'trips';
   static const _stopTimeTable = 'stop_times';
   static const _calendarTable = 'calendars';
+  static const _calendarDatesTable = 'calendars_dates';
+  static const _shapeTable = 'shapes';
   static const _keyAgencyUrlOverrides = 'gtfs_agency_url_overrides';
 
   static const Map<String, String> _defaultAgencyUrls = {
@@ -83,7 +85,6 @@ class GTFSService {
   }
 
   Future<Map<String, dynamic>> parseGtfsZip(List<int> zipBytes) async {
-
     final archive = ZipDecoder().decodeBytes(zipBytes);
 
     Future<void> streamAndBatchInsert(String filename, String table) async {
@@ -163,6 +164,16 @@ class GTFSService {
     } catch (e) {
       // calendar.txt not found or parse error
     }
+    try {
+      await streamAndBatchInsert('calendar_dates.txt', _calendarDatesTable);
+    } catch (e) {
+      // calendar_dates.txt not found or parse error
+    }
+    try {
+      await streamAndBatchInsert('shapes.txt', _shapeTable);
+    } catch (e) {
+      // shapes.txt not found or parse error
+    }
 
     // For compatibility, return empty lists (not used for anything)
     return {
@@ -172,38 +183,67 @@ class GTFSService {
       'trips': [],
       'stop_times': [],
       'calendars': [],
+      'calendars_dates': [],
+      'shapes': [],
     };
   }
 
   /// Checks if GTFS data is available locally, loads from remote if not
   Future<void> ensureGtfsDataLoadedAndPrint() async {
     final database = await db;
-    final agenciesCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_agencyTable'),
-    ) ?? 0;
-    final stopsCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_stopTable'),
-    ) ?? 0;
-    final routesCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_routeTable'),
-    ) ?? 0;
-    final tripsCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_tripTable'),
-    ) ?? 0;
-    final stopTimesCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable'),
-    ) ?? 0;
-    final calendarsCount = Sqflite.firstIntValue(
-      await database.rawQuery('SELECT COUNT(*) FROM $_calendarTable'),
-    ) ?? 0;
+    final agenciesCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_agencyTable'),
+        ) ??
+        0;
+    final stopsCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_stopTable'),
+        ) ??
+        0;
+    final routesCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_routeTable'),
+        ) ??
+        0;
+    final tripsCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_tripTable'),
+        ) ??
+        0;
+    final stopTimesCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable'),
+        ) ??
+        0;
+    final calendarsCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_calendarTable'),
+        ) ??
+        0;
+    final calendarsDatesCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_calendarDatesTable'),
+        ) ??
+        0;
+    final shapesCount =
+        Sqflite.firstIntValue(
+          await database.rawQuery('SELECT COUNT(*) FROM $_shapeTable'),
+        ) ??
+        0;
     if (agenciesCount > 0 &&
         stopsCount > 0 &&
         routesCount > 0 &&
         tripsCount > 0 &&
         stopTimesCount > 0 &&
-        calendarsCount > 0) {
-      print('GTFS data loaded locally. Agencies: $agenciesCount, '
-          'Stops: $stopsCount, Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount, Calendars: $calendarsCount');
+        calendarsCount > 0 &&
+        calendarsDatesCount > 0 &&
+        shapesCount > 0) {
+      print(
+        'GTFS data loaded locally. Agencies: $agenciesCount, '
+        'Stops: $stopsCount, Routes: $routesCount, Trips: $tripsCount, Stop Times: $stopTimesCount, Calendars: $calendarsCount, '
+        'Calendars Dates: $calendarsDatesCount, Shapes: $shapesCount',
+      );
       return;
     }
     print('GTFS data not found locally. Loading from remote...');
