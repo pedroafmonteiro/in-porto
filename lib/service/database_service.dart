@@ -35,6 +35,21 @@ class DatabaseService {
             json TEXT
           )
         ''');
+        await db.execute('''
+          CREATE TABLE trips (
+            id TEXT PRIMARY KEY,
+            json TEXT
+          )
+        ''');
+        await db.execute('''
+          CREATE TABLE stop_times (
+            trip_id TEXT NOT NULL,
+            stop_id TEXT NOT NULL,
+            stop_sequence INTEGER NOT NULL,
+            json TEXT,
+            PRIMARY KEY (trip_id, stop_id, stop_sequence)
+          )
+        ''');
       },
     );
   }
