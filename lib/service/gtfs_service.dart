@@ -1,8 +1,6 @@
 import 'dart:convert';
-// ...existing code...
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// ...existing code...
 import 'package:http/http.dart' as http;
 import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
@@ -84,7 +82,10 @@ class GTFSService {
     await prefs.setString(_keyAgencyUrlOverrides, jsonEncode(overrides));
   }
 
-  Future<Map<String, dynamic>> parseGtfsZip(List<int> zipBytes) async {
+  Future<Map<String, dynamic>> parseGtfsZip(
+    List<int> zipBytes, {
+    String? gtfsUrl,
+  }) async {
     final archive = ZipDecoder().decodeBytes(zipBytes);
 
     Future<void> streamAndBatchInsert(String filename, String table) async {
@@ -107,6 +108,13 @@ class GTFSService {
         for (int j = 0; j < headers.length && j < row.length; j++) {
           map[headers[j]] = row[j];
         }
+
+        final overrideAgencyId = inferAgencyIdFromUrl(gtfsUrl);
+        if ((filename == 'agency.txt' || filename == 'routes.txt') &&
+            overrideAgencyId.isNotEmpty) {
+          map['agency_id'] = overrideAgencyId;
+        }
+
         batchRows.add(map);
         if (batchRows.length >= batchSize) {
           final batch = database.batch();
@@ -250,11 +258,24 @@ class GTFSService {
     for (final entry in _defaultAgencyUrls.entries) {
       try {
         final zipBytes = await fetchGtfsZip(entry.key);
-        await parseGtfsZip(zipBytes);
+        await parseGtfsZip(zipBytes, gtfsUrl: entry.value);
         print('Loaded and cached raw GTFS data for agency: ${entry.key}');
       } catch (e) {
         print('Error loading data for ${entry.key}: $e');
       }
     }
+  }
+
+  String inferAgencyIdFromUrl(String? gtfsUrl) {
+    if (gtfsUrl == null) return '';
+    final url = gtfsUrl.toLowerCase();
+    if (url.contains('metrodoporto')) {
+      return 'metrodoporto';
+    } else if (url.contains('stcp') || url.contains('opendata.porto.digital')) {
+      return 'stcp';
+    } else if (url.contains('cp.pt')) {
+      return 'cp';
+    }
+    return '';
   }
 }
