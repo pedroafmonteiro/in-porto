@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/service/database_service.dart';
+import 'package:in_porto/service/gtfs_service.dart';
 import 'package:in_porto/service/settings_service.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
@@ -12,6 +14,13 @@ void main() async {
   final settingsService = SettingsService();
   final settingsViewModel = SettingsViewModel(settingsService);
   await settingsViewModel.load();
+
+  final databaseService = DatabaseService();
+  final db = await databaseService.db;
+  
+  final gtfsService = GTFSService();
+  gtfsService.setDatabase(db);
+  await gtfsService.ensureGtfsDataLoadedAndPrint();
 
   runApp(
     ChangeNotifierProvider<SettingsViewModel>.value(
