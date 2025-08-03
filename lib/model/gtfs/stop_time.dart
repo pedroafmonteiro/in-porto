@@ -101,123 +101,26 @@ class StopTime {
          'shapeDistTraveled must be non-negative',
        );
 
-  StopTime copyWith({
-    String? tripId,
-    String? arrivalTime,
-    String? departureTime,
-    String? stopId,
-    String? locationGroupId,
-    String? locationId,
-    int? stopSequence,
-    String? stopHeadsign,
-    String? startPickupDropOffWindow,
-    String? endPickupDropOffWindow,
-    int? pickupType,
-    int? dropOffType,
-    int? continuousPickup,
-    int? continuousDropOff,
-    double? shapeDistTraveled,
-    int? timepoint,
-    String? pickupBookingRuleId,
-    String? dropOffBookingRuleId,
-  }) {
+  factory StopTime.fromMap(Map<String, dynamic> map) {
     return StopTime(
-      tripId: tripId ?? this.tripId,
-      arrivalTime: arrivalTime ?? this.arrivalTime,
-      departureTime: departureTime ?? this.departureTime,
-      stopId: stopId ?? this.stopId,
-      locationGroupId: locationGroupId ?? this.locationGroupId,
-      locationId: locationId ?? this.locationId,
-      stopSequence: stopSequence ?? this.stopSequence,
-      stopHeadsign: stopHeadsign ?? this.stopHeadsign,
-      startPickupDropOffWindow:
-          startPickupDropOffWindow ?? this.startPickupDropOffWindow,
-      endPickupDropOffWindow:
-          endPickupDropOffWindow ?? this.endPickupDropOffWindow,
-      pickupType: pickupType ?? this.pickupType,
-      dropOffType: dropOffType ?? this.dropOffType,
-      continuousPickup: continuousPickup ?? this.continuousPickup,
-      continuousDropOff: continuousDropOff ?? this.continuousDropOff,
-      shapeDistTraveled: shapeDistTraveled ?? this.shapeDistTraveled,
-      timepoint: timepoint ?? this.timepoint,
-      pickupBookingRuleId: pickupBookingRuleId ?? this.pickupBookingRuleId,
-      dropOffBookingRuleId: dropOffBookingRuleId ?? this.dropOffBookingRuleId,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'trip_id': tripId,
-      if (arrivalTime != null) 'arrival_time': arrivalTime,
-      if (departureTime != null) 'departure_time': departureTime,
-      if (stopId != null) 'stop_id': stopId,
-      if (locationGroupId != null) 'location_group_id': locationGroupId,
-      if (locationId != null) 'location_id': locationId,
-      'stop_sequence': stopSequence,
-      if (stopHeadsign != null) 'stop_headsign': stopHeadsign,
-      if (startPickupDropOffWindow != null)
-        'start_pickup_drop_off_window': startPickupDropOffWindow,
-      if (endPickupDropOffWindow != null)
-        'end_pickup_drop_off_window': endPickupDropOffWindow,
-      if (pickupType != null) 'pickup_type': pickupType,
-      if (dropOffType != null) 'drop_off_type': dropOffType,
-      if (continuousPickup != null) 'continuous_pickup': continuousPickup,
-      if (continuousDropOff != null) 'continuous_drop_off': continuousDropOff,
-      if (shapeDistTraveled != null) 'shape_dist_traveled': shapeDistTraveled,
-      if (timepoint != null) 'timepoint': timepoint,
-      if (pickupBookingRuleId != null)
-        'pickup_booking_rule_id': pickupBookingRuleId,
-      if (dropOffBookingRuleId != null)
-        'drop_off_booking_rule_id': dropOffBookingRuleId,
-    };
-  }
-
-  factory StopTime.fromJson(Map<String, dynamic> json) {
-    return StopTime(
-      tripId: json['trip_id'] as String,
-      arrivalTime: json['arrival_time'] as String?,
-      departureTime: json['departure_time'] as String?,
-      stopId: json['stop_id'] as String?,
-      locationGroupId: json['location_group_id'] as String?,
-      locationId: json['location_id'] as String?,
-      stopSequence: json['stop_sequence'] is int
-          ? json['stop_sequence'] as int
-          : int.parse(json['stop_sequence'].toString()),
-      stopHeadsign: json['stop_headsign'] as String?,
-      startPickupDropOffWindow: json['start_pickup_drop_off_window'] as String?,
-      endPickupDropOffWindow: json['end_pickup_drop_off_window'] as String?,
-      pickupType: json['pickup_type'] is int
-          ? json['pickup_type'] as int
-          : (json['pickup_type'] != null
-                ? int.tryParse(json['pickup_type'].toString())
-                : null),
-      dropOffType: json['drop_off_type'] is int
-          ? json['drop_off_type'] as int
-          : (json['drop_off_type'] != null
-                ? int.tryParse(json['drop_off_type'].toString())
-                : null),
-      continuousPickup: json['continuous_pickup'] is int
-          ? json['continuous_pickup'] as int
-          : (json['continuous_pickup'] != null
-                ? int.tryParse(json['continuous_pickup'].toString())
-                : null),
-      continuousDropOff: json['continuous_drop_off'] is int
-          ? json['continuous_drop_off'] as int
-          : (json['continuous_drop_off'] != null
-                ? int.tryParse(json['continuous_drop_off'].toString())
-                : null),
-      shapeDistTraveled: json['shape_dist_traveled'] is double
-          ? json['shape_dist_traveled'] as double
-          : (json['shape_dist_traveled'] != null
-                ? double.tryParse(json['shape_dist_traveled'].toString())
-                : null),
-      timepoint: json['timepoint'] is int
-          ? json['timepoint'] as int
-          : (json['timepoint'] != null
-                ? int.tryParse(json['timepoint'].toString())
-                : null),
-      pickupBookingRuleId: json['pickup_booking_rule_id'] as String?,
-      dropOffBookingRuleId: json['drop_off_booking_rule_id'] as String?,
+      tripId: map['trip_id'] as String,
+      arrivalTime: map['arrival_time'] as String?,
+      departureTime: map['departure_time'] as String?,
+      stopId: map['stop_id'] as String?,
+      locationGroupId: map['location_group_id'] as String?,
+      locationId: map['location_id'] as String?,
+      stopSequence: map['stop_sequence'] as int,
+      stopHeadsign: map['stop_headsign'] as String?,
+      startPickupDropOffWindow: map['start_pickup_drop_off_window'] as String?,
+      endPickupDropOffWindow: map['end_pickup_drop_off_window'] as String?,
+      pickupType: map['pickup_type'] as int?,
+      dropOffType: map['drop_off_type'] as int?,
+      continuousPickup: map['continuous_pickup'] as int?,
+      continuousDropOff: map['continuous_drop_off'] as int?,
+      shapeDistTraveled: map['shape_dist_traveled'] as double?,
+      timepoint: map['timepoint'] as int?,
+      pickupBookingRuleId: map['pickup_booking_rule_id'] as String?,
+      dropOffBookingRuleId: map['drop_off_booking_rule_id'] as String?,
     );
   }
 

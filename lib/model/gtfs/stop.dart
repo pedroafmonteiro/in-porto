@@ -78,95 +78,23 @@ class Stop {
          'wheelchairBoarding must be 0, 1, or 2',
        );
 
-  Stop copyWith({
-    String? id,
-    String? code,
-    String? name,
-    String? ttsName,
-    String? description,
-    double? latitude,
-    double? longitude,
-    String? zoneId,
-    String? url,
-    int? locationType,
-    String? parentStation,
-    String? timezone,
-    int? wheelchairBoarding,
-    String? levelId,
-    String? platformCode,
-  }) {
+  factory Stop.fromMap(Map<String, dynamic> map) {
     return Stop(
-      id: id ?? this.id,
-      code: code ?? this.code,
-      name: name ?? this.name,
-      ttsName: ttsName ?? this.ttsName,
-      description: description ?? this.description,
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-      zoneId: zoneId ?? this.zoneId,
-      url: url ?? this.url,
-      locationType: locationType ?? this.locationType,
-      parentStation: parentStation ?? this.parentStation,
-      timezone: timezone ?? this.timezone,
-      wheelchairBoarding: wheelchairBoarding ?? this.wheelchairBoarding,
-      levelId: levelId ?? this.levelId,
-      platformCode: platformCode ?? this.platformCode,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'stop_id': id,
-      if (code != null) 'stop_code': code,
-      if (name != null) 'stop_name': name,
-      if (ttsName != null) 'tts_stop_name': ttsName,
-      if (description != null) 'stop_desc': description,
-      if (latitude != null) 'stop_lat': latitude,
-      if (longitude != null) 'stop_lon': longitude,
-      if (zoneId != null) 'zone_id': zoneId,
-      if (url != null) 'stop_url': url,
-      if (locationType != null) 'location_type': locationType,
-      if (parentStation != null) 'parent_station': parentStation,
-      if (timezone != null) 'stop_timezone': timezone,
-      if (wheelchairBoarding != null) 'wheelchair_boarding': wheelchairBoarding,
-      if (levelId != null) 'level_id': levelId,
-      if (platformCode != null) 'platform_code': platformCode,
-    };
-  }
-
-  factory Stop.fromJson(Map<String, dynamic> json) {
-    return Stop(
-      id: json['stop_id'] as String,
-      code: json['stop_code'] as String?,
-      name: json['stop_name'] as String?,
-      ttsName: json['tts_stop_name'] as String?,
-      description: json['stop_desc'] as String?,
-      latitude: (json['stop_lat'] is double)
-          ? json['stop_lat'] as double
-          : (json['stop_lat'] != null
-                ? double.tryParse(json['stop_lat'].toString())
-                : null),
-      longitude: (json['stop_lon'] is double)
-          ? json['stop_lon'] as double
-          : (json['stop_lon'] != null
-                ? double.tryParse(json['stop_lon'].toString())
-                : null),
-      zoneId: json['zone_id'] as String?,
-      url: json['stop_url'] as String?,
-      locationType: json['location_type'] is int
-          ? json['location_type'] as int
-          : (json['location_type'] != null
-                ? int.tryParse(json['location_type'].toString())
-                : null),
-      parentStation: json['parent_station'] as String?,
-      timezone: json['stop_timezone'] as String?,
-      wheelchairBoarding: json['wheelchair_boarding'] is int
-          ? json['wheelchair_boarding'] as int
-          : (json['wheelchair_boarding'] != null
-                ? int.tryParse(json['wheelchair_boarding'].toString())
-                : null),
-      levelId: json['level_id'] as String?,
-      platformCode: json['platform_code'] as String?,
+      id: map['stop_id'] as String,
+      code: map['stop_code'] as String?,
+      name: map['stop_name'] as String?,
+      ttsName: map['tts_stop_name'] as String?,
+      description: map['stop_desc'] as String?,
+      latitude: map['stop_lat'] != null ? (map['stop_lat'] as num).toDouble() : null,
+      longitude: map['stop_lon'] != null ? (map['stop_lon'] as num).toDouble() : null,
+      zoneId: map['zone_id'] as String?,
+      url: map['stop_url'] as String?,
+      locationType: map['location_type'] as int?,
+      parentStation: map['parent_station'] as String?,
+      timezone: map['stop_timezone'] as String?,
+      wheelchairBoarding: map['wheelchair_boarding'] as int?,
+      levelId: map['level_id'] as String?,
+      platformCode: map['platform_code'] as String?,
     );
   }
 

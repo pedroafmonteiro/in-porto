@@ -22,33 +22,11 @@ class CalendarDate {
          'exceptionType must be 1 or 2',
        );
 
-  CalendarDate copyWith({
-    String? serviceId,
-    String? date,
-    int? exceptionType,
-  }) {
+  factory CalendarDate.fromMap(Map<String, dynamic> map) {
     return CalendarDate(
-      serviceId: serviceId ?? this.serviceId,
-      date: date ?? this.date,
-      exceptionType: exceptionType ?? this.exceptionType,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'service_id': serviceId,
-      'date': date,
-      'exception_type': exceptionType,
-    };
-  }
-
-  factory CalendarDate.fromJson(Map<String, dynamic> json) {
-    return CalendarDate(
-      serviceId: json['service_id'] as String,
-      date: json['date'] as String,
-      exceptionType: json['exception_type'] is int
-          ? json['exception_type'] as int
-          : int.parse(json['exception_type'].toString()),
+      serviceId: map['service_id'] as String,
+      date: map['date'] as String,
+      exceptionType: map['exception_type'] as int,
     );
   }
 

@@ -65,80 +65,19 @@ class Trip {
          'carsAllowed must be 0, 1, or 2',
        );
 
-  Trip copyWith({
-    String? id,
-    String? routeId,
-    String? serviceId,
-    String? headsign,
-    String? shortName,
-    int? directionId,
-    String? blockId,
-    String? shapeId,
-    int? wheelchairAccessible,
-    int? bikesAllowed,
-    int? carsAllowed,
-  }) {
+  factory Trip.fromMap(Map<String, dynamic> map) {
     return Trip(
-      id: id ?? this.id,
-      routeId: routeId ?? this.routeId,
-      serviceId: serviceId ?? this.serviceId,
-      headsign: headsign ?? this.headsign,
-      shortName: shortName ?? this.shortName,
-      directionId: directionId ?? this.directionId,
-      blockId: blockId ?? this.blockId,
-      shapeId: shapeId ?? this.shapeId,
-      wheelchairAccessible: wheelchairAccessible ?? this.wheelchairAccessible,
-      bikesAllowed: bikesAllowed ?? this.bikesAllowed,
-      carsAllowed: carsAllowed ?? this.carsAllowed,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'trip_id': id,
-      'route_id': routeId,
-      'service_id': serviceId,
-      if (headsign != null) 'trip_headsign': headsign,
-      if (shortName != null) 'trip_short_name': shortName,
-      if (directionId != null) 'direction_id': directionId,
-      if (blockId != null) 'block_id': blockId,
-      if (shapeId != null) 'shape_id': shapeId,
-      if (wheelchairAccessible != null)
-        'wheelchair_accessible': wheelchairAccessible,
-      if (bikesAllowed != null) 'bikes_allowed': bikesAllowed,
-      if (carsAllowed != null) 'cars_allowed': carsAllowed,
-    };
-  }
-
-  factory Trip.fromJson(Map<String, dynamic> json) {
-    return Trip(
-      id: json['trip_id'] as String,
-      routeId: json['route_id'] as String,
-      serviceId: json['service_id'] as String,
-      headsign: json['trip_headsign'] as String?,
-      shortName: json['trip_short_name'] as String?,
-      directionId: json['direction_id'] is int
-          ? json['direction_id'] as int
-          : (json['direction_id'] != null
-                ? int.tryParse(json['direction_id'].toString())
-                : null),
-      blockId: json['block_id'] as String?,
-      shapeId: json['shape_id'] as String?,
-      wheelchairAccessible: json['wheelchair_accessible'] is int
-          ? json['wheelchair_accessible'] as int
-          : (json['wheelchair_accessible'] != null
-                ? int.tryParse(json['wheelchair_accessible'].toString())
-                : null),
-      bikesAllowed: json['bikes_allowed'] is int
-          ? json['bikes_allowed'] as int
-          : (json['bikes_allowed'] != null
-                ? int.tryParse(json['bikes_allowed'].toString())
-                : null),
-      carsAllowed: json['cars_allowed'] is int
-          ? json['cars_allowed'] as int
-          : (json['cars_allowed'] != null
-                ? int.tryParse(json['cars_allowed'].toString())
-                : null),
+      id: map['trip_id'] as String,
+      routeId: map['route_id'] as String,
+      serviceId: map['service_id'] as String,
+      headsign: map['trip_headsign'] as String?,
+      shortName: map['trip_short_name'] as String?,
+      directionId: map['direction_id'] as int?,
+      blockId: map['block_id'] as String?,
+      shapeId: map['shape_id'] as String?,
+      wheelchairAccessible: map['wheelchair_accessible'] as int?,
+      bikesAllowed: map['bikes_allowed'] as int?,
+      carsAllowed: map['cars_allowed'] as int?,
     );
   }
 
