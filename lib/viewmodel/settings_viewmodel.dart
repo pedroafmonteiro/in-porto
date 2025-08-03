@@ -3,12 +3,12 @@ import 'package:in_porto/model/settings.dart';
 import 'package:in_porto/service/settings_service.dart';
 
 class SettingsViewModel extends ChangeNotifier {
-  final SettingsService _service;
+  final SettingsService _service = SettingsService();
   late Settings _settings;
 
   bool _initialized = false;
 
-  SettingsViewModel(this._service);
+  SettingsViewModel();
 
   Settings get settings => _settings;
   bool get initialized => _initialized;

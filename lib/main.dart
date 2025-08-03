@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/service/database_service.dart';
 import 'package:in_porto/service/gtfs_service.dart';
-import 'package:in_porto/service/settings_service.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
+import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -12,8 +12,7 @@ import 'view/navigation/navigation_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final settingsService = SettingsService();
-  final settingsViewModel = SettingsViewModel(settingsService);
+  final settingsViewModel = SettingsViewModel();
   await settingsViewModel.load();
 
   final databaseService = DatabaseService();
@@ -24,8 +23,15 @@ void main() async {
   await gtfsService.ensureGtfsDataLoadedAndPrint();
 
   runApp(
-    ChangeNotifierProvider<SettingsViewModel>.value(
-      value: settingsViewModel,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SettingsViewModel>.value(
+          value: settingsViewModel,
+        ),
+        ChangeNotifierProvider<ConnectivityViewmodel>.value(
+          value: ConnectivityViewmodel(),
+        ),
+      ],
       child: const MainApp(),
     ),
   );

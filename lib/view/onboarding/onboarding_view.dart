@@ -16,7 +16,6 @@ class OnboardingView extends StatelessWidget {
                 'assets/images/onboarding.png',
               ),
             ),
-
             Align(
               alignment: Alignment.bottomCenter,
               child: IntrinsicHeight(
