@@ -30,4 +30,10 @@ class SettingsViewModel extends ChangeNotifier {
     _service.saveSettings(_settings);
     notifyListeners();
   }
+
+  void setHasSeenOnboarding(int hasSeenOnboarding) {
+    _settings = _settings.copyWith(hasSeenOnboarding: hasSeenOnboarding);
+    _service.saveSettings(_settings);
+    notifyListeners();
+  }
 }

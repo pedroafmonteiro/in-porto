@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:in_porto/service/database_service.dart';
 import 'package:in_porto/service/gtfs_service.dart';
 import 'package:in_porto/service/settings_service.dart';
+import 'package:in_porto/view/onboarding/onboarding_view.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -17,7 +18,7 @@ void main() async {
 
   final databaseService = DatabaseService();
   final db = await databaseService.db;
-  
+
   final gtfsService = GTFSService();
   gtfsService.setDatabase(db);
   await gtfsService.ensureGtfsDataLoadedAndPrint();
@@ -36,6 +37,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appearance = context.watch<SettingsViewModel>().settings.appearance;
+    final hasSeenOnboarding = context
+        .watch<SettingsViewModel>()
+        .settings
+        .hasSeenOnboarding;
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       theme: AppTheme.lightTheme,
@@ -50,7 +55,9 @@ class MainApp extends StatelessWidget {
       locale: context.watch<SettingsViewModel>().settings.language == 'system'
           ? null
           : Locale(context.watch<SettingsViewModel>().settings.language),
-      home: NavigationView(),
+      home: hasSeenOnboarding == 1
+          ? const NavigationView()
+          : const OnboardingView(),
     );
   }
 }
