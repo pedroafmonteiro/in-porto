@@ -38,6 +38,9 @@ class GTFSService {
     'Comboios de Portugal': 'http://publico.cp.pt/gtfs/gtfs.zip',
   };
 
+  static Map<String, String> get defaultAgencyUrls =>
+      Map.unmodifiable(_defaultAgencyUrls);
+
   Future<List<int>> fetchGtfsZip(
     String agencyName, {
     String? overrideUrl,

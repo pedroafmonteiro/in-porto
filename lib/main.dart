@@ -3,6 +3,7 @@ import 'package:in_porto/service/database_service.dart';
 import 'package:in_porto/service/gtfs_service.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
+import 'package:in_porto/viewmodel/data_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -18,18 +19,17 @@ void main() async {
   final databaseService = DatabaseService();
   final db = await databaseService.db;
 
-  final gtfsService = GTFSService();
-  gtfsService.setDatabase(db);
-  await gtfsService.ensureGtfsDataLoadedAndPrint();
-
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<SettingsViewModel>.value(
-          value: settingsViewModel,
+        ChangeNotifierProvider<SettingsViewModel>(
+          create: (_) => settingsViewModel,
         ),
-        ChangeNotifierProvider<ConnectivityViewmodel>.value(
-          value: ConnectivityViewmodel(),
+        ChangeNotifierProvider<ConnectivityViewmodel>(
+          create: (_) => ConnectivityViewmodel(),
+        ),
+        ChangeNotifierProvider<DataViewModel>(
+          create: (_) => DataViewModel(db: db),
         ),
       ],
       child: const MainApp(),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:in_porto/model/settings.dart';
 import 'package:in_porto/service/settings_service.dart';
 
