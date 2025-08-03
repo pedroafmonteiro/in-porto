@@ -5,6 +5,16 @@
         "description": "O nome da aplicação",
         "type": "text"
     },
+    "appDescription": "Explore o Porto como nunca antes.",
+    "@appDescription": {
+        "description": "Uma breve descrição da aplicação",
+        "type": "text"
+    },
+    "getStarted": "Começar",
+    "@getStarted": {
+        "description": "Texto do botão para começar a usar a aplicação",
+        "type": "text"
+    },
     "settingsTitle": "Definições",
     "@settingsTitle": {
         "description": "Título para a página de definições",

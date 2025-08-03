@@ -104,6 +104,18 @@ abstract class AppLocalizations {
   /// **'In Porto.'**
   String get appTitle;
 
+  /// A short description of the application
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Porto like never before.'**
+  String get appDescription;
+
+  /// Button text to start using the app
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
   /// Title for the settings page
   ///
   /// In en, this message translates to:

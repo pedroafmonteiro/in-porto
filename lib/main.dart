@@ -55,9 +55,7 @@ class MainApp extends StatelessWidget {
       locale: context.watch<SettingsViewModel>().settings.language == 'system'
           ? null
           : Locale(context.watch<SettingsViewModel>().settings.language),
-      home: hasSeenOnboarding == 1
-          ? const NavigationView()
-          : const OnboardingView(),
+      home: OnboardingView(),
     );
   }
 }

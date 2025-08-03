@@ -5,6 +5,16 @@
         "description": "The title of the application",
         "type": "text"
     },
+    "appDescription": "Explore Porto like never before.",
+    "@appDescription": {
+        "description": "A short description of the application",
+        "type": "text"
+    },
+    "getStarted": "Get Started",
+    "@getStarted": {
+        "description": "Button text to start using the app",
+        "type": "text"
+    },
     "settingsTitle": "Settings",
     "@settingsTitle": {
         "description": "Title for the settings page",

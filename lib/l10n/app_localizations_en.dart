@@ -12,6 +12,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'In Porto.';
 
   @override
+  String get appDescription => 'Explore Porto like never before.';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

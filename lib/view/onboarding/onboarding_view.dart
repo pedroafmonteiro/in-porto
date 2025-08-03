@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_porto/view/navigation/navigation_view.dart';
-import 'package:in_porto/viewmodel/settings_viewmodel.dart';
-import 'package:provider/provider.dart';
+import 'package:in_porto/view/onboarding/widgets/onboarding_container.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});
@@ -9,22 +7,21 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: Stack(
           children: [
-            Text('Welcome!'),
-            Text('Discover a new way to explore Porto.'),
-            ElevatedButton(
-              onPressed: () {
-                context.read<SettingsViewModel>().setHasSeenOnboarding(1);
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const NavigationView(),
-                  ),
-                );
-              },
-              child: const Text('Get Started'),
+            Align(
+              alignment: Alignment(0.0, -0.75),
+              child: Image.asset(
+                'assets/images/onboarding.png',
+              ),
+            ),
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: IntrinsicHeight(
+                child: OnboardingContainer(),
+              ),
             ),
           ],
         ),
