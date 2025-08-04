@@ -35,7 +35,7 @@ class GTFSService {
         'https://www.metrodoporto.pt/metrodoporto/uploads/document/file/693/google_transit_v2.zip',
     'STCP':
         'https://opendata.porto.digital/dataset/5275c986-592c-43f5-8f87-aabbd4e4f3a4/resource/89a6854f-2ea3-4ba0-8d2f-6558a9df2a98/download/horarios_gtfs_stcp_16_04_2025.zip',
-    'Comboios de Portugal': 'http://publico.cp.pt/gtfs/gtfs.zip',
+    'CP': 'http://publico.cp.pt/gtfs/gtfs.zip',
   };
 
   static Map<String, String> get defaultAgencyUrls =>

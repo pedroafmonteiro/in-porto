@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/service/database_service.dart';
-import 'package:in_porto/service/gtfs_service.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
 import 'package:in_porto/viewmodel/data_viewmodel.dart';
@@ -61,7 +60,9 @@ class MainApp extends StatelessWidget {
       locale: context.watch<SettingsViewModel>().settings.language == 'system'
           ? null
           : Locale(context.watch<SettingsViewModel>().settings.language),
-      home: OnboardingView(),
+      home: hasSeenOnboarding > 0
+          ? const NavigationView()
+          : const OnboardingView(),
     );
   }
 }
