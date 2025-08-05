@@ -43,74 +43,81 @@ class _LicensesViewState extends State<LicensesView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+    return PopScope(
+      canPop: !_isLoading,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            onPressed: _isLoading
+                ? null
+                : () {
+                    Navigator.of(context).pop();
+                  },
+          ),
+          title: Text(AppLocalizations.of(context)!.openSourceLicensesTitle),
         ),
-        title: Text(AppLocalizations.of(context)!.openSourceLicensesTitle),
-      ),
-      body: _isLoading && _packageLicenses.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: _packageLicenses.keys.map((pkg) {
-                final licenses = _packageLicenses[pkg]!;
-                final isExpanded = _expandedPackages.contains(pkg);
-                return Card(
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(pkg),
-                        subtitle: Text(
-                          '${licenses.length} ${AppLocalizations.of(context)!.license}${licenses.length > 1 ? 's' : ''}',
+        body: _isLoading && _packageLicenses.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                padding: const EdgeInsets.all(16.0),
+                children: _packageLicenses.keys.map((pkg) {
+                  final licenses = _packageLicenses[pkg]!;
+                  final isExpanded = _expandedPackages.contains(pkg);
+                  return Card(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(pkg),
+                          subtitle: Text(
+                            '${licenses.length} ${AppLocalizations.of(context)!.license}${licenses.length > 1 ? 's' : ''}',
+                          ),
+                          trailing: Icon(
+                            isExpanded ? Icons.expand_less : Icons.expand_more,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              if (isExpanded) {
+                                _expandedPackages.remove(pkg);
+                              } else {
+                                _expandedPackages.add(pkg);
+                              }
+                            });
+                          },
                         ),
-                        trailing: Icon(
-                          isExpanded ? Icons.expand_less : Icons.expand_more,
-                        ),
-                        onTap: () {
-                          setState(() {
-                            if (isExpanded) {
-                              _expandedPackages.remove(pkg);
-                            } else {
-                              _expandedPackages.add(pkg);
-                            }
-                          });
-                        },
-                      ),
-                      if (isExpanded)
-                        ...licenses.map((licenseEntry) {
-                          final licenseText = licenseEntry.paragraphs
-                              .map((p) => p.text)
-                              .join('\n\n');
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8.0,
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
-                                borderRadius: BorderRadius.circular(8.0),
+                        if (isExpanded)
+                          ...licenses.map((licenseEntry) {
+                            final licenseText = licenseEntry.paragraphs
+                                .map((p) => p.text)
+                                .join('\n\n');
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 8.0,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  licenseText,
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    licenseText,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
+                            );
+                          }),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+      ),
     );
   }
 }
