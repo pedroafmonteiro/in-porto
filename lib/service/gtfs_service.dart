@@ -281,4 +281,18 @@ class GTFSService {
     }
     return '';
   }
+
+  Future<void> deleteAllGtfsData() async {
+    final database = await db;
+    await database.transaction((txn) async {
+      await txn.execute('DELETE FROM $_agencyTable');
+      await txn.execute('DELETE FROM $_stopTable');
+      await txn.execute('DELETE FROM $_routeTable');
+      await txn.execute('DELETE FROM $_tripTable');
+      await txn.execute('DELETE FROM $_stopTimeTable');
+      await txn.execute('DELETE FROM $_calendarTable');
+      await txn.execute('DELETE FROM $_calendarDatesTable');
+      await txn.execute('DELETE FROM $_shapeTable');
+    });
+  }
 }

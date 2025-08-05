@@ -272,6 +272,42 @@ abstract class AppLocalizations {
   /// **'Made with ❤️ in Porto.'**
   String get supportMessage;
 
+  /// Title for the debug settings page
+  ///
+  /// In en, this message translates to:
+  /// **'Debug Settings'**
+  String get debugSettingsTitle;
+
+  /// Button to reset the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Onboarding'**
+  String get resetOnboarding;
+
+  /// Text asking for confirmation to reset the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reset the onboarding process?'**
+  String get resetOnboardingText1;
+
+  /// Text explaining the consequences of resetting the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove all GTFS data.'**
+  String get resetOnboardingText2;
+
+  /// Button text to confirm an action
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// Button text to cancel an action
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
   /// Placeholder text for the search input
   ///
   /// In en, this message translates to:

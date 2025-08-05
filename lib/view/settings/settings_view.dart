@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
+import 'package:in_porto/view/settings/pages/debug_view.dart';
 import 'package:in_porto/view/settings/pages/language_settings_view.dart';
 import 'package:in_porto/view/settings/pages/licenses_view.dart';
 import 'package:in_porto/view/common/transitions.dart';
@@ -15,6 +17,7 @@ class SettingsView extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
+        actionsPadding: const EdgeInsets.only(right: 8.0),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
@@ -23,6 +26,19 @@ class SettingsView extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
+        actions: [
+          if (kDebugMode)
+            IconButton(
+              icon: Icon(Icons.developer_mode_rounded),
+              onPressed: () {
+                Navigator.of(context).push(
+                  buildSharedAxisPageRoute(
+                    page: const DebugView(),
+                  ),
+                );
+              },
+            ),
+        ],
         title: Text(
           AppLocalizations.of(context)!.settingsTitle,
         ),

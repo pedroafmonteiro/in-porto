@@ -48,6 +48,14 @@ class DataViewModel extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  Future<void> deleteAllGtfsData() async {
+    await _gtfsService.deleteAllGtfsData();
+    for (final agency in GTFSService.defaultAgencyUrls.keys) {
+      _agencyStatus[agency] = AgencyLoadStatus.idle;
+    }
+    notifyListeners();
+  }
 }
 
 enum AgencyLoadStatus {

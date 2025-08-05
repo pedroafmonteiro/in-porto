@@ -100,5 +100,24 @@ class AppLocalizationsPt extends AppLocalizations {
   String get supportMessage => 'Feito com ❤️ no Porto.';
 
   @override
+  String get debugSettingsTitle => 'Definições de Depuração';
+
+  @override
+  String get resetOnboarding => 'Reiniciar Introdução';
+
+  @override
+  String get resetOnboardingText1 =>
+      'Tem a certeza de que deseja reiniciar o processo de introdução?';
+
+  @override
+  String get resetOnboardingText2 => 'Isto irá apagar todos os dados GTFS.';
+
+  @override
+  String get yes => 'Sim';
+
+  @override
+  String get no => 'Não';
+
+  @override
   String get search => 'Pesquisar';
 }

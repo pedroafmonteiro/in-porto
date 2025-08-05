@@ -100,5 +100,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get supportMessage => 'Made with ❤️ in Porto.';
 
   @override
+  String get debugSettingsTitle => 'Debug Settings';
+
+  @override
+  String get resetOnboarding => 'Reset Onboarding';
+
+  @override
+  String get resetOnboardingText1 =>
+      'Are you sure you want to reset the onboarding process?';
+
+  @override
+  String get resetOnboardingText2 => 'This will remove all GTFS data.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
   String get search => 'Search';
 }

@@ -145,6 +145,36 @@
         "description": "Message to show support for the project",
         "type": "text"
     },
+    "debugSettingsTitle": "Debug Settings",
+    "@debugSettingsTitle": {
+        "description": "Title for the debug settings page",
+        "type": "text"
+    },
+    "resetOnboarding": "Reset Onboarding",
+    "@resetOnboarding": {
+        "description": "Button to reset the onboarding process",
+        "type": "text"
+    },
+    "resetOnboardingText1": "Are you sure you want to reset the onboarding process?",
+    "@resetOnboardingText1": {
+        "description": "Text asking for confirmation to reset the onboarding process",
+        "type": "text"
+    },
+    "resetOnboardingText2": "This will remove all GTFS data.",
+    "@resetOnboardingText2": {
+        "description": "Text explaining the consequences of resetting the onboarding process",
+        "type": "text"
+    },
+    "yes": "Yes",
+    "@yes": {
+        "description": "Button text to confirm an action",
+        "type": "text"
+    },
+    "no": "No",
+    "@no": {
+        "description": "Button text to cancel an action",
+        "type": "text"
+    },
     "search": "Search",
     "@search": {
         "description": "Placeholder text for the search input",
