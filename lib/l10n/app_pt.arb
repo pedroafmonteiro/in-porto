@@ -5,6 +5,61 @@
         "description": "O nome da aplicação",
         "type": "text"
     },
+    "appDescription": "Explore o Porto como nunca antes.",
+    "@appDescription": {
+        "description": "Uma breve descrição da aplicação",
+        "type": "text"
+    },
+    "getStarted": "Começar",
+    "@getStarted": {
+        "description": "Texto do botão para começar a usar a aplicação",
+        "type": "text"
+    },
+    "downloadDataTitle": "Transferir Dados",
+    "@downloadDataTitle": {
+        "description": "Título para a secção de transferência de dados",
+        "type": "text"
+    },
+    "downloadDataText1": "Para usar esta aplicação, precisará de se ligar à internet pelo menos uma vez para transferir informações essenciais da nuvem.",
+    "@downloadDataText1": {
+        "description": "Texto a explicar a necessidade de transferir dados",
+        "type": "text"
+    },
+    "downloadDataText2": "Todos os dados estão disponíveis publicamente e dizem respeito à cidade do Porto. Nenhuma informação privada ou análises que possam identificá-lo são recolhidas.",
+    "@downloadDataText2": {
+        "description": "Texto a explicar a natureza dos dados transferidos",
+        "type": "text"
+    },
+    "downloadDataText3": "Este processo pode demorar alguns minutos, dependendo da sua ligação à internet e da quantidade de dados a transferir.",
+    "@downloadDataText3": {
+        "description": "Texto a explicar a duração do processo de transferência",
+        "type": "text"
+    },
+    "downloadDataText4": "Não feche a aplicação nem desligue o seu dispositivo durante este processo.",
+    "@downloadDataText4": {
+        "description": "Texto a avisar contra fechar a aplicação durante a transferência",
+        "type": "text"
+    },
+    "continueText": "Continuar",
+    "@continueText": {
+        "description": "Texto do botão para continuar.",
+        "type": "text"
+    },
+    "finishText": "Terminar",
+    "@finishText": {
+        "description": "Texto do botão para terminar o processo de introdução",
+        "type": "text"
+    },
+    "connectivitySuccess": "Ligado à internet.",
+    "@connectivitySuccess": {
+        "description": "Mensagem mostrada quando a aplicação se liga com sucesso à internet",
+        "type": "text"
+    },
+    "connectivityError": "Sem ligação à internet.",
+    "@connectivityError": {
+        "description": "Mensagem mostrada quando a aplicação falha ao ligar à internet",
+        "type": "text"
+    },
     "settingsTitle": "Definições",
     "@settingsTitle": {
         "description": "Título para a página de definições",
@@ -88,6 +143,36 @@
     "supportMessage": "Feito com ❤️ no Porto.",
     "@supportMessage": {
         "description": "Mensagem para mostrar apoio ao projeto",
+        "type": "text"
+    },
+    "debugSettingsTitle": "Definições de Depuração",
+    "@debugSettingsTitle": {
+        "description": "Título para as definições de depuração",
+        "type": "text"
+    },
+    "resetOnboarding": "Reiniciar Introdução",
+    "@resetOnboarding": {
+        "description": "Título para a opção de reiniciar o processo de introdução",
+        "type": "text"
+    },
+    "resetOnboardingText1": "Tem a certeza de que deseja reiniciar o processo de introdução?",
+    "@resetOnboardingText1": {
+        "description": "Texto a perguntar ao utilizador se tem a certeza de que deseja reiniciar o processo de introdução",
+        "type": "text"
+    },
+    "resetOnboardingText2": "Isto irá apagar todos os dados GTFS.",
+    "@resetOnboardingText2": {
+        "description": "Texto a explicar o que acontece quando o utilizador reinicia o processo de introdução",
+        "type": "text"
+    },
+    "yes": "Sim",
+    "@yes": {
+        "description": "Texto do botão para confirmar a ação",
+        "type": "text"
+    },
+    "no": "Não",
+    "@no": {
+        "description": "Texto do botão para cancelar a ação",
         "type": "text"
     },
     "search": "Pesquisar",

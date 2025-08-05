@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/service/database_service.dart';
-import 'package:in_porto/service/gtfs_service.dart';
-import 'package:in_porto/service/settings_service.dart';
+import 'package:in_porto/view/onboarding/onboarding_view.dart';
+import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
+import 'package:in_porto/viewmodel/data_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -11,20 +12,25 @@ import 'view/navigation/navigation_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final settingsService = SettingsService();
-  final settingsViewModel = SettingsViewModel(settingsService);
+  final settingsViewModel = SettingsViewModel();
   await settingsViewModel.load();
 
   final databaseService = DatabaseService();
   final db = await databaseService.db;
-  
-  final gtfsService = GTFSService();
-  gtfsService.setDatabase(db);
-  await gtfsService.ensureGtfsDataLoadedAndPrint();
 
   runApp(
-    ChangeNotifierProvider<SettingsViewModel>.value(
-      value: settingsViewModel,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SettingsViewModel>(
+          create: (_) => settingsViewModel,
+        ),
+        ChangeNotifierProvider<ConnectivityViewmodel>(
+          create: (_) => ConnectivityViewmodel(),
+        ),
+        ChangeNotifierProvider<DataViewModel>(
+          create: (_) => DataViewModel(db: db),
+        ),
+      ],
       child: const MainApp(),
     ),
   );
@@ -36,6 +42,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appearance = context.watch<SettingsViewModel>().settings.appearance;
+    final hasSeenOnboarding = context
+        .watch<SettingsViewModel>()
+        .settings
+        .hasSeenOnboarding;
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       theme: AppTheme.lightTheme,
@@ -50,7 +60,9 @@ class MainApp extends StatelessWidget {
       locale: context.watch<SettingsViewModel>().settings.language == 'system'
           ? null
           : Locale(context.watch<SettingsViewModel>().settings.language),
-      home: NavigationView(),
+      home: hasSeenOnboarding > 0
+          ? const NavigationView()
+          : const OnboardingView(),
     );
   }
 }

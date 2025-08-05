@@ -5,6 +5,61 @@
         "description": "The title of the application",
         "type": "text"
     },
+    "appDescription": "Explore Porto like never before.",
+    "@appDescription": {
+        "description": "A short description of the application",
+        "type": "text"
+    },
+    "getStarted": "Get Started",
+    "@getStarted": {
+        "description": "Button text to start using the app",
+        "type": "text"
+    },
+    "downloadDataTitle": "Download Data",
+    "@downloadDataTitle": {
+        "description": "Title for the download data section",
+        "type": "text"
+    },
+    "downloadDataText1": "To use this app, you will need to connect to the internet at least once to download essential information from the cloud.",
+    "@downloadDataText1": {
+        "description": "Text explaining the need to download data",
+        "type": "text"
+    },
+    "downloadDataText2": "All data is publicly available and relates to the city of Porto. No private information or analytics are collected that could identify you.",
+    "@downloadDataText2": {
+        "description": "Text explaining the nature of the data being downloaded",
+        "type": "text"
+    },
+    "downloadDataText3": "This process may take a few minutes, depending on your internet connection and the amount of data being downloaded.",
+    "@downloadDataText3": {
+        "description": "Text explaining the duration of the download process",
+        "type": "text"
+    },
+    "downloadDataText4": "Do not close the app or turn off your device during this process.",
+    "@downloadDataText4": {
+        "description": "Text warning against closing the app during download",
+        "type": "text"
+    },
+    "continueText": "Continue",
+    "@continueText": {
+        "description": "Button text to continue.",
+        "type": "text"
+    },
+    "finishText": "Finish",
+    "@finishText": {
+        "description": "Button text to finish the onboarding process",
+        "type": "text"
+    },
+    "connectivitySuccess": "Connected to the internet.",
+    "@connectivitySuccess": {
+        "description": "Message shown when the app successfully connects to the internet",
+        "type": "text"
+    },
+    "connectivityError": "No internet connection.",
+    "@connectivityError": {
+        "description": "Message shown when the app fails to connect to the internet",
+        "type": "text"
+    },
     "settingsTitle": "Settings",
     "@settingsTitle": {
         "description": "Title for the settings page",
@@ -88,6 +143,36 @@
     "supportMessage": "Made with ❤️ in Porto.",
     "@supportMessage": {
         "description": "Message to show support for the project",
+        "type": "text"
+    },
+    "debugSettingsTitle": "Debug Settings",
+    "@debugSettingsTitle": {
+        "description": "Title for the debug settings page",
+        "type": "text"
+    },
+    "resetOnboarding": "Reset Onboarding",
+    "@resetOnboarding": {
+        "description": "Button to reset the onboarding process",
+        "type": "text"
+    },
+    "resetOnboardingText1": "Are you sure you want to reset the onboarding process?",
+    "@resetOnboardingText1": {
+        "description": "Text asking for confirmation to reset the onboarding process",
+        "type": "text"
+    },
+    "resetOnboardingText2": "This will remove all GTFS data.",
+    "@resetOnboardingText2": {
+        "description": "Text explaining the consequences of resetting the onboarding process",
+        "type": "text"
+    },
+    "yes": "Yes",
+    "@yes": {
+        "description": "Button text to confirm an action",
+        "type": "text"
+    },
+    "no": "No",
+    "@no": {
+        "description": "Button text to cancel an action",
         "type": "text"
     },
     "search": "Search",

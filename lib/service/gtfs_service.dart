@@ -1,8 +1,6 @@
 import 'dart:convert';
-// ...existing code...
 import 'package:sqflite/sqflite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// ...existing code...
 import 'package:http/http.dart' as http;
 import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
@@ -37,8 +35,11 @@ class GTFSService {
         'https://www.metrodoporto.pt/metrodoporto/uploads/document/file/693/google_transit_v2.zip',
     'STCP':
         'https://opendata.porto.digital/dataset/5275c986-592c-43f5-8f87-aabbd4e4f3a4/resource/89a6854f-2ea3-4ba0-8d2f-6558a9df2a98/download/horarios_gtfs_stcp_16_04_2025.zip',
-    'Comboios de Portugal': 'http://publico.cp.pt/gtfs/gtfs.zip',
+    'CP': 'http://publico.cp.pt/gtfs/gtfs.zip',
   };
+
+  static Map<String, String> get defaultAgencyUrls =>
+      Map.unmodifiable(_defaultAgencyUrls);
 
   Future<List<int>> fetchGtfsZip(
     String agencyName, {
@@ -84,7 +85,10 @@ class GTFSService {
     await prefs.setString(_keyAgencyUrlOverrides, jsonEncode(overrides));
   }
 
-  Future<Map<String, dynamic>> parseGtfsZip(List<int> zipBytes) async {
+  Future<Map<String, dynamic>> parseGtfsZip(
+    List<int> zipBytes, {
+    String? gtfsUrl,
+  }) async {
     final archive = ZipDecoder().decodeBytes(zipBytes);
 
     Future<void> streamAndBatchInsert(String filename, String table) async {
@@ -107,6 +111,13 @@ class GTFSService {
         for (int j = 0; j < headers.length && j < row.length; j++) {
           map[headers[j]] = row[j];
         }
+
+        final overrideAgencyId = inferAgencyIdFromUrl(gtfsUrl);
+        if ((filename == 'agency.txt' || filename == 'routes.txt') &&
+            overrideAgencyId.isNotEmpty) {
+          map['agency_id'] = overrideAgencyId;
+        }
+
         batchRows.add(map);
         if (batchRows.length >= batchSize) {
           final batch = database.batch();
@@ -250,11 +261,38 @@ class GTFSService {
     for (final entry in _defaultAgencyUrls.entries) {
       try {
         final zipBytes = await fetchGtfsZip(entry.key);
-        await parseGtfsZip(zipBytes);
+        await parseGtfsZip(zipBytes, gtfsUrl: entry.value);
         print('Loaded and cached raw GTFS data for agency: ${entry.key}');
       } catch (e) {
         print('Error loading data for ${entry.key}: $e');
       }
     }
+  }
+
+  String inferAgencyIdFromUrl(String? gtfsUrl) {
+    if (gtfsUrl == null) return '';
+    final url = gtfsUrl.toLowerCase();
+    if (url.contains('metrodoporto')) {
+      return 'metrodoporto';
+    } else if (url.contains('stcp') || url.contains('opendata.porto.digital')) {
+      return 'stcp';
+    } else if (url.contains('cp.pt')) {
+      return 'cp';
+    }
+    return '';
+  }
+
+  Future<void> deleteAllGtfsData() async {
+    final database = await db;
+    await database.transaction((txn) async {
+      await txn.execute('DELETE FROM $_agencyTable');
+      await txn.execute('DELETE FROM $_stopTable');
+      await txn.execute('DELETE FROM $_routeTable');
+      await txn.execute('DELETE FROM $_tripTable');
+      await txn.execute('DELETE FROM $_stopTimeTable');
+      await txn.execute('DELETE FROM $_calendarTable');
+      await txn.execute('DELETE FROM $_calendarDatesTable');
+      await txn.execute('DELETE FROM $_shapeTable');
+    });
   }
 }

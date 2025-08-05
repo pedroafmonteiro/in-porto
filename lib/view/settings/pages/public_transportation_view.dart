@@ -7,9 +7,7 @@ class PublicTransportationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () {
@@ -24,12 +22,8 @@ class PublicTransportationView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
               contentPadding: const EdgeInsets.all(16.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.stcp),
               leading: Image.asset(
                 'assets/images/stcp.png',
@@ -37,17 +31,12 @@ class PublicTransportationView extends StatelessWidget {
                 height: 60,
               ),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-              },
+              onTap: () {},
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
               contentPadding: const EdgeInsets.all(16.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.metrodoporto),
               leading: Image.asset(
                 'assets/images/metrodoporto.png',
@@ -55,21 +44,16 @@ class PublicTransportationView extends StatelessWidget {
                 height: 60,
               ),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-              },
+              onTap: () {},
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
               contentPadding: const EdgeInsets.only(
                 left: 16.0,
                 right: 12.0,
                 top: 16.0,
                 bottom: 16.0,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
               ),
               title: Text(AppLocalizations.of(context)!.cpFull),
               leading: Image.asset(
@@ -78,8 +62,7 @@ class PublicTransportationView extends StatelessWidget {
                 height: 60,
               ),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
-              },
+              onTap: () {},
             ),
           ),
         ],

@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
-import 'package:in_porto/view/settings/widgets/appearance_settings_view.dart';
-import 'package:in_porto/view/settings/widgets/language_settings_view.dart';
-import 'package:in_porto/view/settings/widgets/licenses_view.dart';
+import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
+import 'package:in_porto/view/settings/pages/debug_view.dart';
+import 'package:in_porto/view/settings/pages/language_settings_view.dart';
+import 'package:in_porto/view/settings/pages/licenses_view.dart';
 import 'package:in_porto/view/common/transitions.dart';
-import 'package:in_porto/view/settings/widgets/public_transportation_view.dart';
+import 'package:in_porto/view/settings/pages/public_transportation_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -12,9 +14,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
@@ -23,6 +23,19 @@ class SettingsView extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
+        actions: [
+          if (kDebugMode)
+            IconButton(
+              icon: Icon(Icons.developer_mode_rounded),
+              onPressed: () {
+                Navigator.of(context).push(
+                  buildSharedAxisPageRoute(
+                    page: const DebugView(),
+                  ),
+                );
+              },
+            ),
+        ],
         title: Text(
           AppLocalizations.of(context)!.settingsTitle,
         ),
@@ -34,11 +47,7 @@ class SettingsView extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               children: [
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(AppLocalizations.of(context)!.appearanceTitle),
                     leading: Icon(Icons.palette_rounded),
                     trailing: Icon(Icons.chevron_right),
@@ -52,11 +61,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(AppLocalizations.of(context)!.languageTitle),
                     leading: Icon(Icons.language_rounded),
                     trailing: Icon(Icons.chevron_right),
@@ -70,11 +75,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(
                       AppLocalizations.of(context)!.publicTransportationTitle,
                     ),
@@ -90,11 +91,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(
                       AppLocalizations.of(context)!.openSourceLicensesTitle,
                     ),

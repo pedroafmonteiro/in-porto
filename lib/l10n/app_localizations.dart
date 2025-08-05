@@ -104,6 +104,72 @@ abstract class AppLocalizations {
   /// **'In Porto.'**
   String get appTitle;
 
+  /// A short description of the application
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Porto like never before.'**
+  String get appDescription;
+
+  /// Button text to start using the app
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// Title for the download data section
+  ///
+  /// In en, this message translates to:
+  /// **'Download Data'**
+  String get downloadDataTitle;
+
+  /// Text explaining the need to download data
+  ///
+  /// In en, this message translates to:
+  /// **'To use this app, you will need to connect to the internet at least once to download essential information from the cloud.'**
+  String get downloadDataText1;
+
+  /// Text explaining the nature of the data being downloaded
+  ///
+  /// In en, this message translates to:
+  /// **'All data is publicly available and relates to the city of Porto. No private information or analytics are collected that could identify you.'**
+  String get downloadDataText2;
+
+  /// Text explaining the duration of the download process
+  ///
+  /// In en, this message translates to:
+  /// **'This process may take a few minutes, depending on your internet connection and the amount of data being downloaded.'**
+  String get downloadDataText3;
+
+  /// Text warning against closing the app during download
+  ///
+  /// In en, this message translates to:
+  /// **'Do not close the app or turn off your device during this process.'**
+  String get downloadDataText4;
+
+  /// Button text to continue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// Button text to finish the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finishText;
+
+  /// Message shown when the app successfully connects to the internet
+  ///
+  /// In en, this message translates to:
+  /// **'Connected to the internet.'**
+  String get connectivitySuccess;
+
+  /// Message shown when the app fails to connect to the internet
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection.'**
+  String get connectivityError;
+
   /// Title for the settings page
   ///
   /// In en, this message translates to:
@@ -205,6 +271,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Made with ❤️ in Porto.'**
   String get supportMessage;
+
+  /// Title for the debug settings page
+  ///
+  /// In en, this message translates to:
+  /// **'Debug Settings'**
+  String get debugSettingsTitle;
+
+  /// Button to reset the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Onboarding'**
+  String get resetOnboarding;
+
+  /// Text asking for confirmation to reset the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reset the onboarding process?'**
+  String get resetOnboardingText1;
+
+  /// Text explaining the consequences of resetting the onboarding process
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove all GTFS data.'**
+  String get resetOnboardingText2;
+
+  /// Button text to confirm an action
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// Button text to cancel an action
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
 
   /// Placeholder text for the search input
   ///

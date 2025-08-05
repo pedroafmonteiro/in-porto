@@ -12,6 +12,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'In Porto.';
 
   @override
+  String get appDescription => 'Explore Porto like never before.';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get downloadDataTitle => 'Download Data';
+
+  @override
+  String get downloadDataText1 =>
+      'To use this app, you will need to connect to the internet at least once to download essential information from the cloud.';
+
+  @override
+  String get downloadDataText2 =>
+      'All data is publicly available and relates to the city of Porto. No private information or analytics are collected that could identify you.';
+
+  @override
+  String get downloadDataText3 =>
+      'This process may take a few minutes, depending on your internet connection and the amount of data being downloaded.';
+
+  @override
+  String get downloadDataText4 =>
+      'Do not close the app or turn off your device during this process.';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get finishText => 'Finish';
+
+  @override
+  String get connectivitySuccess => 'Connected to the internet.';
+
+  @override
+  String get connectivityError => 'No internet connection.';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override
@@ -61,6 +98,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supportMessage => 'Made with ❤️ in Porto.';
+
+  @override
+  String get debugSettingsTitle => 'Debug Settings';
+
+  @override
+  String get resetOnboarding => 'Reset Onboarding';
+
+  @override
+  String get resetOnboardingText1 =>
+      'Are you sure you want to reset the onboarding process?';
+
+  @override
+  String get resetOnboardingText2 => 'This will remove all GTFS data.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
 
   @override
   String get search => 'Search';
