@@ -9,7 +9,6 @@ class AppearanceSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -24,11 +23,7 @@ class AppearanceSettingsView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.system),
               leading: Icon(Icons.brightness_6_rounded),
               trailing:
@@ -42,11 +37,7 @@ class AppearanceSettingsView extends StatelessWidget {
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.lightMode),
               leading: Icon(Icons.light_mode),
               trailing:
@@ -60,11 +51,7 @@ class AppearanceSettingsView extends StatelessWidget {
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.darkMode),
               leading: Icon(Icons.dark_mode),
               trailing:

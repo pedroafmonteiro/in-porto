@@ -12,7 +12,6 @@ class DebugView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -27,11 +26,7 @@ class DebugView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.resetOnboarding),
               leading: Icon(Icons.refresh_rounded),
               onTap: () => showDialog(

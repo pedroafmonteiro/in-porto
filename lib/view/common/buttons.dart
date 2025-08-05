@@ -18,34 +18,34 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: disabled ? null : () => onPressed(),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          vertical: 16.0,
-          horizontal: 32.0,
-        ),
-        decoration: BoxDecoration(
+      child: ClipRSuperellipse(
+        borderRadius: BorderRadius.circular(24.0),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            vertical: 16.0,
+            horizontal: 32.0,
+          ),
           color: disabled
               ? Theme.of(context).colorScheme.onSurface.withAlpha(128)
               : Theme.of(context).colorScheme.onSurface,
-          borderRadius: BorderRadius.circular(24.0),
-        ),
-        child: Row(
-          children: [
-            Text(
-              text,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).colorScheme.surface,
-                fontWeight: FontWeight.bold,
+          child: Row(
+            children: [
+              Text(
+                text,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.surface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const Spacer(),
-            Icon(
-              icon,
-              color: Theme.of(context).colorScheme.surface,
-              size: 24.0,
-            ),
-          ],
+              const Spacer(),
+              Icon(
+                icon,
+                color: Theme.of(context).colorScheme.surface,
+                size: 24.0,
+              ),
+            ],
+          ),
         ),
       ),
     );

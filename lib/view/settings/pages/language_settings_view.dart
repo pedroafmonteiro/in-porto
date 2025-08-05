@@ -9,7 +9,6 @@ class LanguageSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -24,11 +23,7 @@ class LanguageSettingsView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.system),
               leading: Icon(Icons.language_rounded),
               trailing:
@@ -42,11 +37,7 @@ class LanguageSettingsView extends StatelessWidget {
             ),
           ),
           Card(
-            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               title: Text(AppLocalizations.of(context)!.portuguese),
               leading: Text("🇵🇹", style: TextStyle(fontSize: 16)),
               trailing:

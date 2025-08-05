@@ -14,7 +14,6 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         actionsPadding: const EdgeInsets.only(right: 8.0),
@@ -50,11 +49,7 @@ class SettingsView extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               children: [
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(AppLocalizations.of(context)!.appearanceTitle),
                     leading: Icon(Icons.palette_rounded),
                     trailing: Icon(Icons.chevron_right),
@@ -68,11 +63,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(AppLocalizations.of(context)!.languageTitle),
                     leading: Icon(Icons.language_rounded),
                     trailing: Icon(Icons.chevron_right),
@@ -86,11 +77,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(
                       AppLocalizations.of(context)!.publicTransportationTitle,
                     ),
@@ -106,11 +93,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
                     title: Text(
                       AppLocalizations.of(context)!.openSourceLicensesTitle,
                     ),

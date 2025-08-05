@@ -36,86 +36,85 @@ class _ActionCenterState extends State<ActionCenter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(25.0),
+      margin: const EdgeInsets.all(32.0),
       child: OpenContainer(
         tappable: false,
         transitionType: ContainerTransitionType.fade,
         transitionDuration: const Duration(milliseconds: 500),
         closedElevation: 5,
         openElevation: 0,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35.0),
+        closedShape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(24.0),
         ),
         closedColor: Theme.of(context).colorScheme.surface,
         openColor: Theme.of(context).colorScheme.surface,
         closedBuilder: (context, action) {
-          return Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 10.0,
-            ),
-            decoration: BoxDecoration(
+          return ClipRSuperellipse(
+            borderRadius: BorderRadius.circular(24.0),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 10.0,
+              ),
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(35.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.favorite_rounded,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  onPressed: () {
-                    _openFavoritesView();
-                    action();
-                  },
-                ),
-                InkWell(
-                  onTap: () {
-                    _openSearchView();
-                    action();
-                  },
-                  borderRadius: BorderRadius.circular(25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      color: Theme.of(context).colorScheme.surfaceContainer,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.favorite_rounded,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 10.0,
-                        bottom: 10.0,
-                        left: 40.0,
-                        right: 40.0,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.search,
-                            style: TextStyle(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurface,
-                            ),
+                    onPressed: () {
+                      _openFavoritesView();
+                      action();
+                    },
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _openSearchView();
+                      action();
+                    },
+                    child: ClipRSuperellipse(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Container(
+                        color: Theme.of(context).colorScheme.surfaceContainer,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 8.0,
+                            bottom: 8.0,
+                            left: 40.0,
+                            right: 40.0,
                           ),
-                        ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.search,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.settings_rounded,
-                    color: Theme.of(context).colorScheme.onSurface,
+                  IconButton(
+                    icon: Icon(
+                      Icons.settings_rounded,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    onPressed: () {
+                      _openSettingsView();
+                      action();
+                    },
                   ),
-                  onPressed: () {
-                    _openSettingsView();
-                    action();
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

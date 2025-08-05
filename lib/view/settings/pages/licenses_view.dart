@@ -44,7 +44,6 @@ class _LicensesViewState extends State<LicensesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -63,13 +62,9 @@ class _LicensesViewState extends State<LicensesView> {
                 final licenses = _packageLicenses[pkg]!;
                 final isExpanded = _expandedPackages.contains(pkg);
                 return Card(
-                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: Column(
                     children: [
                       ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
                         title: Text(pkg),
                         subtitle: Text(
                           '${licenses.length} ${AppLocalizations.of(context)!.license}${licenses.length > 1 ? 's' : ''}',

@@ -7,6 +7,18 @@ class AppTheme {
       useMaterial3: true,
       fontFamily: GoogleFonts.manrope().fontFamily,
       brightness: Brightness.light,
+      scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+      cardTheme: CardThemeData(
+        color: const Color(0xFFE9EDF3),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+      listTileTheme: ListTileThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
       colorScheme:
           ColorScheme.fromSeed(
             seedColor: const Color(0xFF0F2F7F),
@@ -24,6 +36,18 @@ class AppTheme {
       useMaterial3: true,
       fontFamily: GoogleFonts.manrope().fontFamily,
       brightness: Brightness.dark,
+      scaffoldBackgroundColor: const Color(0xFF181A20),
+      cardTheme: CardThemeData(
+        color: const Color(0xFF23262B),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+      listTileTheme: ListTileThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
       colorScheme:
           ColorScheme.fromSeed(
             seedColor: const Color(0xFF0F2F7F),
