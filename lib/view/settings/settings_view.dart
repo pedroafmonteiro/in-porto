@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
-import 'package:in_porto/view/settings/widgets/appearance_settings_view.dart';
-import 'package:in_porto/view/settings/widgets/language_settings_view.dart';
-import 'package:in_porto/view/settings/widgets/licenses_view.dart';
+import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
+import 'package:in_porto/view/settings/pages/language_settings_view.dart';
+import 'package:in_porto/view/settings/pages/licenses_view.dart';
 import 'package:in_porto/view/common/transitions.dart';
-import 'package:in_porto/view/settings/widgets/public_transportation_view.dart';
+import 'package:in_porto/view/settings/pages/public_transportation_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
