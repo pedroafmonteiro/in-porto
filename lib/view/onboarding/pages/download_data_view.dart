@@ -47,128 +47,153 @@ class DownloadDataView extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Builder(
-                    builder: (context) {
-                      if (!isLoading && !isDataLoaded) {
-                        return Column(
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.downloadDataText1,
-                              textAlign: TextAlign.justify,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              AppLocalizations.of(context)!.downloadDataText2,
-                              textAlign: TextAlign.justify,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              AppLocalizations.of(context)!.downloadDataText3,
-                              textAlign: TextAlign.justify,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              AppLocalizations.of(context)!.downloadDataText4,
-                              textAlign: TextAlign.justify,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          children: [
-                            for (final agency in agencyStatus.entries) ...[
-                              Card(
-                                color: Theme.of(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 350),
+                  switchInCurve: Curves.easeIn,
+                  switchOutCurve: Curves.easeOut,
+                  layoutBuilder: (currentChild, previousChildren) {
+                    return Stack(
+                      alignment: Alignment.topCenter,
+                      children: <Widget>[
+                        ...previousChildren,
+                        if (currentChild != null) currentChild,
+                      ],
+                    );
+                  },
+                  child: SingleChildScrollView(
+                    key: ValueKey('${isLoading}_$isDataLoaded'),
+                    child: (!isLoading && !isDataLoaded)
+                        ? Column(
+                            key: const ValueKey('notLoadedContent'),
+                            children: [
+                              Text(
+                                AppLocalizations.of(
                                   context,
-                                ).colorScheme.surfaceContainer,
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.all(16.0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  title: Text(agency.key),
-                                  leading: Image.asset(
-                                    'assets/images/${agency.key.toLowerCase().replaceAll(' ', '')}.png',
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                  trailing:
-                                      agency.value == AgencyLoadStatus.loading
-                                      ? SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2.5,
-                                          ),
-                                        )
-                                      : Icon(
-                                          agency.value == AgencyLoadStatus.done
-                                              ? Icons.check_rounded
-                                              : Icons.cloud_off_rounded,
-                                          color:
-                                              agency.value ==
-                                                  AgencyLoadStatus.done
-                                              ? Colors.green
-                                              : Colors.grey,
-                                        ),
-                                ),
+                                )!.downloadDataText1,
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.downloadDataText2,
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.downloadDataText3,
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.downloadDataText4,
+                                textAlign: TextAlign.justify,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
-                          ],
-                        );
-                      }
-                    },
+                          )
+                        : Column(
+                            key: const ValueKey('agencyStatusContent'),
+                            children: [
+                              for (final agency in agencyStatus.entries) ...[
+                                Card(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainer,
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(
+                                      16.0,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        12.0,
+                                      ),
+                                    ),
+                                    title: Text(agency.key),
+                                    leading: Image.asset(
+                                      'assets/images/${agency.key.toLowerCase().replaceAll(' ', '')}.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    trailing:
+                                        agency.value == AgencyLoadStatus.loading
+                                        ? SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 2.5,
+                                            ),
+                                          )
+                                        : Icon(
+                                            agency.value ==
+                                                    AgencyLoadStatus.done
+                                                ? Icons.check_rounded
+                                                : Icons.cloud_off_rounded,
+                                            color:
+                                                agency.value ==
+                                                    AgencyLoadStatus.done
+                                                ? Colors.green
+                                                : Colors.grey,
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: Builder(
-                  builder: (context) {
-                    if (!isLoading && !isDataLoaded) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _connectivityText(context, connectivityStatus),
-                          const SizedBox(height: 16),
-                          MainButton(
-                            onPressed: () {
-                              if (!isDataLoaded && !isLoading) {
-                                context.read<DataViewModel>().loadGtfsData();
-                              }
-                            },
-                            text: AppLocalizations.of(context)!.continueText,
-                            icon: Icons.arrow_forward_ios_rounded,
-                            disabled:
-                                connectivityStatus ==
-                                ConnectivityStatus.offline,
-                          ),
-                        ],
-                      );
-                    } else if (!isLoading && isDataLoaded) {
-                      return MainButton(
-                        onPressed: () {
-                          context
-                              .read<SettingsViewModel>()
-                              .setHasSeenOnboarding(1);
-                          Navigator.of(context).pushReplacement(
-                            buildSharedAxisPageRoute(
-                              page: const NavigationView(),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 350),
+                  switchInCurve: Curves.easeIn,
+                  switchOutCurve: Curves.easeOut,
+                  child: (!isLoading && !isDataLoaded)
+                      ? Column(
+                          key: const ValueKey('notLoaded'),
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            _connectivityText(context, connectivityStatus),
+                            const SizedBox(height: 16),
+                            MainButton(
+                              onPressed: () {
+                                if (!isDataLoaded && !isLoading) {
+                                  context.read<DataViewModel>().loadGtfsData();
+                                }
+                              },
+                              text: AppLocalizations.of(context)!.continueText,
+                              icon: Icons.arrow_forward_ios_rounded,
+                              disabled:
+                                  connectivityStatus ==
+                                  ConnectivityStatus.offline,
                             ),
-                          );
-                        },
-                        text: AppLocalizations.of(context)!.finishText,
-                        icon: Icons.arrow_forward_ios_rounded,
-                      );
-                    } else {
-                      return SizedBox.shrink();
-                    }
-                  },
+                          ],
+                        )
+                      : (!isLoading && isDataLoaded)
+                      ? MainButton(
+                          key: const ValueKey('loaded'),
+                          onPressed: () {
+                            context
+                                .read<SettingsViewModel>()
+                                .setHasSeenOnboarding(1);
+                            Navigator.of(context).pushReplacement(
+                              buildSharedAxisPageRoute(
+                                page: const NavigationView(),
+                              ),
+                            );
+                          },
+                          text: AppLocalizations.of(context)!.finishText,
+                          icon: Icons.arrow_forward_ios_rounded,
+                        )
+                      : const SizedBox.shrink(key: ValueKey('loading')),
                 ),
               ),
             ],
