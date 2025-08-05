@@ -18,6 +18,37 @@ class AppLocalizationsPt extends AppLocalizations {
   String get getStarted => 'Começar';
 
   @override
+  String get downloadDataTitle => 'Transferir Dados';
+
+  @override
+  String get downloadDataText1 =>
+      'Para usar esta aplicação, precisará de se ligar à internet pelo menos uma vez para transferir informações essenciais da nuvem.';
+
+  @override
+  String get downloadDataText2 =>
+      'Todos os dados estão disponíveis publicamente e dizem respeito à cidade do Porto. Nenhuma informação privada ou análises que possam identificá-lo são recolhidas.';
+
+  @override
+  String get downloadDataText3 =>
+      'Este processo pode demorar alguns minutos, dependendo da sua ligação à internet e da quantidade de dados a transferir.';
+
+  @override
+  String get downloadDataText4 =>
+      'Não feche a aplicação nem desligue o seu dispositivo durante este processo.';
+
+  @override
+  String get continueText => 'Continuar';
+
+  @override
+  String get finishText => 'Terminar';
+
+  @override
+  String get connectivitySuccess => 'Ligado à internet.';
+
+  @override
+  String get connectivityError => 'Sem ligação à internet.';
+
+  @override
   String get settingsTitle => 'Definições';
 
   @override

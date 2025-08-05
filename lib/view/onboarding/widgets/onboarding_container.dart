@@ -3,8 +3,6 @@ import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/common/buttons.dart';
 import 'package:in_porto/view/common/transitions.dart';
 import 'package:in_porto/view/onboarding/pages/download_data_view.dart';
-import 'package:in_porto/viewmodel/settings_viewmodel.dart';
-import 'package:provider/provider.dart';
 
 class OnboardingContainer extends StatelessWidget {
   const OnboardingContainer({super.key});
@@ -28,8 +26,7 @@ class OnboardingContainer extends StatelessWidget {
             SizedBox(height: 100),
             MainButton(
               onPressed: () {
-                context.read<SettingsViewModel>().setHasSeenOnboarding(1);
-                Navigator.of(context).push(
+                Navigator.of(context).pushReplacement(
                   buildSharedAxisPageRoute(
                     page: const DownloadDataView(),
                   ),
