@@ -7,8 +7,6 @@ class FavoritesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
         title: const Text('Favorites'),
       ),
       body: Center(

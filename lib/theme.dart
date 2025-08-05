@@ -19,6 +19,10 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        actionsPadding: const EdgeInsets.only(right: 8.0),
+      ),
       colorScheme:
           ColorScheme.fromSeed(
             seedColor: const Color(0xFF0F2F7F),
@@ -47,6 +51,10 @@ class AppTheme {
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
+      ),
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        actionsPadding: const EdgeInsets.only(right: 8.0),
       ),
       colorScheme:
           ColorScheme.fromSeed(

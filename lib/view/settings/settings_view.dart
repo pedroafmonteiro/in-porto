@@ -15,8 +15,6 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        actionsPadding: const EdgeInsets.only(right: 8.0),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
