@@ -1,20 +1,30 @@
+import 'package:objectbox/objectbox.dart';
+
+@Entity()
 class CalendarDate {
-  /// Identifies a set of dates when a service exception occurs (required)
+  @Id()
+  int id = 0;
+
+  @Index()
   final String serviceId;
 
-  /// Date when service exception occurs (required, format YYYYMMDD)
+  @Index()
+  final String? agencyId;
+
+  @Index()
   final String date;
 
-  /// Indicates whether service is available on the date (required, 1 or 2)
   final int exceptionType;
 
   CalendarDate({
+    this.id = 0,
     required this.serviceId,
+    this.agencyId,
     required this.date,
     required this.exceptionType,
   }) : assert(serviceId.isNotEmpty, 'serviceId cannot be empty'),
        assert(
-         RegExp(r'^\d{8}\u0000?$').hasMatch(date),
+         RegExp(r'^\d{8}$').hasMatch(date),
          'date must be in YYYYMMDD format',
        ),
        assert(
@@ -24,9 +34,10 @@ class CalendarDate {
 
   factory CalendarDate.fromMap(Map<String, dynamic> map) {
     return CalendarDate(
-      serviceId: map['service_id'] as String,
-      date: map['date'] as String,
-      exceptionType: map['exception_type'] as int,
+      serviceId: map['service_id']?.toString() ?? '',
+      agencyId: map['agency_id']?.toString(),
+      date: map['date']?.toString() ?? '',
+      exceptionType: int.tryParse(map['exception_type']?.toString() ?? '') ?? 1,
     );
   }
 

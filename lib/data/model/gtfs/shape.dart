@@ -1,21 +1,28 @@
+import 'package:objectbox/objectbox.dart';
+
+@Entity()
 class Shape {
-  /// Identifies a shape (required)
+  @Id()
+  int id = 0;
+
+  @Index()
   final String shapeId;
 
-  /// Latitude of a shape point (required)
+  @Index()
+  final String? agencyId;
+
   final double lat;
 
-  /// Longitude of a shape point (required)
   final double lon;
 
-  /// Sequence in which the shape points connect (required, non-negative integer)
   final int sequence;
 
-  /// Actual distance traveled along the shape (optional, non-negative float)
   final double? distTraveled;
 
   Shape({
+    this.id = 0,
     required this.shapeId,
+    this.agencyId,
     required this.lat,
     required this.lon,
     required this.sequence,
@@ -31,11 +38,14 @@ class Shape {
 
   factory Shape.fromMap(Map<String, dynamic> map) {
     return Shape(
-      shapeId: map['shape_id'] as String,
-      lat: map['shape_pt_lat'] as double,
-      lon: map['shape_pt_lon'] as double,
-      sequence: map['shape_pt_sequence'] as int,
-      distTraveled: map['shape_dist_traveled'] as double?,
+      shapeId: map['shape_id']?.toString() ?? '',
+      agencyId: map['agency_id']?.toString(),
+      lat: double.tryParse(map['shape_pt_lat']?.toString() ?? '') ?? 0.0,
+      lon: double.tryParse(map['shape_pt_lon']?.toString() ?? '') ?? 0.0,
+      sequence: int.tryParse(map['shape_pt_sequence']?.toString() ?? '') ?? 0,
+      distTraveled: double.tryParse(
+        map['shape_dist_traveled']?.toString() ?? '',
+      ),
     );
   }
 

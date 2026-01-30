@@ -1,21 +1,19 @@
 import 'package:flutter/foundation.dart';
-import 'package:sqflite/sqflite.dart';
-import '../service/gtfs_service.dart';
+import '../data/repository/gtfs_repository.dart';
 
 class DataViewModel extends ChangeNotifier {
-  final Database _db;
-  final GTFSService _gtfsService = GTFSService();
+  final GtfsRepository _repository = GtfsRepository();
 
-  DataViewModel({required Database db}) : _db = db {
-    _gtfsService.setDatabase(_db);
-    for (final agency in GTFSService.defaultAgencyUrls.keys) {
-      _agencyStatus[agency] = AgencyLoadStatus.idle;
-    }
+  DataViewModel() {
+    _checkDataStatus();
   }
 
   final Map<String, AgencyLoadStatus> _agencyStatus = {};
   Map<String, AgencyLoadStatus> get agencyStatus =>
       Map.unmodifiable(_agencyStatus);
+
+  final Map<String, double> _agencyProgress = {};
+  Map<String, double> get agencyProgress => Map.unmodifiable(_agencyProgress);
 
   String? _currentAgency;
   String? get currentAgency => _currentAgency;
@@ -24,23 +22,49 @@ class DataViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   bool get isDataLoaded =>
+      _agencyStatus.isNotEmpty &&
       _agencyStatus.values.every((status) => status == AgencyLoadStatus.done);
+
+  Future<void> _checkDataStatus() async {
+    final agencies = _repository.getAgencies();
+    for (final agency in agencies) {
+      _agencyStatus[agency.name] = AgencyLoadStatus.idle;
+      _agencyProgress[agency.name] = 0.0;
+    }
+
+    final isLoaded = await _repository.isDataLoaded();
+    if (isLoaded) {
+      for (final agency in agencies) {
+        _agencyStatus[agency.name] = AgencyLoadStatus.done;
+        _agencyProgress[agency.name] = 1.0;
+      }
+    }
+    notifyListeners();
+  }
 
   Future<void> loadGtfsData() async {
     _isLoading = true;
     notifyListeners();
 
-    for (final entry in GTFSService.defaultAgencyUrls.entries) {
-      final agency = entry.key;
-      _currentAgency = agency;
-      _agencyStatus[agency] = AgencyLoadStatus.loading;
+    final agencies = _repository.getAgencies();
+    for (final agency in agencies) {
+      _currentAgency = agency.name;
+      _agencyStatus[agency.name] = AgencyLoadStatus.loading;
+      _agencyProgress[agency.name] = 0.0;
       notifyListeners();
       try {
-        final zipBytes = await _gtfsService.fetchGtfsZip(agency);
-        await _gtfsService.parseGtfsZip(zipBytes, gtfsUrl: entry.value);
-        _agencyStatus[agency] = AgencyLoadStatus.done;
+        await _repository.syncAgencyData(
+          agency,
+          onProgress: (progress) {
+            _agencyProgress[agency.name] = progress;
+            notifyListeners();
+          },
+        );
+        _agencyStatus[agency.name] = AgencyLoadStatus.done;
+        _agencyProgress[agency.name] = 1.0;
       } catch (e) {
-        _agencyStatus[agency] = AgencyLoadStatus.failed;
+        _agencyStatus[agency.name] = AgencyLoadStatus.failed;
+        _agencyProgress[agency.name] = 0.0;
       }
       notifyListeners();
     }
@@ -50,9 +74,11 @@ class DataViewModel extends ChangeNotifier {
   }
 
   Future<void> deleteAllGtfsData() async {
-    await _gtfsService.deleteAllGtfsData();
-    for (final agency in GTFSService.defaultAgencyUrls.keys) {
-      _agencyStatus[agency] = AgencyLoadStatus.idle;
+    await _repository.clearAllData();
+    final agencies = _repository.getAgencies();
+    for (final agency in agencies) {
+      _agencyStatus[agency.name] = AgencyLoadStatus.idle;
+      _agencyProgress[agency.name] = 0.0;
     }
     notifyListeners();
   }

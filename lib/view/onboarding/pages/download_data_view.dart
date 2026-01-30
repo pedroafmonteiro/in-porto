@@ -16,6 +16,7 @@ class DownloadDataView extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectivityStatus = context.watch<ConnectivityViewmodel>().status;
     final agencyStatus = context.watch<DataViewModel>().agencyStatus;
+    final agencyProgress = context.watch<DataViewModel>().agencyProgress;
     final isLoading = context.watch<DataViewModel>().isLoading;
     final isDataLoaded = context.watch<DataViewModel>().isDataLoaded;
     return Scaffold(
@@ -124,12 +125,28 @@ class DownloadDataView extends StatelessWidget {
                                     ),
                                     trailing:
                                         agency.value == AgencyLoadStatus.loading
-                                        ? SizedBox(
-                                            width: 24,
-                                            height: 24,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2.5,
-                                            ),
+                                        ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                '${((agencyProgress[agency.key] ?? 0.0) * 100).toInt()}%',
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.bodySmall,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                      value:
+                                                          agencyProgress[agency
+                                                              .key],
+                                                      strokeWidth: 2.5,
+                                                    ),
+                                              ),
+                                            ],
                                           )
                                         : Icon(
                                             agency.value ==
