@@ -112,7 +112,9 @@ class GtfsRepository {
 
     if (resource.resourceId == 'static') {
       final storedEtag = prefs.getString('$_keyEtagPrefix${agency.id}');
-      final storedLastModified = prefs.getString('$_keyLastModifiedPrefix${agency.id}');
+      final storedLastModified = prefs.getString(
+        '$_keyLastModifiedPrefix${agency.id}',
+      );
 
       return await _gtfsRemoteSource.hasResourceChanged(
         resource.url,

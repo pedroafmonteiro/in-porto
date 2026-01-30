@@ -240,12 +240,16 @@ class GtfsLocalDataSource {
     shapeQuery.close();
 
     final calendarBox = store.box<Calendar>();
-    final calendarQuery = calendarBox.query(Calendar_.agencyId.equals(agencyId)).build();
+    final calendarQuery = calendarBox
+        .query(Calendar_.agencyId.equals(agencyId))
+        .build();
     calendarQuery.remove();
     calendarQuery.close();
 
     final calendarDateBox = store.box<CalendarDate>();
-    final calendarDateQuery = calendarDateBox.query(CalendarDate_.agencyId.equals(agencyId)).build();
+    final calendarDateQuery = calendarDateBox
+        .query(CalendarDate_.agencyId.equals(agencyId))
+        .build();
     calendarDateQuery.remove();
     calendarDateQuery.close();
 
