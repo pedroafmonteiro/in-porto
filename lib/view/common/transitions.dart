@@ -13,7 +13,7 @@ PageRouteBuilder<T> buildSharedAxisPageRoute<T>({
       return SharedAxisTransition(
         animation: animation,
         secondaryAnimation: secondaryAnimation,
-        transitionType: SharedAxisTransitionType.horizontal,
+        transitionType: transitionType,
         child: child,
       );
     },
