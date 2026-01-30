@@ -5,7 +5,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: GoogleFonts.manrope().fontFamily,
+      fontFamily: GoogleFonts.googleSansFlex().fontFamily,
       brightness: Brightness.light,
       scaffoldBackgroundColor: const Color(0xFFF5F7FA),
       cardTheme: CardThemeData(
@@ -38,7 +38,7 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: GoogleFonts.manrope().fontFamily,
+      fontFamily: GoogleFonts.googleSansFlex().fontFamily,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: const Color(0xFF181A20),
       cardTheme: CardThemeData(
