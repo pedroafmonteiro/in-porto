@@ -5,9 +5,12 @@ import 'package:csv/csv.dart';
 class GtfsParser {
   final Archive _archive;
   final Map<String, List<String>> _cache = {};
+  int _skippedRows = 0;
 
   GtfsParser(List<int> zipBytes)
     : _archive = ZipDecoder().decodeBytes(zipBytes);
+
+  int get skippedRows => _skippedRows;
 
   Iterable<Map<String, dynamic>> parseFile(
     String filename, {
@@ -21,19 +24,21 @@ class GtfsParser {
     ).convert(lines.first)[0].map((h) => h.toString()).toList();
 
     for (var i = 1; i < lines.length; i++) {
-      final row = const CsvToListConverter(eol: '\n').convert(lines[i])[0];
-      final map = <String, dynamic>{};
-      for (int j = 0; j < headers.length && j < row.length; j++) {
-        map[headers[j]] = row[j];
-      }
+      try {
+        final row = const CsvToListConverter(eol: '\n').convert(lines[i])[0];
+        final map = <String, dynamic>{};
+        for (int j = 0; j < headers.length && j < row.length; j++) {
+          map[headers[j]] = row[j];
+        }
 
-      if ((filename == 'agency.txt' || filename == 'routes.txt') &&
-          agencyIdOverride != null &&
-          agencyIdOverride.isNotEmpty) {
-        map['agency_id'] = agencyIdOverride;
-      }
+        if (agencyIdOverride != null && agencyIdOverride.isNotEmpty) {
+          map['agency_id'] = agencyIdOverride;
+        }
 
-      yield map;
+        yield map;
+      } catch (e) {
+        _skippedRows++;
+      }
     }
   }
 

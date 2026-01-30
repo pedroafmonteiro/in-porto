@@ -20,16 +20,19 @@ dependencies:
   http: ^1.4.0
   archive: ^4.0.7
   csv: ^6.0.0
-  sqflite: ^2.4.2
-  sqflite_live: ^1.0.2
-  path: ^1.9.1
+  objectbox: ^5.2.0
+  objectbox_flutter_libs: ^5.2.0
+  path_provider: ^2.1.5
   connectivity_plus: ^7.0.0
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   change_app_package_name: ^1.5.0
+  build_runner: ^2.10.5
+  objectbox_generator: ^5.2.0
 
 flutter:
   uses-material-design: true

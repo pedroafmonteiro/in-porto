@@ -17,6 +17,16 @@ class GtfsRepository {
 
   static const _keyLastUrlPrefix = 'gtfs_last_url_';
   static const _keyResourceIdPrefix = 'gtfs_resource_id_';
+  static const _keyEtagPrefix = 'gtfs_etag_';
+  static const _keyLastModifiedPrefix = 'gtfs_last_modified_';
+
+  static const List<String> _requiredTables = [
+    'agencies',
+    'routes',
+    'trips',
+    'stops',
+    'stop_times',
+  ];
 
   List<AppAgency> getAgencies() {
     return AgencyRegistry.agencies;
@@ -57,6 +67,8 @@ class GtfsRepository {
     final usedResource = downloadResult.resource;
 
     try {
+      await _localSource.clearDataForAgency(agency.id);
+
       await processData(
         agency,
         file,
@@ -96,10 +108,23 @@ class GtfsRepository {
     AppAgency agency,
     GtfsResourceInfo resource,
   ) async {
-    if (resource.resourceId == 'static' || resource.resourceId == 'fallback') {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (resource.resourceId == 'static') {
+      final storedEtag = prefs.getString('$_keyEtagPrefix${agency.id}');
+      final storedLastModified = prefs.getString('$_keyLastModifiedPrefix${agency.id}');
+
+      return await _gtfsRemoteSource.hasResourceChanged(
+        resource.url,
+        storedEtag: storedEtag,
+        storedLastModified: storedLastModified,
+      );
+    }
+
+    if (resource.resourceId == 'fallback') {
       return true;
     }
-    final prefs = await SharedPreferences.getInstance();
+
     final storedResourceId = prefs.getString(
       '$_keyResourceIdPrefix${agency.id}',
     );
@@ -118,14 +143,20 @@ class GtfsRepository {
       final fileName = '${resource.resourceId}_${agency.id}.zip';
       final tempPath = p.join(tempDir.path, fileName);
       try {
-        await _gtfsRemoteSource.downloadGtfsFile(
+        final result = await _gtfsRemoteSource.downloadGtfsFile(
           resource.url,
           tempPath,
           onProgress: onProgress,
         );
-        final file = File(tempPath);
+        final file = result.file;
         if (await file.length() > 0) {
-          return (file: file, resource: resource);
+          final resourceWithHeaders = GtfsResourceInfo(
+            url: resource.url,
+            resourceId: resource.resourceId,
+            etag: result.etag,
+            lastModified: result.lastModified,
+          );
+          return (file: file, resource: resourceWithHeaders);
         }
       } catch (e) {
         // Log and try next
@@ -139,16 +170,21 @@ class GtfsRepository {
       final fileName = 'fallback_${agency.id}.zip';
       final tempPath = p.join(tempDir.path, fileName);
       try {
-        await _gtfsRemoteSource.downloadGtfsFile(
+        final result = await _gtfsRemoteSource.downloadGtfsFile(
           lastUrl,
           tempPath,
           onProgress: onProgress,
         );
-        final file = File(tempPath);
+        final file = result.file;
         if (await file.length() > 0) {
           return (
             file: file,
-            resource: GtfsResourceInfo(url: lastUrl, resourceId: 'fallback'),
+            resource: GtfsResourceInfo(
+              url: lastUrl,
+              resourceId: 'fallback',
+              etag: result.etag,
+              lastModified: result.lastModified,
+            ),
           );
         }
       } catch (e) {
@@ -179,13 +215,13 @@ class GtfsRepository {
         file: 'calendar.txt',
         table: _localSource.calendarTable,
         weight: 0.02,
-        requiresOverride: false,
+        requiresOverride: true,
       ),
       (
         file: 'calendar_dates.txt',
         table: _localSource.calendarDatesTable,
         weight: 0.02,
-        requiresOverride: false,
+        requiresOverride: true,
       ),
       (
         file: 'routes.txt',
@@ -203,13 +239,13 @@ class GtfsRepository {
         file: 'stops.txt',
         table: _localSource.stopTable,
         weight: 0.10,
-        requiresOverride: false,
+        requiresOverride: true,
       ),
       (
         file: 'shapes.txt',
         table: _localSource.shapeTable,
         weight: 0.10,
-        requiresOverride: false,
+        requiresOverride: true,
       ),
       (
         file: 'stop_times.txt',
@@ -251,19 +287,31 @@ class GtfsRepository {
     AppAgency agency,
     GtfsResourceInfo resource,
   ) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('$_keyLastUrlPrefix${agency.id}', resource.url);
+
+    if (resource.etag != null) {
+      await prefs.setString('$_keyEtagPrefix${agency.id}', resource.etag!);
+    }
+    if (resource.lastModified != null) {
+      await prefs.setString(
+        '$_keyLastModifiedPrefix${agency.id}',
+        resource.lastModified!,
+      );
+    }
+
     if (resource.resourceId != 'fallback' && resource.resourceId != 'static') {
-      final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
         '$_keyResourceIdPrefix${agency.id}',
         resource.resourceId,
       );
-      await prefs.setString('$_keyLastUrlPrefix${agency.id}', resource.url);
     }
   }
 
   Future<bool> isDataLoaded() async {
     final counts = await _localSource.getDataCounts();
-    return counts.values.every((c) => c > 0);
+    return _requiredTables.every((table) => (counts[table] ?? 0) > 0);
   }
 
   Future<Map<String, int>> getDataCounts() async {

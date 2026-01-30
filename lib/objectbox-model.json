@@ -1,0 +1,635 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1269804270028023658",
+      "lastPropertyId": "9:4159161026258427815",
+      "name": "Agency",
+      "properties": [
+        {
+          "id": "1:3858248111872154133",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:695342226961832644",
+          "name": "agencyId",
+          "indexId": "1:1100375494064142434",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:66972578086276643",
+          "name": "agencyName",
+          "type": 9
+        },
+        {
+          "id": "4:6233417420337434368",
+          "name": "agencyUrl",
+          "type": 9
+        },
+        {
+          "id": "5:5296407997614410779",
+          "name": "agencyTimezone",
+          "type": 9
+        },
+        {
+          "id": "6:682075405615714157",
+          "name": "agencyLang",
+          "type": 9
+        },
+        {
+          "id": "7:1751922983146593306",
+          "name": "agencyPhone",
+          "type": 9
+        },
+        {
+          "id": "8:8507548661716846179",
+          "name": "agencyFareUrl",
+          "type": 9
+        },
+        {
+          "id": "9:4159161026258427815",
+          "name": "agencyEmail",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:834328462759150831",
+      "lastPropertyId": "12:6899903814158733115",
+      "name": "Calendar",
+      "properties": [
+        {
+          "id": "1:1230562664950417401",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1873649963410237941",
+          "name": "serviceId",
+          "indexId": "2:5243539200281329449",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:3087885390177559993",
+          "name": "monday",
+          "type": 6
+        },
+        {
+          "id": "4:4435209780984722406",
+          "name": "tuesday",
+          "type": 6
+        },
+        {
+          "id": "5:8909001731674242827",
+          "name": "wednesday",
+          "type": 6
+        },
+        {
+          "id": "6:4446141868252198073",
+          "name": "thursday",
+          "type": 6
+        },
+        {
+          "id": "7:7600826583828867603",
+          "name": "friday",
+          "type": 6
+        },
+        {
+          "id": "8:2002734388357714001",
+          "name": "saturday",
+          "type": 6
+        },
+        {
+          "id": "9:6726209614836306991",
+          "name": "sunday",
+          "type": 6
+        },
+        {
+          "id": "10:3442641860357834039",
+          "name": "startDate",
+          "type": 9
+        },
+        {
+          "id": "11:8227358584776018771",
+          "name": "endDate",
+          "type": 9
+        },
+        {
+          "id": "12:6899903814158733115",
+          "name": "agencyId",
+          "indexId": "16:4156923600506695243",
+          "type": 9,
+          "flags": 2048
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:5105124661776014878",
+      "lastPropertyId": "5:3165865166506201376",
+      "name": "CalendarDate",
+      "properties": [
+        {
+          "id": "1:5169492270812698366",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3788715290122025679",
+          "name": "serviceId",
+          "indexId": "3:1026976800816446039",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:6792538423887725710",
+          "name": "date",
+          "indexId": "4:3203605543231455161",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "4:1665250117674130791",
+          "name": "exceptionType",
+          "type": 6
+        },
+        {
+          "id": "5:3165865166506201376",
+          "name": "agencyId",
+          "indexId": "17:5180858775171188704",
+          "type": 9,
+          "flags": 2048
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:8909194735816257089",
+      "lastPropertyId": "16:3811352962163632300",
+      "name": "Route",
+      "properties": [
+        {
+          "id": "1:1138783610873718802",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1995720068215000242",
+          "name": "routeId",
+          "indexId": "5:8746295149108304400",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "4:8213986057091169162",
+          "name": "routeShortName",
+          "type": 9
+        },
+        {
+          "id": "5:6264357829784579398",
+          "name": "routeLongName",
+          "type": 9
+        },
+        {
+          "id": "6:6059528024396236623",
+          "name": "routeDesc",
+          "type": 9
+        },
+        {
+          "id": "7:9203162364261776369",
+          "name": "routeType",
+          "type": 6
+        },
+        {
+          "id": "8:7231105109319842390",
+          "name": "routeUrl",
+          "type": 9
+        },
+        {
+          "id": "9:1885964337932417745",
+          "name": "routeColor",
+          "type": 9
+        },
+        {
+          "id": "10:780163569024016318",
+          "name": "routeTextColor",
+          "type": 9
+        },
+        {
+          "id": "11:5246243476437150214",
+          "name": "routeSortOrder",
+          "type": 6
+        },
+        {
+          "id": "12:7376660672365340951",
+          "name": "continuousPickup",
+          "type": 6
+        },
+        {
+          "id": "13:4582029470017833223",
+          "name": "continuousDropOff",
+          "type": 6
+        },
+        {
+          "id": "14:4177346445432147246",
+          "name": "networkId",
+          "type": 9
+        },
+        {
+          "id": "15:6097706445388394635",
+          "name": "agencyId",
+          "indexId": "6:2100797992360167143",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Agency"
+        },
+        {
+          "id": "16:3811352962163632300",
+          "name": "agencyIdString",
+          "indexId": "15:2069121436681577850",
+          "type": 9,
+          "flags": 2048
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:106232920832538326",
+      "lastPropertyId": "7:4607428091517340150",
+      "name": "Shape",
+      "properties": [
+        {
+          "id": "1:8570555886010149370",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5945389610853240326",
+          "name": "shapeId",
+          "indexId": "7:6451034992393938851",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:2218707231934733932",
+          "name": "lat",
+          "type": 8
+        },
+        {
+          "id": "4:6843403529644872666",
+          "name": "lon",
+          "type": 8
+        },
+        {
+          "id": "5:8228515365392180934",
+          "name": "sequence",
+          "type": 6
+        },
+        {
+          "id": "6:2052129921837559311",
+          "name": "distTraveled",
+          "type": 8
+        },
+        {
+          "id": "7:4607428091517340150",
+          "name": "agencyId",
+          "indexId": "18:2995388910594367756",
+          "type": 9,
+          "flags": 2048
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:3894510792602689502",
+      "lastPropertyId": "17:8570958667179685468",
+      "name": "Stop",
+      "properties": [
+        {
+          "id": "1:5129257249130005052",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3642812690262401939",
+          "name": "stopId",
+          "indexId": "8:2254058391020790304",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:4929282847944689818",
+          "name": "code",
+          "type": 9
+        },
+        {
+          "id": "4:4846442538335317600",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:1265553340396385399",
+          "name": "ttsName",
+          "type": 9
+        },
+        {
+          "id": "6:822485542130197204",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "7:3936719594003916786",
+          "name": "latitude",
+          "type": 8
+        },
+        {
+          "id": "8:3403157120496069153",
+          "name": "longitude",
+          "type": 8
+        },
+        {
+          "id": "9:1676563008837070520",
+          "name": "zoneId",
+          "type": 9
+        },
+        {
+          "id": "10:193546834944748198",
+          "name": "url",
+          "type": 9
+        },
+        {
+          "id": "11:5826424709638503150",
+          "name": "locationType",
+          "type": 6
+        },
+        {
+          "id": "12:6587183300412988253",
+          "name": "parentStation",
+          "type": 9
+        },
+        {
+          "id": "13:7413927546641215152",
+          "name": "timezone",
+          "type": 9
+        },
+        {
+          "id": "14:4265713450655448646",
+          "name": "wheelchairBoarding",
+          "type": 6
+        },
+        {
+          "id": "15:7288976160362726446",
+          "name": "levelId",
+          "type": 9
+        },
+        {
+          "id": "16:3518069796946663095",
+          "name": "platformCode",
+          "type": 9
+        },
+        {
+          "id": "17:8570958667179685468",
+          "name": "agencyId",
+          "indexId": "19:6983733318572626293",
+          "type": 9,
+          "flags": 2048
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:4334486746841726229",
+      "lastPropertyId": "21:8037643912342971963",
+      "name": "StopTime",
+      "properties": [
+        {
+          "id": "1:3353402531375076065",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:774816390683673924",
+          "name": "tripGtfsId",
+          "indexId": "9:7594095006785765186",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:1098774507729088738",
+          "name": "arrivalTime",
+          "type": 9
+        },
+        {
+          "id": "4:7807275240270483828",
+          "name": "departureTime",
+          "type": 9
+        },
+        {
+          "id": "5:734357243021527064",
+          "name": "stopGtfsId",
+          "type": 9
+        },
+        {
+          "id": "6:1500696527634231101",
+          "name": "locationGroupId",
+          "type": 9
+        },
+        {
+          "id": "7:5476686049121639181",
+          "name": "locationId",
+          "type": 9
+        },
+        {
+          "id": "8:2365304306469763930",
+          "name": "stopSequence",
+          "type": 6
+        },
+        {
+          "id": "9:309570630033632807",
+          "name": "stopHeadsign",
+          "type": 9
+        },
+        {
+          "id": "10:3078937473011363705",
+          "name": "startPickupDropOffWindow",
+          "type": 9
+        },
+        {
+          "id": "11:1551738279017153245",
+          "name": "endPickupDropOffWindow",
+          "type": 9
+        },
+        {
+          "id": "12:8886584695540907337",
+          "name": "pickupType",
+          "type": 6
+        },
+        {
+          "id": "13:7706572035765674607",
+          "name": "dropOffType",
+          "type": 6
+        },
+        {
+          "id": "14:3454408870231294282",
+          "name": "continuousPickup",
+          "type": 6
+        },
+        {
+          "id": "15:4362985350560859965",
+          "name": "continuousDropOff",
+          "type": 6
+        },
+        {
+          "id": "16:1961543507055658224",
+          "name": "shapeDistTraveled",
+          "type": 8
+        },
+        {
+          "id": "17:454155805372054886",
+          "name": "timepoint",
+          "type": 6
+        },
+        {
+          "id": "18:8540801245367533145",
+          "name": "pickupBookingRuleId",
+          "type": 9
+        },
+        {
+          "id": "19:6904235155483506128",
+          "name": "dropOffBookingRuleId",
+          "type": 9
+        },
+        {
+          "id": "20:3552689535336499953",
+          "name": "tripId",
+          "indexId": "10:7421512569025365809",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Trip"
+        },
+        {
+          "id": "21:8037643912342971963",
+          "name": "stopId",
+          "indexId": "11:7472490991486053878",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Stop"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "8:6414245339417216490",
+      "lastPropertyId": "14:3423953634144993121",
+      "name": "Trip",
+      "properties": [
+        {
+          "id": "1:7655489436274231621",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3892736331373273780",
+          "name": "tripId",
+          "indexId": "12:7854772513045791350",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:2643807982993320692",
+          "name": "routeGtfsId",
+          "type": 9
+        },
+        {
+          "id": "4:8603562233644214185",
+          "name": "serviceId",
+          "type": 9
+        },
+        {
+          "id": "5:7656723632111214592",
+          "name": "headsign",
+          "type": 9
+        },
+        {
+          "id": "6:5272055183087298722",
+          "name": "shortName",
+          "type": 9
+        },
+        {
+          "id": "7:8395632337338258493",
+          "name": "directionId",
+          "type": 6
+        },
+        {
+          "id": "8:2869219538517847587",
+          "name": "blockId",
+          "type": 9
+        },
+        {
+          "id": "9:7157827764748454014",
+          "name": "shapeId",
+          "type": 9
+        },
+        {
+          "id": "10:4390202176001392139",
+          "name": "wheelchairAccessible",
+          "type": 6
+        },
+        {
+          "id": "11:191335554637255309",
+          "name": "bikesAllowed",
+          "type": 6
+        },
+        {
+          "id": "12:8652917155543184810",
+          "name": "carsAllowed",
+          "type": 6
+        },
+        {
+          "id": "13:6986166041337948758",
+          "name": "routeId",
+          "indexId": "13:4058094376980156172",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Route"
+        },
+        {
+          "id": "14:3423953634144993121",
+          "name": "calendarId",
+          "indexId": "14:8823535123838157287",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Calendar"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "8:6414245339417216490",
+  "lastIndexId": "19:6983733318572626293",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    7815885747105559944
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

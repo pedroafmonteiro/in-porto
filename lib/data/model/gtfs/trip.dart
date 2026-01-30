@@ -1,40 +1,42 @@
+import 'package:objectbox/objectbox.dart';
+import 'route.dart';
+import 'calendar.dart';
+
+@Entity()
 class Trip {
-  /// Identifies a trip (required)
-  final String id;
+  @Id()
+  int id = 0;
 
-  /// Identifies a route (required)
-  final String routeId;
+  @Index()
+  final String tripId;
 
-  /// Identifies a set of dates when service is available (required)
+  final String routeGtfsId;
+
   final String serviceId;
 
-  /// Text for signage (optional)
   final String? headsign;
 
-  /// Public facing text to identify the trip (optional)
   final String? shortName;
 
-  /// Direction of travel (optional, 0 or 1)
   final int? directionId;
 
-  /// Block ID (optional)
   final String? blockId;
 
-  /// Shape ID (conditionally required)
   final String? shapeId;
 
-  /// Wheelchair accessibility (optional, 0-2)
   final int? wheelchairAccessible;
 
-  /// Bikes allowed (optional, 0-2)
   final int? bikesAllowed;
 
-  /// Cars allowed (optional, 0-2)
   final int? carsAllowed;
 
+  final route = ToOne<Route>();
+  final calendar = ToOne<Calendar>();
+
   Trip({
-    required this.id,
-    required this.routeId,
+    this.id = 0,
+    required this.tripId,
+    required this.routeGtfsId,
     required this.serviceId,
     this.headsign,
     this.shortName,
@@ -44,8 +46,8 @@ class Trip {
     this.wheelchairAccessible,
     this.bikesAllowed,
     this.carsAllowed,
-  }) : assert(id.isNotEmpty, 'Trip id cannot be empty'),
-       assert(routeId.isNotEmpty, 'Trip routeId cannot be empty'),
+  }) : assert(tripId.isNotEmpty, 'Trip id cannot be empty'),
+       assert(routeGtfsId.isNotEmpty, 'Trip routeGtfsId cannot be empty'),
        assert(serviceId.isNotEmpty, 'Trip serviceId cannot be empty'),
        assert(
          directionId == null || directionId == 0 || directionId == 1,
@@ -67,22 +69,24 @@ class Trip {
 
   factory Trip.fromMap(Map<String, dynamic> map) {
     return Trip(
-      id: map['trip_id'] as String,
-      routeId: map['route_id'] as String,
-      serviceId: map['service_id'] as String,
-      headsign: map['trip_headsign'] as String?,
-      shortName: map['trip_short_name'] as String?,
-      directionId: map['direction_id'] as int?,
-      blockId: map['block_id'] as String?,
-      shapeId: map['shape_id'] as String?,
-      wheelchairAccessible: map['wheelchair_accessible'] as int?,
-      bikesAllowed: map['bikes_allowed'] as int?,
-      carsAllowed: map['cars_allowed'] as int?,
+      tripId: map['trip_id']?.toString() ?? '',
+      routeGtfsId: map['route_id']?.toString() ?? '',
+      serviceId: map['service_id']?.toString() ?? '',
+      headsign: map['trip_headsign']?.toString(),
+      shortName: map['trip_short_name']?.toString(),
+      directionId: int.tryParse(map['direction_id']?.toString() ?? ''),
+      blockId: map['block_id']?.toString(),
+      shapeId: map['shape_id']?.toString(),
+      wheelchairAccessible: int.tryParse(
+        map['wheelchair_accessible']?.toString() ?? '',
+      ),
+      bikesAllowed: int.tryParse(map['bikes_allowed']?.toString() ?? ''),
+      carsAllowed: int.tryParse(map['cars_allowed']?.toString() ?? ''),
     );
   }
 
   @override
   String toString() {
-    return 'Trip(id: $id, routeId: $routeId, serviceId: $serviceId, headsign: $headsign, shortName: $shortName, directionId: $directionId, blockId: $blockId, shapeId: $shapeId, wheelchairAccessible: $wheelchairAccessible, bikesAllowed: $bikesAllowed, carsAllowed: $carsAllowed)';
+    return 'Trip(tripId: $tripId, routeGtfsId: $routeGtfsId, serviceId: $serviceId, headsign: $headsign, shortName: $shortName, directionId: $directionId, blockId: $blockId, shapeId: $shapeId, wheelchairAccessible: $wheelchairAccessible, bikesAllowed: $bikesAllowed, carsAllowed: $carsAllowed)';
   }
 }
