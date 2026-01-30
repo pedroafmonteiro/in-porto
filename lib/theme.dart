@@ -21,7 +21,7 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        centerTitle: true,
+        centerTitle: false,
         actionsPadding: const EdgeInsets.only(right: 8.0),
       ),
       colorScheme:
@@ -60,7 +60,7 @@ class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        centerTitle: true,
+        centerTitle: false,
         actionsPadding: const EdgeInsets.only(right: 8.0),
       ),
       colorScheme:
