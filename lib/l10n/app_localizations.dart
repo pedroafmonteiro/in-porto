@@ -269,7 +269,7 @@ abstract class AppLocalizations {
   /// Message to show support for the project
   ///
   /// In en, this message translates to:
-  /// **'Made with ❤️ in Porto.'**
+  /// **'Made with ❤️ in Porto'**
   String get supportMessage;
 
   /// Title for the debug settings page

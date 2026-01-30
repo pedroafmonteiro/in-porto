@@ -97,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get license => 'license';
 
   @override
-  String get supportMessage => 'Made with ❤️ in Porto.';
+  String get supportMessage => 'Made with ❤️ in Porto';
 
   @override
   String get debugSettingsTitle => 'Debug Settings';

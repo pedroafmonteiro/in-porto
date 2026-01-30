@@ -140,7 +140,7 @@
         "description": "Uma única licença",
         "type": "text"
     },
-    "supportMessage": "Feito com ❤️ no Porto.",
+    "supportMessage": "Feito com ❤️ no Porto",
     "@supportMessage": {
         "description": "Mensagem para mostrar apoio ao projeto",
         "type": "text"
