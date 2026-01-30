@@ -32,7 +32,7 @@ class GTFSService {
 
   static const Map<String, String> _defaultAgencyUrls = {
     'Metro do Porto':
-        'https://www.metrodoporto.pt/metrodoporto/uploads/document/file/693/google_transit_v2.zip',
+        'https://opendata.porto.digital/dataset/15f22603-a216-492a-ab1c-40b1d8aa2f08/resource/a5495287-e74d-4296-874f-bde8c131afce/download/horarios_gtfs_mdp_19_09_2025.zip',
     'STCP':
         'https://opendata.porto.digital/dataset/5275c986-592c-43f5-8f87-aabbd4e4f3a4/resource/89a6854f-2ea3-4ba0-8d2f-6558a9df2a98/download/horarios_gtfs_stcp_16_04_2025.zip',
     'CP': 'http://publico.cp.pt/gtfs/gtfs.zip',
