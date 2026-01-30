@@ -19,7 +19,7 @@ class AgencyRegistry {
       type: StaticAgencyType(url: 'http://publico.cp.pt/gtfs/gtfs.zip'),
     ),
   ];
-  
+
   static AppAgency? getAgencyByName(String name) {
     try {
       return agencies.firstWhere((a) => a.name == name);

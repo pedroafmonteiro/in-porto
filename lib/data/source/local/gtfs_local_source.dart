@@ -14,19 +14,20 @@ class GtfsLocalDataSource {
   static const _shapeTable = 'shapes';
 
   Future<void> insertBatch(
-      String table, 
-      Iterable<Map<String, dynamic>> rows, 
-      {Function(double)? onProgress, int? totalRows}
-  ) async {
+    String table,
+    Iterable<Map<String, dynamic>> rows, {
+    Function(double)? onProgress,
+    int? totalRows,
+  }) async {
     final db = await _dbHelper.db;
-    
+
     final total = totalRows ?? (rows is List ? rows.length : 0);
     final batchSize = 500;
     int processed = 0;
 
     await db.transaction((txn) async {
       var batch = txn.batch();
-      
+
       for (final row in rows) {
         batch.insert(table, row, conflictAlgorithm: ConflictAlgorithm.replace);
         processed++;
@@ -34,13 +35,13 @@ class GtfsLocalDataSource {
         if (processed % batchSize == 0) {
           await batch.commit(noResult: true);
           batch = txn.batch();
-          
+
           if (onProgress != null && total > 0) {
             onProgress(processed / total);
           }
         }
       }
-      
+
       await batch.commit(noResult: true);
     });
 
@@ -66,22 +67,59 @@ class GtfsLocalDataSource {
   Future<Map<String, int>> getDataCounts() async {
     final db = await _dbHelper.db;
     return {
-      'agencies': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_agencyTable')) ?? 0,
-      'stops': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_stopTable')) ?? 0,
-      'routes': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_routeTable')) ?? 0,
-      'trips': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_tripTable')) ?? 0,
-      'stop_times': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable')) ?? 0,
-      'calendars': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_calendarTable')) ?? 0,
-      'calendars_dates': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_calendarDatesTable')) ?? 0,
-      'shapes': Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $_shapeTable')) ?? 0,
+      'agencies':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_agencyTable'),
+          ) ??
+          0,
+      'stops':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_stopTable'),
+          ) ??
+          0,
+      'routes':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_routeTable'),
+          ) ??
+          0,
+      'trips':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_tripTable'),
+          ) ??
+          0,
+      'stop_times':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_stopTimeTable'),
+          ) ??
+          0,
+      'calendars':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_calendarTable'),
+          ) ??
+          0,
+      'calendars_dates':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_calendarDatesTable'),
+          ) ??
+          0,
+      'shapes':
+          Sqflite.firstIntValue(
+            await db.rawQuery('SELECT COUNT(*) FROM $_shapeTable'),
+          ) ??
+          0,
     };
   }
 
   Future<bool> hasDataForAgency(String agencyId) async {
     final db = await _dbHelper.db;
-    final count = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM $_routeTable WHERE agency_id = ?', [agencyId])
-    ) ?? 0;
+    final count =
+        Sqflite.firstIntValue(
+          await db.rawQuery(
+            'SELECT COUNT(*) FROM $_routeTable WHERE agency_id = ?',
+            [agencyId],
+          ),
+        ) ??
+        0;
     return count > 0;
   }
 

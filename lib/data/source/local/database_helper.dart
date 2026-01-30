@@ -4,8 +4,7 @@ import 'package:path/path.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
-  static final DatabaseHelper _instance =
-      DatabaseHelper._privateConstructor();
+  static final DatabaseHelper _instance = DatabaseHelper._privateConstructor();
   factory DatabaseHelper() => _instance;
 
   static Database? _db;

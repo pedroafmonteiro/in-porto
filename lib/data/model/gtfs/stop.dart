@@ -85,8 +85,12 @@ class Stop {
       name: map['stop_name'] as String?,
       ttsName: map['tts_stop_name'] as String?,
       description: map['stop_desc'] as String?,
-      latitude: map['stop_lat'] != null ? (map['stop_lat'] as num).toDouble() : null,
-      longitude: map['stop_lon'] != null ? (map['stop_lon'] as num).toDouble() : null,
+      latitude: map['stop_lat'] != null
+          ? (map['stop_lat'] as num).toDouble()
+          : null,
+      longitude: map['stop_lon'] != null
+          ? (map['stop_lon'] as num).toDouble()
+          : null,
       zoneId: map['zone_id'] as String?,
       url: map['stop_url'] as String?,
       locationType: map['location_type'] as int?,

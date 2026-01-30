@@ -4,7 +4,8 @@ import '../../model/agency_type.dart';
 import '../../model/gtfs_resource_info.dart';
 
 class AgencyRemoteSource {
-  static const _ckanBaseUrl = 'https://opendata.porto.digital/api/3/action/package_show';
+  static const _ckanBaseUrl =
+      'https://opendata.porto.digital/api/3/action/package_show';
 
   Future<List<GtfsResourceInfo>> fetchGtfsResourceInfo(AgencyType type) async {
     if (type is StaticAgencyType) {
@@ -25,26 +26,36 @@ class AgencyRemoteSource {
       if (json['success'] == true) {
         final result = json['result'];
         if (result != null && result['resources'] != null) {
-          final resources = (result['resources'] as List).cast<Map<String, dynamic>>();
-          
+          final resources = (result['resources'] as List)
+              .cast<Map<String, dynamic>>();
+
           final zipResources = resources.where((r) {
             final format = (r['format'] as String?)?.toUpperCase() ?? '';
             return format == 'ZIP' || format == 'GTFS';
           }).toList();
 
           if (zipResources.isEmpty) {
-             throw Exception('No ZIP/GTFS resources found for dataset $datasetId');
+            throw Exception(
+              'No ZIP/GTFS resources found for dataset $datasetId',
+            );
           }
 
           zipResources.sort((a, b) {
-            final dateA = DateTime.tryParse(a['last_modified'] ?? '') ?? DateTime(0);
-            final dateB = DateTime.tryParse(b['last_modified'] ?? '') ?? DateTime(0);
+            final dateA =
+                DateTime.tryParse(a['last_modified'] ?? '') ?? DateTime(0);
+            final dateB =
+                DateTime.tryParse(b['last_modified'] ?? '') ?? DateTime(0);
             return dateB.compareTo(dateA);
           });
 
           return zipResources
               .where((r) => r['url'] != null && r['id'] != null)
-              .map((r) => GtfsResourceInfo(url: r['url'] as String, resourceId: r['id'] as String))
+              .map(
+                (r) => GtfsResourceInfo(
+                  url: r['url'] as String,
+                  resourceId: r['id'] as String,
+                ),
+              )
               .toList();
         }
       }

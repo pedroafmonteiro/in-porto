@@ -125,38 +125,40 @@ class DownloadDataView extends StatelessWidget {
                                     ),
                                     trailing:
                                         agency.value == AgencyLoadStatus.loading
-                                            ? Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Text(
-                                                    '${((agencyProgress[agency.key] ?? 0.0) * 100).toInt()}%',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall,
-                                                  ),
-                                                  const SizedBox(width: 8),
-                                                  SizedBox(
-                                                    width: 24,
-                                                    height: 24,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      value: agencyProgress[
-                                                          agency.key],
+                                        ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                '${((agencyProgress[agency.key] ?? 0.0) * 100).toInt()}%',
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.bodySmall,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                      value:
+                                                          agencyProgress[agency
+                                                              .key],
                                                       strokeWidth: 2.5,
                                                     ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Icon(
-                                                agency.value ==
-                                                        AgencyLoadStatus.done
-                                                    ? Icons.check_rounded
-                                                    : Icons.cloud_off_rounded,
-                                                color: agency.value ==
-                                                        AgencyLoadStatus.done
-                                                    ? Colors.green
-                                                    : Colors.grey,
                                               ),
+                                            ],
+                                          )
+                                        : Icon(
+                                            agency.value ==
+                                                    AgencyLoadStatus.done
+                                                ? Icons.check_rounded
+                                                : Icons.cloud_off_rounded,
+                                            color:
+                                                agency.value ==
+                                                    AgencyLoadStatus.done
+                                                ? Colors.green
+                                                : Colors.grey,
+                                          ),
                                   ),
                                 ),
                               ],

@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsService {
   SettingsService._privateConstructor();
 
-  static final SettingsService _instance = SettingsService._privateConstructor();
+  static final SettingsService _instance =
+      SettingsService._privateConstructor();
 
   factory SettingsService() {
     return _instance;
@@ -19,7 +20,11 @@ class SettingsService {
     final appearance = prefs.getString(_keyAppearance) ?? 'system';
     final language = prefs.getString(_keyLanguage) ?? 'system';
     final hasSeenOnboarding = prefs.getInt(_keyHasSeenOnboarding) ?? 0;
-    return Settings(appearance: appearance, language: language, hasSeenOnboarding: hasSeenOnboarding);
+    return Settings(
+      appearance: appearance,
+      language: language,
+      hasSeenOnboarding: hasSeenOnboarding,
+    );
   }
 
   Future<void> saveSettings(Settings settings) async {
