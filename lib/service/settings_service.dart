@@ -1,4 +1,4 @@
-import 'package:in_porto/model/settings.dart';
+import 'package:in_porto/data/model/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService {

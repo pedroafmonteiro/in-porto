@@ -2,11 +2,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_live/sqflite_live.dart';
 import 'package:path/path.dart';
 
-class DatabaseService {
-  DatabaseService._privateConstructor();
-  static final DatabaseService _instance =
-      DatabaseService._privateConstructor();
-  factory DatabaseService() => _instance;
+class DatabaseHelper {
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper _instance =
+      DatabaseHelper._privateConstructor();
+  factory DatabaseHelper() => _instance;
 
   static Database? _db;
   static const _dbName = 'gtfs.db';

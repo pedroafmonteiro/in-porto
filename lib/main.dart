@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:in_porto/service/database_service.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
 import 'package:in_porto/viewmodel/data_viewmodel.dart';
@@ -15,9 +14,6 @@ void main() async {
   final settingsViewModel = SettingsViewModel();
   await settingsViewModel.load();
 
-  final databaseService = DatabaseService();
-  final db = await databaseService.db;
-
   runApp(
     MultiProvider(
       providers: [
@@ -28,7 +24,7 @@ void main() async {
           create: (_) => ConnectivityViewmodel(),
         ),
         ChangeNotifierProvider<DataViewModel>(
-          create: (_) => DataViewModel(db: db),
+          create: (_) => DataViewModel(),
         ),
       ],
       child: const MainApp(),

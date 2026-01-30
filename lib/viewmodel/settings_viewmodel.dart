@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:in_porto/model/settings.dart';
+import 'package:in_porto/data/model/settings.dart';
 import 'package:in_porto/service/settings_service.dart';
 
 class SettingsViewModel extends ChangeNotifier {
