@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/common/buttons.dart';
-import 'package:in_porto/view/common/transitions.dart';
 import 'package:in_porto/view/onboarding/pages/download_data_view.dart';
 
 class OnboardingContainer extends StatelessWidget {
@@ -27,8 +26,8 @@ class OnboardingContainer extends StatelessWidget {
             MainButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                  buildSharedAxisPageRoute(
-                    page: const DownloadDataView(),
+                  MaterialPageRoute(
+                    builder: (context) => const DownloadDataView(),
                   ),
                 );
               },

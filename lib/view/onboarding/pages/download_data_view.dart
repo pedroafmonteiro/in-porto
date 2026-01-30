@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/common/buttons.dart';
-import 'package:in_porto/view/common/transitions.dart';
 import 'package:in_porto/view/navigation/navigation_view.dart';
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
 import 'package:in_porto/viewmodel/data_viewmodel.dart';
@@ -202,8 +201,8 @@ class DownloadDataView extends StatelessWidget {
                                 .read<SettingsViewModel>()
                                 .setHasSeenOnboarding(1);
                             Navigator.of(context).pushReplacement(
-                              buildSharedAxisPageRoute(
-                                page: const NavigationView(),
+                              MaterialPageRoute(
+                                builder: (context) => const NavigationView(),
                               ),
                             );
                           },

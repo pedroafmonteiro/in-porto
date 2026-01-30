@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
-import 'package:in_porto/view/common/transitions.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
 import 'package:in_porto/viewmodel/data_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
@@ -66,8 +65,8 @@ class DebugView extends StatelessWidget {
                               .deleteAllGtfsData();
                           if (context.mounted) {
                             Navigator.of(context).pushReplacement(
-                              buildSharedAxisPageRoute(
-                                page: const OnboardingView(),
+                              MaterialPageRoute(
+                                builder: (context) => const OnboardingView(),
                               ),
                             );
                           }

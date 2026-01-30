@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_porto/view/common/transitions.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -32,6 +33,12 @@ class AppTheme {
             surfaceContainer: const Color(0xFFE9EDF3),
             onSurface: const Color(0xFF1A1C1E),
           ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: SharedAxisBackTransitionsBuilder(),
+          TargetPlatform.iOS: SharedAxisBackTransitionsBuilder(),
+        },
+      ),
     );
   }
 
@@ -65,6 +72,12 @@ class AppTheme {
             surfaceContainer: const Color(0xFF23262B),
             onSurface: const Color(0xFFF5F7FA),
           ),
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: SharedAxisBackTransitionsBuilder(),
+          TargetPlatform.iOS: SharedAxisBackTransitionsBuilder(),
+        },
+      ),
     );
   }
 }

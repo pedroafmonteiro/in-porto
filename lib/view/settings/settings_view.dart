@@ -5,7 +5,6 @@ import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
 import 'package:in_porto/view/settings/pages/debug_view.dart';
 import 'package:in_porto/view/settings/pages/language_settings_view.dart';
 import 'package:in_porto/view/settings/pages/licenses_view.dart';
-import 'package:in_porto/view/common/transitions.dart';
 import 'package:in_porto/view/settings/pages/public_transportation_view.dart';
 
 class SettingsView extends StatelessWidget {
@@ -29,8 +28,8 @@ class SettingsView extends StatelessWidget {
               icon: Icon(Icons.developer_mode_rounded),
               onPressed: () {
                 Navigator.of(context).push(
-                  buildSharedAxisPageRoute(
-                    page: const DebugView(),
+                  MaterialPageRoute(
+                    builder: (context) => const DebugView(),
                   ),
                 );
               },
@@ -53,8 +52,8 @@ class SettingsView extends StatelessWidget {
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
-                        buildSharedAxisPageRoute(
-                          page: const AppearanceSettingsView(),
+                        MaterialPageRoute(
+                          builder: (context) => const AppearanceSettingsView(),
                         ),
                       );
                     },
@@ -67,8 +66,8 @@ class SettingsView extends StatelessWidget {
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
-                        buildSharedAxisPageRoute(
-                          page: const LanguageSettingsView(),
+                        MaterialPageRoute(
+                          builder: (context) => const LanguageSettingsView(),
                         ),
                       );
                     },
@@ -83,8 +82,9 @@ class SettingsView extends StatelessWidget {
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
-                        buildSharedAxisPageRoute(
-                          page: const PublicTransportationView(),
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const PublicTransportationView(),
                         ),
                       );
                     },
@@ -99,8 +99,8 @@ class SettingsView extends StatelessWidget {
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.of(context).push(
-                        buildSharedAxisPageRoute(
-                          page: const LicensesView(),
+                        MaterialPageRoute(
+                          builder: (context) => const LicensesView(),
                         ),
                       );
                     },
