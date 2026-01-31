@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/data/registry/agency_registry.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 
 class PublicTransportationView extends StatelessWidget {
@@ -18,54 +19,28 @@ class PublicTransportationView extends StatelessWidget {
           AppLocalizations.of(context)!.publicTransportationTitle,
         ),
       ),
-      body: ListView(
+      body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
-        children: [
-          Card(
+        itemCount: AgencyRegistry.agencies.length,
+        itemBuilder: (context, index) {
+          final agency = AgencyRegistry.agencies[index];
+          return Card(
             child: ListTile(
               contentPadding: const EdgeInsets.all(16.0),
-              title: Text(AppLocalizations.of(context)!.stcp),
+              title: Text(agency.name),
               leading: Image.asset(
-                'assets/images/stcp.png',
+                'assets/images/${agency.id}.png',
                 width: 60,
                 height: 60,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.directions_bus, size: 60);
+                },
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {},
             ),
-          ),
-          Card(
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(16.0),
-              title: Text(AppLocalizations.of(context)!.metrodoporto),
-              leading: Image.asset(
-                'assets/images/metrodoporto.png',
-                width: 60,
-                height: 60,
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-          Card(
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(
-                left: 16.0,
-                right: 12.0,
-                top: 16.0,
-                bottom: 16.0,
-              ),
-              title: Text(AppLocalizations.of(context)!.cpFull),
-              leading: Image.asset(
-                'assets/images/cp.png',
-                width: 60,
-                height: 60,
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: () {},
-            ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

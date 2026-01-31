@@ -49,7 +49,8 @@ class GtfsParser {
   }
 
   bool hasFile(String filename) {
-    return _archive.files.any((f) => f.name.toLowerCase() == filename);
+    final lower = filename.toLowerCase();
+    return _archive.files.any((f) => f.name.toLowerCase().endsWith(lower));
   }
 
   List<String> _getLines(String filename) {
@@ -57,8 +58,9 @@ class GtfsParser {
       return _cache[filename]!;
     }
 
+    final lower = filename.toLowerCase();
     final file = _archive.files.firstWhere(
-      (f) => f.name.toLowerCase() == filename,
+      (f) => f.name.toLowerCase().endsWith(lower),
       orElse: () => throw Exception('$filename not found in GTFS zip'),
     );
 

@@ -1,4 +1,4 @@
-import 'objectbox.dart';
+import 'objectbox.dart' as local_obx;
 import '../../model/gtfs/agency.dart';
 import '../../model/gtfs/calendar.dart';
 import '../../model/gtfs/calendar_date.dart';
@@ -31,16 +31,18 @@ class GtfsLocalDataSource {
     Iterable<Map<String, dynamic>> rows, {
     Function(double)? onProgress,
     int? totalRows,
+    String? agencyId,
   }) async {
-    final store = await ObjectBox.getStore();
+    final store = await local_obx.ObjectBox.getStore();
     final total = totalRows ?? (rows is List ? rows.length : 0);
-    final batchSize = 500;
+    // Increased batch size for better performance
+    const batchSize = 2000;
     int processed = 0;
 
     if (_currentTable != table) {
       _currentTable = table;
       _clearCaches();
-      await _preloadCache(store, table);
+      await _preloadCache(store, table, agencyId);
     }
 
     List<dynamic> batch = [];
@@ -150,21 +152,66 @@ class GtfsLocalDataSource {
     _calendarIdCache.clear();
   }
 
-  Future<void> _preloadCache(Store store, String table) async {
+  int? _getAgencyInternalId(Store store, String agencyId) {
+    final query =
+        store.box<Agency>().query(Agency_.agencyId.equals(agencyId)).build();
+    final id = query.findFirst()?.id;
+    query.close();
+    return id;
+  }
+
+  List<int> _getRouteIdsForAgency(Store store, int agencyInternalId) {
+    final query =
+        store
+            .box<Route>()
+            .query(Route_.agency.equals(agencyInternalId))
+            .build();
+    final ids = query.findIds();
+    query.close();
+    return ids;
+  }
+
+  Future<void> _preloadCache(
+    Store store,
+    String table,
+    String? agencyId,
+  ) async {
     switch (table) {
       case _routeTable:
         final agencyBox = store.box<Agency>();
-        final agencies = agencyBox.getAll();
+        final query =
+            agencyId != null
+                ? agencyBox.query(Agency_.agencyId.equals(agencyId)).build()
+                : agencyBox.query().build();
+        final agencies = query.find();
+        query.close();
         for (var a in agencies) {
           _agencyIdCache[a.agencyId] = a.id;
         }
         break;
+
       case _tripTable:
         final routeBox = store.box<Route>();
-        final routeQuery = routeBox.query().build();
-        final routeIds = routeQuery.findIds();
-        final routeGtfsIds = routeQuery.property(Route_.routeId).find();
-        routeQuery.close();
+        List<int> routeIds = [];
+        List<String> routeGtfsIds = [];
+
+        if (agencyId != null) {
+          final agencyInternalId = _getAgencyInternalId(store, agencyId);
+          if (agencyInternalId != null) {
+            final query =
+                routeBox
+                    .query(Route_.agency.equals(agencyInternalId))
+                    .build();
+            routeIds = query.findIds();
+            routeGtfsIds = query.property(Route_.routeId).find();
+            query.close();
+          }
+        } else {
+          final query = routeBox.query().build();
+          routeIds = query.findIds();
+          routeGtfsIds = query.property(Route_.routeId).find();
+          query.close();
+        }
 
         if (routeIds.length == routeGtfsIds.length) {
           for (int i = 0; i < routeIds.length; i++) {
@@ -173,11 +220,15 @@ class GtfsLocalDataSource {
         }
 
         final calendarBox = store.box<Calendar>();
-        final calendarQuery = calendarBox.query().build();
+        final calendarQuery =
+            agencyId != null
+                ? calendarBox
+                    .query(Calendar_.agencyId.equals(agencyId))
+                    .build()
+                : calendarBox.query().build();
         final calendarIds = calendarQuery.findIds();
-        final calendarServiceIds = calendarQuery
-            .property(Calendar_.serviceId)
-            .find();
+        final calendarServiceIds =
+            calendarQuery.property(Calendar_.serviceId).find();
         calendarQuery.close();
 
         if (calendarIds.length == calendarServiceIds.length) {
@@ -186,9 +237,13 @@ class GtfsLocalDataSource {
           }
         }
         break;
+
       case _stopTimeTable:
         final stopBox = store.box<Stop>();
-        final stopQuery = stopBox.query().build();
+        final stopQuery =
+            agencyId != null
+                ? stopBox.query(Stop_.agencyId.equals(agencyId)).build()
+                : stopBox.query().build();
         final stopIds = stopQuery.findIds();
         final stopGtfsIds = stopQuery.property(Stop_.stopId).find();
         stopQuery.close();
@@ -199,10 +254,28 @@ class GtfsLocalDataSource {
         }
 
         final tripBox = store.box<Trip>();
-        final tripQuery = tripBox.query().build();
-        final tripIds = tripQuery.findIds();
-        final tripGtfsIds = tripQuery.property(Trip_.tripId).find();
-        tripQuery.close();
+        List<int> tripIds = [];
+        List<String> tripGtfsIds = [];
+
+        if (agencyId != null) {
+          final agencyInternalId = _getAgencyInternalId(store, agencyId);
+          if (agencyInternalId != null) {
+            final routeIds = _getRouteIdsForAgency(store, agencyInternalId);
+            for (final rId in routeIds) {
+              final q =
+                  tripBox.query(Trip_.route.equals(rId)).build();
+              tripIds.addAll(q.findIds());
+              tripGtfsIds.addAll(q.property(Trip_.tripId).find());
+              q.close();
+            }
+          }
+        } else {
+          final query = tripBox.query().build();
+          tripIds = query.findIds();
+          tripGtfsIds = query.property(Trip_.tripId).find();
+          query.close();
+        }
+
         if (tripIds.length == tripGtfsIds.length) {
           for (int i = 0; i < tripIds.length; i++) {
             _tripIdCache[tripGtfsIds[i]] = tripIds[i];
@@ -213,21 +286,85 @@ class GtfsLocalDataSource {
   }
 
   Future<void> deleteAll() async {
-    final store = await ObjectBox.getStore();
-    store.box<Agency>().removeAll();
-    store.box<Route>().removeAll();
-    store.box<Trip>().removeAll();
-    store.box<Stop>().removeAll();
-    store.box<StopTime>().removeAll();
-    store.box<Calendar>().removeAll();
-    store.box<CalendarDate>().removeAll();
-    store.box<Shape>().removeAll();
+    final store = await local_obx.ObjectBox.getStore();
+    Future<void> removeAllWithChunks<T>(Box<T> box) async {
+      try {
+        final query = box.query().build();
+        final ids = query.findIds();
+        query.close();
+        if (ids.isEmpty) return;
+        const chunkSize = 5000;
+        for (var i = 0; i < ids.length; i += chunkSize) {
+          final end = (i + chunkSize < ids.length) ? i + chunkSize : ids.length;
+          final chunk = ids.sublist(i, end);
+          box.removeMany(chunk);
+          await Future.delayed(Duration.zero);
+        }
+      } catch (e) {
+        // Catch and ignore errors during deletion
+      }
+    }
+
+    await removeAllWithChunks<Agency>(store.box<Agency>());
+    await removeAllWithChunks<Route>(store.box<Route>());
+    await removeAllWithChunks<Trip>(store.box<Trip>());
+    await removeAllWithChunks<Stop>(store.box<Stop>());
+    await removeAllWithChunks<StopTime>(store.box<StopTime>());
+    await removeAllWithChunks<Calendar>(store.box<Calendar>());
+    await removeAllWithChunks<CalendarDate>(store.box<CalendarDate>());
+    await removeAllWithChunks<Shape>(store.box<Shape>());
+
     _currentTable = '';
     _clearCaches();
   }
 
   Future<void> clearDataForAgency(String agencyId) async {
-    final store = await ObjectBox.getStore();
+    final store = await local_obx.ObjectBox.getStore();
+
+    final agencyInternalId = _getAgencyInternalId(store, agencyId);
+    if (agencyInternalId == null) {
+    } else {
+      final routeBox = store.box<Route>();
+      final routeQuery =
+          routeBox.query(Route_.agency.equals(agencyInternalId)).build();
+      final routeIds = routeQuery.findIds();
+      routeQuery.close();
+
+      if (routeIds.isNotEmpty) {
+        final tripBox = store.box<Trip>();
+        List<int> allTripIds = [];
+        List<String> allTripGtfsIds = [];
+
+        for (final rId in routeIds) {
+          final q = tripBox.query(Trip_.route.equals(rId)).build();
+          allTripIds.addAll(q.findIds());
+          allTripGtfsIds.addAll(q.property(Trip_.tripId).find());
+          q.close();
+        }
+
+        if (allTripIds.isNotEmpty) {
+          final stopTimeBox = store.box<StopTime>();
+          const chunkSize = 5000;
+          for (var i = 0; i < allTripGtfsIds.length; i += chunkSize) {
+             final end = (i + chunkSize < allTripGtfsIds.length) ? i + chunkSize : allTripGtfsIds.length;
+             final chunk = allTripGtfsIds.sublist(i, end);
+             final q = stopTimeBox.query(StopTime_.tripGtfsId.oneOf(chunk)).build();
+             q.remove();
+             q.close();
+          }
+
+          for (var i = 0; i < allTripIds.length; i += chunkSize) {
+             final end = (i + chunkSize < allTripIds.length) ? i + chunkSize : allTripIds.length;
+             final chunk = allTripIds.sublist(i, end);
+             tripBox.removeMany(chunk);
+          }
+        }
+
+        routeBox.removeMany(routeIds);
+      }
+      
+      store.box<Agency>().remove(agencyInternalId);
+    }
 
     final stopBox = store.box<Stop>();
     final stopQuery = stopBox.query(Stop_.agencyId.equals(agencyId)).build();
@@ -240,65 +377,20 @@ class GtfsLocalDataSource {
     shapeQuery.close();
 
     final calendarBox = store.box<Calendar>();
-    final calendarQuery = calendarBox
-        .query(Calendar_.agencyId.equals(agencyId))
-        .build();
+    final calendarQuery =
+        calendarBox.query(Calendar_.agencyId.equals(agencyId)).build();
     calendarQuery.remove();
     calendarQuery.close();
 
     final calendarDateBox = store.box<CalendarDate>();
-    final calendarDateQuery = calendarDateBox
-        .query(CalendarDate_.agencyId.equals(agencyId))
-        .build();
+    final calendarDateQuery =
+        calendarDateBox.query(CalendarDate_.agencyId.equals(agencyId)).build();
     calendarDateQuery.remove();
     calendarDateQuery.close();
-
-    final gtfsAgencyBox = store.box<Agency>();
-    final agencyQuery = gtfsAgencyBox
-        .query(Agency_.agencyId.equals(agencyId))
-        .build();
-    final agencies = agencyQuery.find();
-    agencyQuery.close();
-
-    if (agencies.isEmpty) return;
-
-    for (final agency in agencies) {
-      final agencyInternalId = agency.id;
-
-      final routeBox = store.box<Route>();
-      final routeQuery = routeBox
-          .query(Route_.agency.equals(agencyInternalId))
-          .build();
-      final routes = routeQuery.find();
-      routeQuery.close();
-
-      final tripBox = store.box<Trip>();
-      final stopTimeBox = store.box<StopTime>();
-
-      for (final route in routes) {
-        final tripQuery = tripBox.query(Trip_.route.equals(route.id)).build();
-        final trips = tripQuery.find();
-        tripQuery.close();
-
-        for (final trip in trips) {
-          final stopTimeQuery = stopTimeBox
-              .query(StopTime_.trip.equals(trip.id))
-              .build();
-          stopTimeQuery.remove();
-          stopTimeQuery.close();
-        }
-
-        tripBox.removeMany(trips.map((t) => t.id).toList());
-      }
-
-      routeBox.removeMany(routes.map((r) => r.id).toList());
-
-      gtfsAgencyBox.remove(agencyInternalId);
-    }
   }
 
   Future<Map<String, int>> getDataCounts() async {
-    final store = await ObjectBox.getStore();
+    final store = await local_obx.ObjectBox.getStore();
     return {
       'agencies': store.box<Agency>().count(),
       'stops': store.box<Stop>().count(),
@@ -312,7 +404,7 @@ class GtfsLocalDataSource {
   }
 
   Future<bool> hasDataForAgency(String agencyId) async {
-    final store = await ObjectBox.getStore();
+    final store = await local_obx.ObjectBox.getStore();
     final query = store
         .box<Route>()
         .query(Route_.agencyIdString.equals(agencyId))

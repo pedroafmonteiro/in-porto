@@ -278,6 +278,7 @@ class GtfsRepository {
               onProgress(totalProgress);
             }
           },
+          agencyId: agency.id,
         );
       }
       currentBaseProgress += step.weight;

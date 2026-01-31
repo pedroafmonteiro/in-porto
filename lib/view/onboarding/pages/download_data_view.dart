@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_porto/data/registry/agency_registry.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/common/buttons.dart';
 import 'package:in_porto/view/navigation/navigation_view.dart';
@@ -117,10 +118,32 @@ class DownloadDataView extends StatelessWidget {
                                       ),
                                     ),
                                     title: Text(agency.key),
-                                    leading: Image.asset(
-                                      'assets/images/${agency.key.toLowerCase().replaceAll(' ', '')}.png',
-                                      width: 60,
-                                      height: 60,
+                                    leading: Builder(
+                                      builder: (context) {
+                                        final appAgency =
+                                            AgencyRegistry.getAgencyByName(
+                                              agency.key,
+                                            );
+                                        final imagePath = appAgency != null
+                                            ? 'assets/images/${appAgency.id}.png'
+                                            : 'assets/images/${agency.key.toLowerCase().replaceAll(' ', '')}.png';
+                                        return Image.asset(
+                                          imagePath,
+                                          width: 60,
+                                          height: 60,
+                                          errorBuilder:
+                                              (
+                                                context,
+                                                error,
+                                                stackTrace,
+                                              ) {
+                                                return const Icon(
+                                                  Icons.directions_bus,
+                                                  size: 60,
+                                                );
+                                              },
+                                        );
+                                      },
                                     ),
                                     trailing:
                                         agency.value == AgencyLoadStatus.loading
