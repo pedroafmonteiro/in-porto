@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 /* import 'package:in_porto/view/onboarding/onboarding_view.dart'; */
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
-/* import 'package:in_porto/viewmodel/data_viewmodel.dart'; */
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -24,7 +24,7 @@ void main() async {
           create: (_) => ConnectivityViewmodel(),
         ),
       ],
-      child: const MainApp(),
+      child: ProviderScope(child: const MainApp()),
     ),
   );
 }
