@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/onboarding/onboarding_view.dart';
-import 'package:in_porto/viewmodel/data_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -60,9 +59,6 @@ class DebugView extends StatelessWidget {
                           context
                               .read<SettingsViewModel>()
                               .setHasSeenOnboarding(0);
-                          await context
-                              .read<DataViewModel>()
-                              .deleteAllGtfsData();
                           if (context.mounted) {
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(

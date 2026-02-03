@@ -5,7 +5,6 @@ import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
 import 'package:in_porto/view/settings/pages/debug_view.dart';
 import 'package:in_porto/view/settings/pages/language_settings_view.dart';
 import 'package:in_porto/view/settings/pages/licenses_view.dart';
-import 'package:in_porto/view/settings/pages/public_transportation_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -68,23 +67,6 @@ class SettingsView extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const LanguageSettingsView(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      AppLocalizations.of(context)!.publicTransportationTitle,
-                    ),
-                    leading: Icon(Icons.directions_bus_rounded),
-                    trailing: Icon(Icons.chevron_right),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const PublicTransportationView(),
                         ),
                       );
                     },
