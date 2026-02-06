@@ -33,7 +33,7 @@ final class StopViewModelProvider
   StopViewModel create() => StopViewModel();
 }
 
-String _$stopViewModelHash() => r'79bb825af4fd766a677ad705498dc253a9bfe3a7';
+String _$stopViewModelHash() => r'6343aca9b4b1763b7fa4e25a2648e4f2313ed9d0';
 
 abstract class _$StopViewModel extends $AsyncNotifier<List<Stop>> {
   FutureOr<List<Stop>> build();
@@ -102,7 +102,7 @@ final class StopDetailsProvider
   }
 }
 
-String _$stopDetailsHash() => r'c48def1affcb5bd1933e861e399140ee5bcf31cc';
+String _$stopDetailsHash() => r'3b6c81f612b8561e7da9655890b578723922ce11';
 
 final class StopDetailsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Stop>, String> {
