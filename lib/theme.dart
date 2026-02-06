@@ -20,6 +20,9 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
+      iconTheme: const IconThemeData(
+        color: Color(0xFF1A1C1E),
+      ),
       appBarTheme: AppBarTheme(
         centerTitle: false,
         actionsPadding: const EdgeInsets.only(right: 8.0),
@@ -58,6 +61,9 @@ class AppTheme {
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
+      ),
+      iconTheme: const IconThemeData(
+        color: Color(0xFFF5F7FA),
       ),
       appBarTheme: AppBarTheme(
         centerTitle: false,

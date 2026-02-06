@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:in_porto/view/onboarding/onboarding_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+/* import 'package:in_porto/view/onboarding/onboarding_view.dart'; */
 import 'package:in_porto/viewmodel/connectivity_viewmodel.dart';
-import 'package:in_porto/viewmodel/data_viewmodel.dart';
 import 'package:in_porto/viewmodel/settings_viewmodel.dart';
 import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
@@ -23,11 +23,8 @@ void main() async {
         ChangeNotifierProvider<ConnectivityViewmodel>(
           create: (_) => ConnectivityViewmodel(),
         ),
-        ChangeNotifierProvider<DataViewModel>(
-          create: (_) => DataViewModel(),
-        ),
       ],
-      child: const MainApp(),
+      child: ProviderScope(child: const MainApp()),
     ),
   );
 }
@@ -38,10 +35,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appearance = context.watch<SettingsViewModel>().settings.appearance;
-    final hasSeenOnboarding = context
+    /* final hasSeenOnboarding = context
         .watch<SettingsViewModel>()
         .settings
-        .hasSeenOnboarding;
+        .hasSeenOnboarding; */
     return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       theme: AppTheme.lightTheme,
@@ -56,9 +53,7 @@ class MainApp extends StatelessWidget {
       locale: context.watch<SettingsViewModel>().settings.language == 'system'
           ? null
           : Locale(context.watch<SettingsViewModel>().settings.language),
-      home: hasSeenOnboarding > 0
-          ? const NavigationView()
-          : const OnboardingView(),
+      home: NavigationView(),
     );
   }
 }

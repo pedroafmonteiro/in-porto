@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/common/buttons.dart';
-import 'package:in_porto/view/onboarding/pages/download_data_view.dart';
 
 class OnboardingContainer extends StatelessWidget {
   const OnboardingContainer({super.key});
@@ -24,13 +23,7 @@ class OnboardingContainer extends StatelessWidget {
             ),
             SizedBox(height: 100),
             MainButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const DownloadDataView(),
-                  ),
-                );
-              },
+              onPressed: () {},
               text: AppLocalizations.of(context)!.getStarted,
               icon: Icons.arrow_forward_ios_rounded,
             ),

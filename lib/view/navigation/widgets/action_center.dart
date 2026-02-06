@@ -1,40 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
-import 'package:in_porto/l10n/app_localizations.dart';
-import 'package:in_porto/view/favorites/favorites_view.dart';
-import 'package:in_porto/view/search/search_view.dart';
-import 'package:in_porto/view/settings/settings_view.dart';
+
+typedef ActionCenterBuilder =
+    Widget Function(
+      BuildContext context, {
+      required VoidCallback onOpen,
+      VoidCallback? onClose,
+      required ValueChanged<Widget> onSelected,
+    });
+
+class ActionCenterOverride {
+  final ActionCenterBuilder closedBuilder;
+  final WidgetBuilder initialOpenBuilder;
+  final Object key;
+
+  const ActionCenterOverride({
+    required this.closedBuilder,
+    required this.initialOpenBuilder,
+    required this.key,
+  });
+}
 
 class ActionCenter extends StatefulWidget {
-  const ActionCenter({super.key});
+  final ActionCenterOverride overrideContent;
+  final VoidCallback? onCloseOverride;
+
+  const ActionCenter({
+    super.key,
+    required this.overrideContent,
+    this.onCloseOverride,
+  });
 
   @override
   State<ActionCenter> createState() => _ActionCenterState();
 }
 
 class _ActionCenterState extends State<ActionCenter> {
-  Widget _selectedView = const SearchView();
+  late Widget _selectedView;
+  Object? _activeKey;
 
-  void _openFavoritesView() {
-    setState(() {
-      _selectedView = const FavoritesView();
-    });
-  }
-
-  void _openSearchView() {
-    setState(() {
-      _selectedView = const SearchView();
-    });
-  }
-
-  void _openSettingsView() {
-    setState(() {
-      _selectedView = const SettingsView();
-    });
+  void _updateActiveOverride() {
+    final current = widget.overrideContent;
+    if (_activeKey != current.key) {
+      _activeKey = current.key;
+      _selectedView = current.initialOpenBuilder(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _updateActiveOverride();
+
     return Container(
       margin: const EdgeInsets.all(32.0),
       child: OpenContainer(
@@ -48,79 +64,26 @@ class _ActionCenterState extends State<ActionCenter> {
         ),
         closedColor: Theme.of(context).colorScheme.surface,
         openColor: Theme.of(context).colorScheme.surface,
-        closedBuilder: (context, action) {
-          return ClipRSuperellipse(
+        closedBuilder: (context, action) => AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.fastEaseInToSlowEaseOut,
+          alignment: Alignment.center,
+          child: ClipRSuperellipse(
+            key: ValueKey(widget.overrideContent.key),
             borderRadius: BorderRadius.circular(24.0),
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 10.0,
-              ),
+              padding: const EdgeInsets.all(10.0),
               color: Theme.of(context).colorScheme.surface,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.favorite_rounded,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () {
-                      _openFavoritesView();
-                      action();
-                    },
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _openSearchView();
-                      action();
-                    },
-                    child: ClipRSuperellipse(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Container(
-                        color: Theme.of(context).colorScheme.surfaceContainer,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: 8.0,
-                            bottom: 8.0,
-                            left: 40.0,
-                            right: 40.0,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.search,
-                                style: TextStyle(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurface,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.settings_rounded,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () {
-                      _openSettingsView();
-                      action();
-                    },
-                  ),
-                ],
+              child: widget.overrideContent.closedBuilder(
+                context,
+                onOpen: action,
+                onClose: widget.onCloseOverride,
+                onSelected: (w) => setState(() => _selectedView = w),
               ),
             ),
-          );
-        },
-        openBuilder: (context, action) {
-          return _selectedView;
-        },
+          ),
+        ),
+        openBuilder: (context, action) => _selectedView,
       ),
     );
   }
