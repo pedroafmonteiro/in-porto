@@ -1,9 +1,10 @@
+import 'package:in_porto/model/navigation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'route.g.dart';
 
 @JsonSerializable()
-class TransportRoute {
+class TransportRoute implements NavigationOverride {
   final String id;
 
   @JsonKey(name: 'number')
@@ -28,7 +29,7 @@ class TransportRoute {
 
   factory TransportRoute.fromJson(Map<String, dynamic> json) {
     final id = json['id'] ?? json['route_id'];
-    
+
     final modifiedJson = Map<String, dynamic>.from(json);
     modifiedJson['id'] = id;
 

@@ -1,8 +1,9 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
+import 'package:in_porto/viewmodel/navigation_state.dart';
 
 class MapView extends ConsumerStatefulWidget {
   const MapView({super.key});
@@ -47,29 +48,35 @@ class _MapViewState extends ConsumerState<MapView> {
   }
 
   void _updateMarkers(List<Stop> stops) {
-    final shouldRecalculate = _currentBounds != _previousBounds ||
+    final shouldRecalculate =
+        _currentBounds != _previousBounds ||
         _currentZoom != _previousZoom ||
         _markers.isEmpty;
 
     if (shouldRecalculate) {
       _markers = stops
-          .where((stop) =>
-              _currentBounds != null &&
-              stop.latitude != null &&
-              stop.longitude != null &&
-              stop.latitude! >= _currentBounds!.southwest.latitude &&
-              stop.latitude! <= _currentBounds!.northeast.latitude &&
-              stop.longitude! >= _currentBounds!.southwest.longitude &&
-              stop.longitude! <= _currentBounds!.northeast.longitude &&
-              _currentZoom >= _minZoomToShowStops)
-          .map((stop) => Marker(
-                markerId: MarkerId(stop.id),
-                position: LatLng(stop.latitude!, stop.longitude!),
-                infoWindow: InfoWindow(
-                  title: stop.name ?? 'Stop',
-                  snippet: stop.code ?? '',
-                ),
-              ))
+          .where(
+            (stop) =>
+                _currentBounds != null &&
+                stop.latitude != null &&
+                stop.longitude != null &&
+                stop.latitude! >= _currentBounds!.southwest.latitude &&
+                stop.latitude! <= _currentBounds!.northeast.latitude &&
+                stop.longitude! >= _currentBounds!.southwest.longitude &&
+                stop.longitude! <= _currentBounds!.northeast.longitude &&
+                _currentZoom >= _minZoomToShowStops,
+          )
+          .map(
+            (stop) => Marker(
+              markerId: MarkerId(stop.id),
+              position: LatLng(stop.latitude!, stop.longitude!),
+              onTap: () {
+                ref
+                    .read(selectedNavigationOverrideProvider.notifier)
+                    .select(stop);
+              },
+            ),
+          )
           .toSet();
 
       _previousBounds = _currentBounds;
@@ -81,6 +88,9 @@ class _MapViewState extends ConsumerState<MapView> {
     return GoogleMap(
       onMapCreated: _onMapCreated,
       onCameraMove: _onCameraMove,
+      onTap: (LatLng latlng) {
+        ref.read(selectedNavigationOverrideProvider.notifier).clear();
+      },
       markers: _markers,
       tiltGesturesEnabled: false,
       buildingsEnabled: false,

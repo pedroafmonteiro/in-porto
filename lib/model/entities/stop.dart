@@ -1,10 +1,11 @@
 import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/model/navigation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'stop.g.dart';
 
 @JsonSerializable()
-class Stop {
+class Stop implements NavigationOverride {
   @JsonKey(name: 'stop_id')
   final String id;
 

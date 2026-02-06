@@ -24,16 +24,20 @@ class _StopDebugViewState extends ConsumerState<StopDebugView> {
           itemCount: stops.length + 1,
           itemBuilder: (context, index) {
             if (index == stops.length) {
-              return const Center(child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(),
-              ));
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
 
             final stop = stops[index];
             return ListTile(
               title: Text(stop.name ?? 'Unknown'),
-              subtitle: Text('ID: ${stop.id} | Lat: ${stop.latitude ?? 'N/A'} | Lon: ${stop.longitude ?? 'N/A'}'),
+              subtitle: Text(
+                'ID: ${stop.id} | Lat: ${stop.latitude ?? 'N/A'} | Lon: ${stop.longitude ?? 'N/A'}',
+              ),
               trailing: const Icon(Icons.bug_report_outlined),
               onTap: () => _showStopDetails(context, stop.id),
             );
@@ -51,7 +55,8 @@ class _StopDebugViewState extends ConsumerState<StopDebugView> {
       isScrollControlled: true,
       builder: (context) => DraggableScrollableSheet(
         expand: false,
-        builder: (context, scrollController) => StopDetailContent(stopId: stopId),
+        builder: (context, scrollController) =>
+            StopDetailContent(stopId: stopId),
       ),
     );
   }
@@ -64,7 +69,7 @@ class StopDetailContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stopDetailsAsync = ref.watch(stopDetailsProvider(stopId));
-    
+
     return stopDetailsAsync.when(
       data: (stop) {
         return Padding(
@@ -72,19 +77,33 @@ class StopDetailContent extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(stop.name ?? 'Unknown', style: Theme.of(context).textTheme.headlineSmall),
-              const Text('Available Routes:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                stop.name ?? 'Unknown',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const Text(
+                'Available Routes:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const Divider(),
               Expanded(
                 child: ListView(
-                  children: (stop.routes ?? []).map((r) => ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: r.color != null 
-                        ? Color(int.parse(r.color!.replaceFirst('#', '0xFF')))
-                        : Colors.grey,
-                    ),
-                    title: Text('${r.number} - ${r.name}'),
-                  )).toList(),
+                  children: (stop.routes ?? [])
+                      .map(
+                        (r) => ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: r.color != null
+                                ? Color(
+                                    int.parse(
+                                      r.color!.replaceFirst('#', '0xFF'),
+                                    ),
+                                  )
+                                : Colors.grey,
+                          ),
+                          title: Text('${r.number} - ${r.name}'),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ],
@@ -100,7 +119,10 @@ class StopDetailContent extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, size: 48, color: Colors.red),
               const SizedBox(height: 16),
-              Text('Error loading stop details', style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                'Error loading stop details',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
               Text('$error', textAlign: TextAlign.center),
             ],

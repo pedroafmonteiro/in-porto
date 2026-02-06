@@ -15,11 +15,11 @@ class PersistentCache<T> {
     required T Function(String json) deserializer,
     required String Function(T data) serializer,
     Duration? defaultTtl,
-  })  : _db = db,
-        _tableName = tableName,
-        defaultTtl = defaultTtl ?? const Duration(days: 30),
-        _deserializer = deserializer,
-        _serializer = serializer;
+  }) : _db = db,
+       _tableName = tableName,
+       defaultTtl = defaultTtl ?? const Duration(days: 30),
+       _deserializer = deserializer,
+       _serializer = serializer;
 
   static Future<void> initTable(Database db, String tableName) async {
     await db.execute('''

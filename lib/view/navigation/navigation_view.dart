@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/view/map/map_view.dart';
+import 'package:in_porto/view/navigation/navigation_mapper.dart';
 import 'package:in_porto/view/navigation/widgets/action_center.dart';
+import 'package:in_porto/viewmodel/navigation_state.dart';
 
-class NavigationView extends StatefulWidget {
+class NavigationView extends ConsumerWidget {
   const NavigationView({super.key});
 
   @override
-  State<NavigationView> createState() => _NavigationViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedOverride = ref.watch(selectedNavigationOverrideProvider);
+    final override = selectedOverride.buildActionCenterOverride();
 
-class _NavigationViewState extends State<NavigationView> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: const ActionCenter(),
+      bottomNavigationBar: ActionCenter(
+        overrideContent: override,
+        onCloseOverride: () =>
+            ref.read(selectedNavigationOverrideProvider.notifier).clear(),
+      ),
       body: const MapView(),
     );
   }
