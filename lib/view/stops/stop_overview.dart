@@ -73,10 +73,7 @@ class StopOverview extends ConsumerWidget {
                               )
                             : Container(),
                         loading: () => Container(),
-                        error: (e, st) => Text(
-                          'Unable to load lines.',
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
+                        error: (e, st) => Container(),
                       ),
                     ],
                   ),
@@ -122,18 +119,46 @@ class StopOverview extends ConsumerWidget {
                     );
                   }).toList(),
                 )
-              : Text(
-                  'No trips available.',
-                  style: Theme.of(context).textTheme.bodySmall,
+              : Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        size: 48,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'No upcoming trips.',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
           loading: () => Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: ExpressiveLoadingIndicator(),
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ExpressiveLoadingIndicator(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           error: (e, st) {
-            return Text(
-              'Unable to load trips.',
-              style: Theme.of(context).textTheme.bodySmall,
+            return Container(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    size: 48,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Unable to load trips.',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
             );
           },
         ),
