@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:in_porto/model/entities/trip.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/infrastructure/cache.dart';
 import 'package:in_porto/model/infrastructure/network_providers.dart';
@@ -48,6 +49,22 @@ class STCPRepository {
       return Stop.fromJson(data);
     } else {
       throw Exception('Failed to load stop $stopId: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Trip>> fetchStopRealtimeTrips(String stopId) async {
+    final uri = Uri.parse('$_baseUrl/stops/$stopId/realtime');
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['arrivals'];
+
+      return results.map((json) => Trip.fromJson(json)).toList();
+    } else {
+      throw Exception(
+        'Failed to load realtime routes for stop $stopId: ${response.statusCode}',
+      );
     }
   }
 }

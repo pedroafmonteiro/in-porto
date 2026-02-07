@@ -65,8 +65,8 @@ class _ActionCenterState extends State<ActionCenter> {
         closedColor: Theme.of(context).colorScheme.surface,
         openColor: Theme.of(context).colorScheme.surface,
         closedBuilder: (context, action) => AnimatedSize(
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.fastEaseInToSlowEaseOut,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCubicEmphasized,
           alignment: Alignment.center,
           child: ClipRSuperellipse(
             key: ValueKey(widget.overrideContent.key),
