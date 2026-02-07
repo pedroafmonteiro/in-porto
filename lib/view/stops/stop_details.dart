@@ -10,34 +10,36 @@ class StopDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncRoutes = ref.watch(stopRoutesProvider(stop));
+    final asyncSchedules = ref.watch(stopSchedulesProvider(stop));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: asyncRoutes.when(
-          data: (routes) =>
-              Text(routes.isNotEmpty ? routes.first.displayName ?? 'Stop' : 'Stop'),
-          loading: () => const Text('Loading...'),
-          error: (e, st) => const Text('Unknown stop'),
+        title: Text(
+          stop.name ?? 'Unknown stop',
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      body: Center(
-        child: asyncRoutes.when(
-          data: (routes) => Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              routes.isNotEmpty
-                  ? routes.first.displayName ?? 'No name available'
-                  : 'No name available',
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          loading: () => const CircularProgressIndicator(),
-          error: (e, st) => const Text('Failed to load stop'),
-        ),
+      body: asyncSchedules.when(
+        data: (schedules) {
+          if (schedules.isEmpty) {
+            return const Center(child: Text('No schedules found'));
+          }
+          return ListView.builder(
+            itemCount: schedules.length,
+            itemBuilder: (context, index) {
+              final schedule = schedules[index];
+              return ListTile(
+                title: Text('Route: ${schedule.routeId}'),
+                subtitle: Text('Arrival time: ${schedule.arrivalTime}'),
+              );
+            },
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
   }
