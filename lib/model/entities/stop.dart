@@ -1,4 +1,3 @@
-import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/navigation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,9 +14,6 @@ class Stop implements NavigationOverride {
   @JsonKey(name: 'stop_name')
   final String? name;
 
-  @JsonKey(name: 'stop_desc')
-  final String? description;
-
   @JsonKey(name: 'stop_lat')
   final double? latitude;
 
@@ -27,18 +23,13 @@ class Stop implements NavigationOverride {
   @JsonKey(name: 'zone_id')
   final String? zoneId;
 
-  @JsonKey(name: 'routes')
-  final List<TransportRoute>? routes;
-
   const Stop({
     required this.id,
     this.code,
     this.name,
-    this.description,
     this.latitude,
     this.longitude,
     this.zoneId,
-    this.routes,
   });
 
   factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);

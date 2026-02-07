@@ -1,6 +1,7 @@
 import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/view/common/route_badge.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
@@ -8,22 +9,20 @@ class StopOverview extends ConsumerWidget {
   final VoidCallback onOpen;
   final VoidCallback? onClose;
   final ValueChanged<Widget> onSelected;
-  final String stopId;
-  final String stopName;
+  final Stop stop;
 
   const StopOverview({
     super.key,
     required this.onOpen,
     this.onClose,
     required this.onSelected,
-    required this.stopId,
-    required this.stopName,
+    required this.stop,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncStop = ref.watch(stopDetailsProvider(stopId));
-    final asyncTrips = ref.watch(stopRealtimeTripsProvider(stopId));
+    final asyncRoutes = ref.watch(stopRoutesProvider(stop));
+    final asyncRealtime = ref.watch(stopRealtimeTripsProvider(stop));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -50,7 +49,7 @@ class StopOverview extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        stopName,
+                        stop.name ?? 'Unknown Stop',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -58,14 +57,14 @@ class StopOverview extends ConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
-                      asyncStop.when(
-                        data: (stop) => stop.routes!.isNotEmpty
+                      asyncRoutes.when(
+                        data: (routes) => routes.isNotEmpty
                             ? Wrap(
                                 spacing: 4.0,
                                 runSpacing: 4.0,
-                                children: stop.routes!.map((route) {
+                                children: routes.map((route) {
                                   return RouteBadge(
-                                    number: route.number,
+                                    number: route.shortName,
                                     color: route.color,
                                     textColor: route.textColor,
                                   );
@@ -82,7 +81,7 @@ class StopOverview extends ConsumerWidget {
             ),
           ],
         ),
-        asyncTrips.when(
+        asyncRealtime.when(
           data: (trips) => trips.isNotEmpty
               ? Column(
                   spacing: 8.0,

@@ -1,3 +1,4 @@
+import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/trip.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/entities/stop.dart';
@@ -23,13 +24,13 @@ class StopViewModel extends _$StopViewModel {
 }
 
 @riverpod
-Future<Stop> stopDetails(Ref ref, String stopId) async {
+Future<List<TransportRoute>> stopRoutes(Ref ref, Stop stop) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
-  return repository.fetchStopDetails(stopId);
+  return repository.fetchStopRoutes(stop);
 }
 
 @riverpod
-Future<List<Trip>> stopRealtimeTrips(Ref ref, String stopId) async {
+Future<List<Trip>> stopRealtimeTrips(Ref ref, Stop stop) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
-  return repository.fetchStopRealtimeTrips(stopId);
+  return repository.fetchStopRealtimeTrips(stop);
 }

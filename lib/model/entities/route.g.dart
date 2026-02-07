@@ -8,18 +8,24 @@ part of 'route.dart';
 
 TransportRoute _$TransportRouteFromJson(Map<String, dynamic> json) =>
     TransportRoute(
-      id: json['id'] as String,
-      number: json['number'] as String?,
-      name: json['name'] as String?,
-      color: json['color'] as String?,
-      textColor: json['text_color'] as String?,
+      id: json['route_id'] as String,
+      shortName: json['route_short_name'] as String?,
+      longName: json['route_long_name'] as String?,
+      displayName: json['display_name'] as String?,
+      directionName: json['direction_name'] as String?,
+      directionId: (json['direction_id'] as num?)?.toInt(),
+      color: json['route_color'] as String?,
+      textColor: json['route_text_color'] as String?,
     );
 
 Map<String, dynamic> _$TransportRouteToJson(TransportRoute instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'number': instance.number,
-      'name': instance.name,
-      'color': instance.color,
-      'text_color': instance.textColor,
+      'route_id': instance.id,
+      'direction_id': instance.directionId,
+      'route_short_name': instance.shortName,
+      'route_long_name': instance.longName,
+      'display_name': instance.displayName,
+      'direction_name': instance.directionName,
+      'route_color': instance.color,
+      'route_text_color': instance.textColor,
     };

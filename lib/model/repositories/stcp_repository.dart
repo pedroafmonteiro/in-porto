@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/trip.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/infrastructure/cache.dart';
@@ -40,20 +41,22 @@ class STCPRepository {
     }
   }
 
-  Future<Stop> fetchStopDetails(String stopId) async {
-    final uri = Uri.parse('$_baseUrl/stops/$stopId');
+  Future<List<TransportRoute>> fetchStopRoutes(Stop stop) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/routes');
     final response = await _client.get(uri);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      return Stop.fromJson(data);
+      final List<dynamic> results = data['dropdown_routes'];
+
+      return results.map((json) => TransportRoute.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load stop $stopId: ${response.statusCode}');
+      throw Exception('Failed to load stop ${stop.id}: ${response.statusCode}');
     }
   }
 
-  Future<List<Trip>> fetchStopRealtimeTrips(String stopId) async {
-    final uri = Uri.parse('$_baseUrl/stops/$stopId/realtime');
+  Future<List<Trip>> fetchStopRealtimeTrips(Stop stop) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/realtime');
     final response = await _client.get(uri);
 
     if (response.statusCode == 200) {
@@ -63,7 +66,7 @@ class STCPRepository {
       return results.map((json) => Trip.fromJson(json)).toList();
     } else {
       throw Exception(
-        'Failed to load realtime routes for stop $stopId: ${response.statusCode}',
+        'Failed to load realtime routes for stop ${stop.id}: ${response.statusCode}',
       );
     }
   }

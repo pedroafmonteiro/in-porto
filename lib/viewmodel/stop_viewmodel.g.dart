@@ -53,47 +53,55 @@ abstract class _$StopViewModel extends $AsyncNotifier<List<Stop>> {
   }
 }
 
-@ProviderFor(stopDetails)
-final stopDetailsProvider = StopDetailsFamily._();
+@ProviderFor(stopRoutes)
+final stopRoutesProvider = StopRoutesFamily._();
 
-final class StopDetailsProvider
-    extends $FunctionalProvider<AsyncValue<Stop>, Stop, FutureOr<Stop>>
-    with $FutureModifier<Stop>, $FutureProvider<Stop> {
-  StopDetailsProvider._({
-    required StopDetailsFamily super.from,
-    required String super.argument,
+final class StopRoutesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<TransportRoute>>,
+          List<TransportRoute>,
+          FutureOr<List<TransportRoute>>
+        >
+    with
+        $FutureModifier<List<TransportRoute>>,
+        $FutureProvider<List<TransportRoute>> {
+  StopRoutesProvider._({
+    required StopRoutesFamily super.from,
+    required Stop super.argument,
   }) : super(
          retry: null,
-         name: r'stopDetailsProvider',
+         name: r'stopRoutesProvider',
          isAutoDispose: true,
          dependencies: null,
          $allTransitiveDependencies: null,
        );
 
   @override
-  String debugGetCreateSourceHash() => _$stopDetailsHash();
+  String debugGetCreateSourceHash() => _$stopRoutesHash();
 
   @override
   String toString() {
-    return r'stopDetailsProvider'
+    return r'stopRoutesProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  $FutureProviderElement<Stop> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<List<TransportRoute>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Stop> create(Ref ref) {
-    final argument = this.argument as String;
-    return stopDetails(ref, argument);
+  FutureOr<List<TransportRoute>> create(Ref ref) {
+    final argument = this.argument as Stop;
+    return stopRoutes(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is StopDetailsProvider && other.argument == argument;
+    return other is StopRoutesProvider && other.argument == argument;
   }
 
   @override
@@ -102,24 +110,24 @@ final class StopDetailsProvider
   }
 }
 
-String _$stopDetailsHash() => r'3b6c81f612b8561e7da9655890b578723922ce11';
+String _$stopRoutesHash() => r'357a83bae1768083645a617e9e269cc5ba33f47e';
 
-final class StopDetailsFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<Stop>, String> {
-  StopDetailsFamily._()
+final class StopRoutesFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<TransportRoute>>, Stop> {
+  StopRoutesFamily._()
     : super(
         retry: null,
-        name: r'stopDetailsProvider',
+        name: r'stopRoutesProvider',
         dependencies: null,
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
 
-  StopDetailsProvider call(String stopId) =>
-      StopDetailsProvider._(argument: stopId, from: this);
+  StopRoutesProvider call(Stop stop) =>
+      StopRoutesProvider._(argument: stop, from: this);
 
   @override
-  String toString() => r'stopDetailsProvider';
+  String toString() => r'stopRoutesProvider';
 }
 
 @ProviderFor(stopRealtimeTrips)
@@ -135,7 +143,7 @@ final class StopRealtimeTripsProvider
     with $FutureModifier<List<Trip>>, $FutureProvider<List<Trip>> {
   StopRealtimeTripsProvider._({
     required StopRealtimeTripsFamily super.from,
-    required String super.argument,
+    required Stop super.argument,
   }) : super(
          retry: null,
          name: r'stopRealtimeTripsProvider',
@@ -161,7 +169,7 @@ final class StopRealtimeTripsProvider
 
   @override
   FutureOr<List<Trip>> create(Ref ref) {
-    final argument = this.argument as String;
+    final argument = this.argument as Stop;
     return stopRealtimeTrips(ref, argument);
   }
 
@@ -176,10 +184,10 @@ final class StopRealtimeTripsProvider
   }
 }
 
-String _$stopRealtimeTripsHash() => r'39677e9e36ed6b2fd3728d3dc0e51321435b2e48';
+String _$stopRealtimeTripsHash() => r'3b9378a9f428e2f39c61a74b91169f75e1dc1698';
 
 final class StopRealtimeTripsFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Trip>>, String> {
+    with $FunctionalFamilyOverride<FutureOr<List<Trip>>, Stop> {
   StopRealtimeTripsFamily._()
     : super(
         retry: null,
@@ -189,8 +197,8 @@ final class StopRealtimeTripsFamily extends $Family
         isAutoDispose: true,
       );
 
-  StopRealtimeTripsProvider call(String stopId) =>
-      StopRealtimeTripsProvider._(argument: stopId, from: this);
+  StopRealtimeTripsProvider call(Stop stop) =>
+      StopRealtimeTripsProvider._(argument: stop, from: this);
 
   @override
   String toString() => r'stopRealtimeTripsProvider';
