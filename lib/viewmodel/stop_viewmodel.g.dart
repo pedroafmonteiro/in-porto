@@ -121,3 +121,77 @@ final class StopDetailsFamily extends $Family
   @override
   String toString() => r'stopDetailsProvider';
 }
+
+@ProviderFor(stopRealtimeTrips)
+final stopRealtimeTripsProvider = StopRealtimeTripsFamily._();
+
+final class StopRealtimeTripsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Trip>>,
+          List<Trip>,
+          FutureOr<List<Trip>>
+        >
+    with $FutureModifier<List<Trip>>, $FutureProvider<List<Trip>> {
+  StopRealtimeTripsProvider._({
+    required StopRealtimeTripsFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'stopRealtimeTripsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$stopRealtimeTripsHash();
+
+  @override
+  String toString() {
+    return r'stopRealtimeTripsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Trip>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Trip>> create(Ref ref) {
+    final argument = this.argument as String;
+    return stopRealtimeTrips(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is StopRealtimeTripsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$stopRealtimeTripsHash() => r'39677e9e36ed6b2fd3728d3dc0e51321435b2e48';
+
+final class StopRealtimeTripsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Trip>>, String> {
+  StopRealtimeTripsFamily._()
+    : super(
+        retry: null,
+        name: r'stopRealtimeTripsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  StopRealtimeTripsProvider call(String stopId) =>
+      StopRealtimeTripsProvider._(argument: stopId, from: this);
+
+  @override
+  String toString() => r'stopRealtimeTripsProvider';
+}

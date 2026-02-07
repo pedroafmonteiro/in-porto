@@ -1,3 +1,4 @@
+import 'package:in_porto/model/entities/trip.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/model/repositories/stcp_repository.dart';
@@ -25,4 +26,10 @@ class StopViewModel extends _$StopViewModel {
 Future<Stop> stopDetails(Ref ref, String stopId) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
   return repository.fetchStopDetails(stopId);
+}
+
+@riverpod
+Future<List<Trip>> stopRealtimeTrips(Ref ref, String stopId) async {
+  final repository = await ref.read(stcpRepositoryProvider.future);
+  return repository.fetchStopRealtimeTrips(stopId);
 }
