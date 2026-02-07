@@ -1,3 +1,4 @@
+import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/view/common/route_badge.dart';
@@ -70,11 +71,8 @@ class StopOverview extends ConsumerWidget {
                                   );
                                 }).toList(),
                               )
-                            : Text(
-                                'No lines available.',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                        loading: () => const LinearProgressIndicator(),
+                            : Container(),
+                        loading: () => Container(),
                         error: (e, st) => Text(
                           'Unable to load lines.',
                           style: Theme.of(context).textTheme.bodySmall,
@@ -128,7 +126,10 @@ class StopOverview extends ConsumerWidget {
                   'No trips available.',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
-          loading: () => const LinearProgressIndicator(),
+          loading: () => Container(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: ExpressiveLoadingIndicator(),
+          ),
           error: (e, st) {
             return Text(
               'Unable to load trips.',
