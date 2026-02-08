@@ -11,6 +11,7 @@ class AppTheme {
       scaffoldBackgroundColor: const Color(0xFFF5F7FA),
       cardTheme: CardThemeData(
         color: const Color(0xFFE9EDF3),
+        margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
@@ -25,17 +26,30 @@ class AppTheme {
       ),
       appBarTheme: AppBarTheme(
         centerTitle: false,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: const Color(0xFFF5F7FA),
         actionsPadding: const EdgeInsets.only(right: 8.0),
       ),
-      colorScheme:
-          ColorScheme.fromSeed(
-            seedColor: const Color(0xFF0F2F7F),
-            brightness: Brightness.light,
-          ).copyWith(
-            surface: const Color(0xFFF5F7FA),
-            surfaceContainer: const Color(0xFFE9EDF3),
-            onSurface: const Color(0xFF1A1C1E),
+      dialogTheme: DialogThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(24.0),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFF1A1C1E),
+          backgroundColor: const Color(0xFFE9EDF3),
+          shape: RoundedSuperellipseBorder(
+            borderRadius: BorderRadius.circular(16.0),
           ),
+        ),
+      ),
+      colorScheme: ColorScheme.light(
+        surface: const Color(0xFFF5F7FA),
+        surfaceContainer: const Color(0xFFE9EDF3),
+        onSurface: const Color(0xFF1A1C1E),
+      ),
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {
           TargetPlatform.android: SharedAxisBackTransitionsBuilder(),
@@ -53,6 +67,7 @@ class AppTheme {
       scaffoldBackgroundColor: const Color(0xFF181A20),
       cardTheme: CardThemeData(
         color: const Color(0xFF23262B),
+        margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
@@ -67,17 +82,30 @@ class AppTheme {
       ),
       appBarTheme: AppBarTheme(
         centerTitle: false,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: const Color(0xFF181A20),
         actionsPadding: const EdgeInsets.only(right: 8.0),
       ),
-      colorScheme:
-          ColorScheme.fromSeed(
-            seedColor: const Color(0xFF0F2F7F),
-            brightness: Brightness.dark,
-          ).copyWith(
-            surface: const Color(0xFF181A20),
-            surfaceContainer: const Color(0xFF23262B),
-            onSurface: const Color(0xFFF5F7FA),
+      dialogTheme: DialogThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(24.0),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFFF5F7FA),
+          backgroundColor: const Color(0xFF23262B),
+          shape: RoundedSuperellipseBorder(
+            borderRadius: BorderRadius.circular(16.0),
           ),
+        ),
+      ),
+      colorScheme: ColorScheme.dark(
+        surface: const Color(0xFF181A20),
+        surfaceContainer: const Color(0xFF23262B),
+        onSurface: const Color(0xFFF5F7FA),
+      ),
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {
           TargetPlatform.android: SharedAxisBackTransitionsBuilder(),
