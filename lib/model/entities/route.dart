@@ -23,6 +23,9 @@ class TransportRoute implements NavigationOverride {
   @JsonKey(name: 'direction_name')
   final String? directionName;
 
+  @JsonKey(name: 'trip_headsign')
+  final String? tripHeadsign;
+
   @JsonKey(name: 'route_color')
   final String? color;
 
@@ -35,6 +38,7 @@ class TransportRoute implements NavigationOverride {
     this.longName,
     this.displayName,
     this.directionName,
+    this.tripHeadsign,
     this.directionId,
     this.color,
     this.textColor,

@@ -13,6 +13,7 @@ TransportRoute _$TransportRouteFromJson(Map<String, dynamic> json) =>
       longName: json['route_long_name'] as String?,
       displayName: json['display_name'] as String?,
       directionName: json['direction_name'] as String?,
+      tripHeadsign: json['trip_headsign'] as String?,
       directionId: (json['direction_id'] as num?)?.toInt(),
       color: json['route_color'] as String?,
       textColor: json['route_text_color'] as String?,
@@ -26,6 +27,7 @@ Map<String, dynamic> _$TransportRouteToJson(TransportRoute instance) =>
       'route_long_name': instance.longName,
       'display_name': instance.displayName,
       'direction_name': instance.directionName,
+      'trip_headsign': instance.tripHeadsign,
       'route_color': instance.color,
       'route_text_color': instance.textColor,
     };
