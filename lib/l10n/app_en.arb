@@ -214,5 +214,10 @@
     "@scheduled": {
         "description": "Label to indicate that a transportation departure is scheduled for a future time",
         "type": "text"
+    },
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Label for the button to open the date picker",
+        "type": "text"
     }
 }

@@ -72,7 +72,22 @@ class DatePickerBadge extends StatelessWidget {
                 return Dialog(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16.0,
+                          right: 16.0,
+                          top: 8.0,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.selectDate,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ),
                       SizedBox(
                         height: 200,
                         child: CupertinoPicker(

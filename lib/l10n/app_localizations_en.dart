@@ -141,4 +141,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scheduled => 'Scheduled';
+
+  @override
+  String get selectDate => 'Select date';
 }

@@ -214,5 +214,10 @@
     "@scheduled": {
         "description": "Texto para indicar que uma partida de transporte está agendada para um horário futuro",
         "type": "text"
+    },
+    "selectDate": "Selecionar data",
+    "@selectDate": {
+        "description": "Texto para o botão de abrir o seletor de data",
+        "type": "text"
     }
 }

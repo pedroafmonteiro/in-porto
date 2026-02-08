@@ -355,6 +355,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scheduled'**
   String get scheduled;
+
+  /// Label for the button to open the date picker
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDate;
 }
 
 class _AppLocalizationsDelegate

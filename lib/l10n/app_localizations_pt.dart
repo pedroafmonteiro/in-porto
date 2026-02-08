@@ -141,4 +141,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get scheduled => 'Agendado';
+
+  @override
+  String get selectDate => 'Selecionar data';
 }
