@@ -144,4 +144,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectDate => 'Select date';
+
+  @override
+  String get noMoreTripsToday => 'No more trips today';
+
+  @override
+  String get noTripsFound => 'No trips found';
+
+  @override
+  String get errorLoadingTrips => 'Unable to load trips';
 }

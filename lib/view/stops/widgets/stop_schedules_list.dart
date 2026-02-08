@@ -65,7 +65,9 @@ class StopSchedulesList extends StatelessWidget {
             isToday && pastSchedules.isNotEmpty && !showOlderDepartures;
 
         if (futureSchedules.isEmpty && pastSchedules.isEmpty && !hasOlder) {
-          return const Center(child: Text('No schedules found'));
+          return Center(
+            child: Text(AppLocalizations.of(context)!.noTripsFound),
+          );
         }
 
         final routes = asyncRoutes.value ?? [];
@@ -132,8 +134,8 @@ class StopSchedulesList extends StatelessWidget {
               ),
             SliverPadding(
               key: const ValueKey('future_list_start'),
-              padding: const EdgeInsets.only(
-                bottom: 92.0,
+              padding: EdgeInsets.only(
+                bottom: isToday && futureSchedules.isEmpty ? 0.0 : 92.0,
                 left: 16.0,
                 right: 16.0,
               ),
@@ -160,6 +162,31 @@ class StopSchedulesList extends StatelessWidget {
                 ),
               ),
             ),
+            if (isToday && futureSchedules.isEmpty)
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8.0,
+                    children: [
+                      const Icon(
+                        Icons.sentiment_dissatisfied_rounded,
+                        size: 64,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.noMoreTripsToday,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         );
       },
@@ -178,7 +205,7 @@ class StopSchedulesList extends StatelessWidget {
               size: 64,
             ),
             Text(
-              'Unable to load trips.',
+              AppLocalizations.of(context)!.errorLoadingTrips,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],

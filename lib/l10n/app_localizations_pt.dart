@@ -144,4 +144,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get selectDate => 'Selecionar data';
+
+  @override
+  String get noMoreTripsToday => 'Não há mais viagens hoje';
+
+  @override
+  String get noTripsFound => 'Nenhuma viagem encontrada';
+
+  @override
+  String get errorLoadingTrips => 'Não foi possível carregar as viagens';
 }

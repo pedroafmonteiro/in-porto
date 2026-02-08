@@ -361,6 +361,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select date'**
   String get selectDate;
+
+  /// Message shown when there are no more future departures for the current day
+  ///
+  /// In en, this message translates to:
+  /// **'No more trips today'**
+  String get noMoreTripsToday;
+
+  /// Message shown when no trips are found for a selected date
+  ///
+  /// In en, this message translates to:
+  /// **'No trips found'**
+  String get noTripsFound;
+
+  /// Message shown when there is an error loading trips
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load trips'**
+  String get errorLoadingTrips;
 }
 
 class _AppLocalizationsDelegate

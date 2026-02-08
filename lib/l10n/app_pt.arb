@@ -219,5 +219,20 @@
     "@selectDate": {
         "description": "Texto para o botão de abrir o seletor de data",
         "type": "text"
+    },
+    "noMoreTripsToday": "Não há mais viagens hoje",
+    "@noMoreTripsToday": {
+        "description": "Mensagem mostrada quando não há mais partidas futuras para o dia atual",
+        "type": "text"
+    },
+    "noTripsFound": "Nenhuma viagem encontrada",
+    "@noTripsFound": {
+        "description": "Mensagem mostrada quando não são encontradas viagens para uma data selecionada",
+        "type": "text"
+    },
+    "errorLoadingTrips": "Não foi possível carregar as viagens",
+    "@errorLoadingTrips": {
+        "description": "Mensagem mostrada quando ocorre um erro ao carregar as viagens",
+        "type": "text"
     }
 }

@@ -219,5 +219,20 @@
     "@selectDate": {
         "description": "Label for the button to open the date picker",
         "type": "text"
+    },
+    "noMoreTripsToday": "No more trips today",
+    "@noMoreTripsToday": {
+        "description": "Message shown when there are no more future departures for the current day",
+        "type": "text"
+    },
+    "noTripsFound": "No trips found",
+    "@noTripsFound": {
+        "description": "Message shown when no trips are found for a selected date",
+        "type": "text"
+    },
+    "errorLoadingTrips": "Unable to load trips",
+    "@errorLoadingTrips": {
+        "description": "Message shown when there is an error loading trips",
+        "type": "text"
     }
 }
