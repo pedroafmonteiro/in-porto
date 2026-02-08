@@ -97,15 +97,19 @@ class StopOverview extends ConsumerWidget {
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        spacing: 8.0,
                         children: [
                           RouteBadge(
                             number: trip.routeShortName,
                             color: trip.routeColor,
                             textColor: trip.routeTextColor,
                           ),
-                          Text(
-                            trip.headsign ?? 'Destination',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          Expanded(
+                            child: Text(
+                              trip.headsign ?? 'Destination',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           Text(
                             trip.arrivalMinutes != null
