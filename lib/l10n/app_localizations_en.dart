@@ -120,4 +120,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get tomorrow => 'Tomorrow';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String get olderDepartures => 'See older departures from today';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get now => 'Now';
+
+  @override
+  String get scheduled => 'Scheduled';
 }

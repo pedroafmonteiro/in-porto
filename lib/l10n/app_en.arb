@@ -179,5 +179,40 @@
     "@search": {
         "description": "Placeholder text for the search input",
         "type": "text"
+    },
+    "today": "Today",
+    "@today": {
+        "description": "Label for the button to select today's date",
+        "type": "text"
+    },
+    "tomorrow": "Tomorrow",
+    "@tomorrow": {
+        "description": "Label for the button to select tomorrow's date",
+        "type": "text"
+    },
+    "yesterday": "Yesterday",
+    "@yesterday": {
+        "description": "Label for the button to select yesterday's date",
+        "type": "text"
+    },
+    "olderDepartures": "See older departures from today",
+    "@olderDepartures": {
+        "description": "Label for the button to show older departures",
+        "type": "text"
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Button text to indicate completion of an action",
+        "type": "text"
+    },
+    "now": "Now",
+    "@now": {
+        "description": "Label to indicate that a transportation departure is happening now",
+        "type": "text"
+    },
+    "scheduled": "Scheduled",
+    "@scheduled": {
+        "description": "Label to indicate that a transportation departure is scheduled for a future time",
+        "type": "text"
     }
 }

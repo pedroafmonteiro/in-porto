@@ -179,5 +179,40 @@
     "@search": {
         "description": "Texto de espaço reservado para a entrada de pesquisa",
         "type": "text"
+    },
+    "today": "Hoje",
+    "@today": {
+        "description": "Texto para o botão de hoje",
+        "type": "text"
+    },
+    "tomorrow": "Amanhã",
+    "@tomorrow": {
+        "description": "Texto para o botão de amanhã",
+        "type": "text"
+    },
+    "yesterday": "Ontem",
+    "@yesterday": {
+        "description": "Texto para o botão de ontem",
+        "type": "text"
+    },
+    "olderDepartures": "Ver partidas anteriores de hoje",
+    "@olderDepartures": {
+        "description": "Texto para o botão de ver partidas anteriores",
+        "type": "text"
+    },
+    "done": "Concluído",
+    "@done": {
+        "description": "Texto do botão para indicar que a ação foi concluída",
+        "type": "text"
+    },
+    "now": "Agora",
+    "@now": {
+        "description": "Texto para indicar que uma partida de transporte está a acontecer agora",
+        "type": "text"
+    },
+    "scheduled": "Agendado",
+    "@scheduled": {
+        "description": "Texto para indicar que uma partida de transporte está agendada para um horário futuro",
+        "type": "text"
     }
 }

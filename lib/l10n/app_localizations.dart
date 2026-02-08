@@ -313,6 +313,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// Label for the button to select today's date
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// Label for the button to select tomorrow's date
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// Label for the button to select yesterday's date
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// Label for the button to show older departures
+  ///
+  /// In en, this message translates to:
+  /// **'See older departures from today'**
+  String get olderDepartures;
+
+  /// Button text to indicate completion of an action
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// Label to indicate that a transportation departure is happening now
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get now;
+
+  /// Label to indicate that a transportation departure is scheduled for a future time
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled'**
+  String get scheduled;
 }
 
 class _AppLocalizationsDelegate

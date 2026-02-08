@@ -120,4 +120,25 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get search => 'Pesquisar';
+
+  @override
+  String get today => 'Hoje';
+
+  @override
+  String get tomorrow => 'Amanhã';
+
+  @override
+  String get yesterday => 'Ontem';
+
+  @override
+  String get olderDepartures => 'Ver partidas anteriores de hoje';
+
+  @override
+  String get done => 'Concluído';
+
+  @override
+  String get now => 'Agora';
+
+  @override
+  String get scheduled => 'Agendado';
 }

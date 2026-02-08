@@ -298,7 +298,7 @@ final class StopSchedulesProvider
     with $FutureModifier<List<Schedule>>, $FutureProvider<List<Schedule>> {
   StopSchedulesProvider._({
     required StopSchedulesFamily super.from,
-    required Stop super.argument,
+    required (Stop, DateTime?) super.argument,
   }) : super(
          retry: null,
          name: r'stopSchedulesProvider',
@@ -314,7 +314,7 @@ final class StopSchedulesProvider
   String toString() {
     return r'stopSchedulesProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -325,8 +325,8 @@ final class StopSchedulesProvider
 
   @override
   FutureOr<List<Schedule>> create(Ref ref) {
-    final argument = this.argument as Stop;
-    return stopSchedules(ref, argument);
+    final argument = this.argument as (Stop, DateTime?);
+    return stopSchedules(ref, argument.$1, argument.$2);
   }
 
   @override
@@ -340,10 +340,11 @@ final class StopSchedulesProvider
   }
 }
 
-String _$stopSchedulesHash() => r'240eeab77962b1abb03c1896d3302d8eb70aad17';
+String _$stopSchedulesHash() => r'7273fe0f130213d1b626b7c49cf2a9f01df2527f';
 
 final class StopSchedulesFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Schedule>>, Stop> {
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Schedule>>, (Stop, DateTime?)> {
   StopSchedulesFamily._()
     : super(
         retry: null,
@@ -353,8 +354,8 @@ final class StopSchedulesFamily extends $Family
         isAutoDispose: true,
       );
 
-  StopSchedulesProvider call(Stop stop) =>
-      StopSchedulesProvider._(argument: stop, from: this);
+  StopSchedulesProvider call(Stop stop, DateTime? date) =>
+      StopSchedulesProvider._(argument: (stop, date), from: this);
 
   @override
   String toString() => r'stopSchedulesProvider';
