@@ -11,7 +11,8 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) => Schedule(
   routeId: json['route_id'] as String,
   directionId: json['direction_id'] as String?,
   serviceId: json['service_id'] as String,
-  arrivalTime: json['arrival_time'] as String,
+  departureTime: json['departure_time'] as String,
+  headsign: json['headsign'] as String?,
 );
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
@@ -19,5 +20,6 @@ Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
   'route_id': instance.routeId,
   'direction_id': instance.directionId,
   'service_id': instance.serviceId,
-  'arrival_time': instance.arrivalTime,
+  'departure_time': instance.departureTime,
+  'headsign': instance.headsign,
 };

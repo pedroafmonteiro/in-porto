@@ -78,14 +78,15 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
     try {
       final yesterdaySchedules = await fetchSchedulesForDate(yesterday);
       final lateYesterdayTrips = yesterdaySchedules
-          .where((s) => TimeUtils.isLateNight(s.arrivalTime))
+          .where((s) => TimeUtils.isLateNight(s.departureTime))
           .map((s) {
             return Schedule(
               stopId: s.stopId,
               routeId: s.routeId,
               directionId: s.directionId,
               serviceId: s.serviceId,
-              arrivalTime: TimeUtils.normalizeTime(s.arrivalTime),
+              departureTime: TimeUtils.normalizeTime(s.departureTime),
+              headsign: s.headsign,
             );
           });
       allSchedules.addAll(lateYesterdayTrips);
@@ -94,7 +95,7 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
     }
   }
 
-  allSchedules.sort((a, b) => a.arrivalTime.compareTo(b.arrivalTime));
+  allSchedules.sort((a, b) => a.departureTime.compareTo(b.departureTime));
 
   return allSchedules;
 }

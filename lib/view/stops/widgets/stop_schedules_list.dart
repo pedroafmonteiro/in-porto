@@ -50,7 +50,7 @@ class StopSchedulesList extends StatelessWidget {
           final nowString =
               '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
           for (final s in filteredSchedules) {
-            if (s.arrivalTime.compareTo(nowString) < 0) {
+            if (s.departureTime.compareTo(nowString) < 0) {
               pastSchedules.add(s);
             } else {
               futureSchedules.add(s);

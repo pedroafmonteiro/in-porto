@@ -16,15 +16,19 @@ class Schedule {
   @JsonKey(name: 'service_id')
   final String serviceId;
 
-  @JsonKey(name: 'arrival_time')
-  final String arrivalTime;
+  @JsonKey(name: 'departure_time')
+  final String departureTime;
+
+  @JsonKey(name: 'headsign')
+  final String? headsign;
 
   Schedule({
     required this.stopId,
     required this.routeId,
     required this.directionId,
     required this.serviceId,
-    required this.arrivalTime,
+    required this.departureTime,
+    this.headsign,
   });
 
   factory Schedule.fromJson(Map<String, dynamic> json) =>

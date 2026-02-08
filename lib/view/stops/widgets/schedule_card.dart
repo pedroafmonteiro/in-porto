@@ -31,7 +31,7 @@ class ScheduleCard extends StatelessWidget {
           textColor: route!.textColor,
         ),
         title: Text(
-          route!.tripHeadsign ?? 'Unknown Route',
+          schedule.headsign ?? 'Unknown Route',
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -42,8 +42,8 @@ class ScheduleCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              StopUtils.formatArrivalTime(
-                schedule.arrivalTime,
+              StopUtils.formatDepartureTime(
+                schedule.departureTime,
                 isToday: isToday,
                 context: context,
               ),

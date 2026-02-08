@@ -107,14 +107,15 @@ class STCPRepository {
         if (arrivalsByHour is List) {
           for (final arrivalData in arrivalsByHour) {
             if (arrivalData is Map<String, dynamic> &&
-                arrivalData['arrival_time'] != null) {
+                arrivalData['departure_time'] != null) {
               schedules.add(
                 Schedule.fromJson({
                   'stop_id': stop.id,
                   'route_id': route.id,
                   'direction_id': route.directionId?.toString(),
                   'service_id': serviceId,
-                  'arrival_time': arrivalData['arrival_time'],
+                  'departure_time': arrivalData['departure_time'],
+                  'headsign': arrivalData['headsign'],
                 }),
               );
             }
