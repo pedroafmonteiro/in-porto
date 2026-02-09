@@ -35,44 +35,48 @@ class StopFilterBar extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: asyncRoutes.when(
-                data: (routes) => Row(
-                  spacing: 4.0,
-                  children: [
-                    if (selectedRouteIds.isNotEmpty)
-                      GestureDetector(
-                        onTap: onClearFilters,
-                        child: const Icon(
-                          Icons.close_rounded,
-                        ),
-                      ),
-                    ...routes.map(
-                      (route) {
-                        final isSelected = selectedRouteIds.contains(
-                          route.id,
-                        );
-                        final isSubtle =
-                            selectedRouteIds.isNotEmpty && !isSelected;
-
-                        return GestureDetector(
-                          onTap: () => onRouteToggle(route.id),
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 200),
-                            opacity: isSubtle ? 0.3 : 1.0,
-                            child: RouteBadge(
-                              number: route.shortName,
-                              color: route.color,
-                              textColor: route.textColor,
-                              large: true,
-                            ),
+              child: AnimatedSize(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                child: asyncRoutes.when(
+                  data: (routes) => Row(
+                    spacing: 4.0,
+                    children: [
+                      if (selectedRouteIds.isNotEmpty)
+                        GestureDetector(
+                          onTap: onClearFilters,
+                          child: const Icon(
+                            Icons.close_rounded,
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                      ...routes.map(
+                        (route) {
+                          final isSelected = selectedRouteIds.contains(
+                            route.id,
+                          );
+                          final isSubtle =
+                              selectedRouteIds.isNotEmpty && !isSelected;
+
+                          return GestureDetector(
+                            onTap: () => onRouteToggle(route.id),
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 200),
+                              opacity: isSubtle ? 0.3 : 1.0,
+                              child: RouteBadge(
+                                number: route.shortName,
+                                color: route.color,
+                                textColor: route.textColor,
+                                large: true,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  loading: () => Container(),
+                  error: (error, stack) => Container(),
                 ),
-                loading: () => Container(),
-                error: (error, stack) => Container(),
               ),
             ),
           ),

@@ -19,9 +19,7 @@ class StopDetails extends ConsumerStatefulWidget {
 
 class _StopDetailsState extends ConsumerState<StopDetails> {
   final ScrollController _scrollController = ScrollController();
-  bool _showOlderDepartures = false;
   bool _showFab = false;
-  Set<String> selectedRouteIds = {};
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -54,6 +52,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
 
     final stop = widget.stop;
     final asyncRoutes = ref.watch(stopRoutesProvider(stop));
+    final selectedRouteIds = ref.watch(selectedRouteIdsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -73,29 +72,21 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
             selectedRouteIds: selectedRouteIds,
             selectedDate: selectedDate,
             onRouteToggle: (routeId) {
+              ref.read(selectedRouteIdsProvider.notifier).toggle(routeId);
               setState(() {
-                final newIds = Set<String>.from(selectedRouteIds);
-                if (newIds.contains(routeId)) {
-                  newIds.remove(routeId);
-                } else {
-                  newIds.add(routeId);
-                }
-                selectedRouteIds = newIds;
-                _showOlderDepartures = false;
                 _showFab = false;
               });
             },
             onClearFilters: () {
+              ref.read(selectedRouteIdsProvider.notifier).clear();
               setState(() {
-                selectedRouteIds = {};
-                _showOlderDepartures = false;
                 _showFab = false;
               });
             },
             onDateChanged: (date) {
+              ref.read(showOlderDeparturesProvider.notifier).toggle(false);
               setState(() {
                 selectedDate = date;
-                _showOlderDepartures = false;
                 _showFab = false;
               });
             },
@@ -107,14 +98,10 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
           Expanded(
             child: StopSchedulesList(
               stop: stop,
-              selectedRouteIds: selectedRouteIds,
               selectedDate: selectedDate,
-              showOlderDepartures: _showOlderDepartures,
               scrollController: _scrollController,
               onShowOlderDepartures: () {
-                setState(() {
-                  _showOlderDepartures = true;
-                });
+                ref.read(showOlderDeparturesProvider.notifier).toggle(true);
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (_scrollController.hasClients) {
                     _scrollController.animateTo(
@@ -141,9 +128,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
                 if (mounted &&
                     _scrollController.hasClients &&
                     _scrollController.offset.abs() < 1) {
-                  setState(() {
-                    _showOlderDepartures = false;
-                  });
+                  ref.read(showOlderDeparturesProvider.notifier).toggle(false);
                 }
               },
               label: Text(AppLocalizations.of(context)!.now),

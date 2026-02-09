@@ -70,6 +70,12 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
   }
 
   final allSchedules = await fetchSchedulesForDate(targetDate);
+  final today = DateTime(now.year, now.month, now.day);
+  final isPast = targetDate.isBefore(today);
+
+  if (isPast) {
+    allSchedules.removeWhere((s) => s.departureTime.isLateNight());
+  }
 
   if (isToday) {
     final yesterday = targetDate.subtract(const Duration(days: 1));
@@ -78,30 +84,28 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
       final lateYesterdayTrips = yesterdaySchedules
           .where((s) => s.departureTime.isLateNight())
           .map((s) {
-        return Schedule(
-          stopId: s.stopId,
-          routeId: s.routeId,
-          directionId: s.directionId,
-          serviceId: s.serviceId,
-          departureTime: s.departureTime.normalizeTime(),
-          headsign: s.headsign,
-        );
-      });
+            return Schedule(
+              stopId: s.stopId,
+              routeId: s.routeId,
+              directionId: s.directionId,
+              serviceId: s.serviceId,
+              departureTime: 'Y:${s.departureTime}',
+              headsign: s.headsign,
+            );
+          });
       allSchedules.addAll(lateYesterdayTrips);
     } catch (e) {
       // Ignore errors fetching yesterday's schedules
     }
-  } else {
-    final yesterday = now.subtract(const Duration(days: 1));
-    final isYesterday = targetDate.year == yesterday.year &&
-        targetDate.month == yesterday.month &&
-        targetDate.day == yesterday.day;
-    if (isYesterday) {
-      allSchedules.removeWhere((s) => s.departureTime.isLateNight());
-    }
   }
 
-  allSchedules.sort((a, b) => a.departureTime.compareTo(b.departureTime));
+  allSchedules.sort((a, b) {
+    final aTime = a.departureTime.toDateTime(now: targetDate);
+    final bTime = b.departureTime.toDateTime(now: targetDate);
+    if (aTime == null || bTime == null)
+      return a.departureTime.compareTo(b.departureTime);
+    return aTime.compareTo(bTime);
+  });
 
   return allSchedules;
 }
@@ -119,12 +123,12 @@ Future<List<DepartureInfo>> stopDepartures(Ref ref, Stop stop) async {
   final realtimeTrips = await ref.watch(stopRealtimeTripsProvider(stop).future);
   final now = ref.watch(nowProvider).asData?.value ?? DateTime.now();
 
-  final nowString = now.toDisplayTime();
   final departures = <DepartureInfo>[];
 
   for (final route in routes) {
-    final routeRealtime =
-        realtimeTrips.where((t) => t.routeShortName == route.shortName).toList();
+    final routeRealtime = realtimeTrips
+        .where((t) => t.routeShortName == route.shortName)
+        .toList();
 
     if (routeRealtime.isNotEmpty) {
       for (final trip in routeRealtime) {
@@ -142,31 +146,24 @@ Future<List<DepartureInfo>> stopDepartures(Ref ref, Stop stop) async {
         );
       }
     } else {
-      final routeSchedules = schedules
-          .where(
-            (s) =>
-                s.routeId == route.id &&
-                s.departureTime.compareTo(nowString) >= 0,
-          )
-          .toList();
-
       final seenHeadsigns = <String>{};
-      for (final schedule in routeSchedules) {
+      for (final schedule in schedules) {
+        if (schedule.routeId != route.id) continue;
+
+        final departureTime = schedule.departureTime.toDateTime(now: now);
+        if (departureTime == null || !departureTime.isAfter(now)) continue;
+
         if (seenHeadsigns.contains(schedule.headsign)) continue;
         seenHeadsigns.add(schedule.headsign ?? '');
 
-        final departureTime = schedule.departureTime.toDateTime(now: now);
-
-        if (departureTime != null) {
-          departures.add(
-            DepartureInfo(
-              route: route,
-              schedule: schedule,
-              departureTime: departureTime,
-              isRealtime: false,
-            ),
-          );
-        }
+        departures.add(
+          DepartureInfo(
+            route: route,
+            schedule: schedule,
+            departureTime: departureTime,
+            isRealtime: false,
+          ),
+        );
       }
     }
   }
@@ -176,13 +173,39 @@ Future<List<DepartureInfo>> stopDepartures(Ref ref, Stop stop) async {
 }
 
 @riverpod
+class ShowOlderDepartures extends _$ShowOlderDepartures {
+  @override
+  bool build() => false;
+
+  void toggle(bool value) => state = value;
+}
+
+@riverpod
+class SelectedRouteIds extends _$SelectedRouteIds {
+  @override
+  Set<String> build() => {};
+
+  void toggle(String id) {
+    final newState = Set<String>.from(state);
+    if (newState.contains(id)) {
+      newState.remove(id);
+    } else {
+      newState.add(id);
+    }
+    state = newState;
+  }
+
+  void clear() => state = {};
+}
+
+@riverpod
 Future<({List<Schedule> past, List<Schedule> future})> filteredStopSchedules(
   Ref ref, {
   required Stop stop,
   required DateTime date,
-  required Set<String> selectedRouteIds,
 }) async {
   final schedules = await ref.watch(stopSchedulesProvider(stop, date).future);
+  final selectedRouteIds = ref.watch(selectedRouteIdsProvider);
 
   final filteredSchedules = selectedRouteIds.isEmpty
       ? schedules
@@ -195,9 +218,11 @@ Future<({List<Schedule> past, List<Schedule> future})> filteredStopSchedules(
   List<Schedule> futureSchedules = [];
 
   if (isToday) {
-    final nowString = now.toDisplayTime();
     for (final s in filteredSchedules) {
-      if (s.departureTime.compareTo(nowString) < 0) {
+      final departureDateTime = s.departureTime.toDateTime(now: date);
+      if (departureDateTime == null) continue;
+
+      if (departureDateTime.isBefore(now)) {
         pastSchedules.add(s);
       } else {
         futureSchedules.add(s);

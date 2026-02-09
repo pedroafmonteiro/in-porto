@@ -4,47 +4,62 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/model/departure_info.dart';
 import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/utils.dart';
 import 'package:in_porto/view/stops/widgets/departure_card.dart';
 import 'package:in_porto/view/stops/utils/stop_scroll_physics.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 import 'package:in_porto/model/entities/stop.dart';
-import 'package:in_porto/utils.dart';
+import 'package:in_porto/model/entities/schedule.dart';
 
 class StopSchedulesList extends ConsumerWidget {
   const StopSchedulesList({
     super.key,
     required this.stop,
-    required this.selectedRouteIds,
     required this.selectedDate,
-    required this.showOlderDepartures,
     required this.scrollController,
     required this.onShowOlderDepartures,
   });
 
   final Stop stop;
-  final Set<String> selectedRouteIds;
   final DateTime selectedDate;
-  final bool showOlderDepartures;
   final ScrollController scrollController;
   final VoidCallback onShowOlderDepartures;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final showOlderDepartures = ref.watch(showOlderDeparturesProvider);
     final asyncSchedules = ref.watch(
       filteredStopSchedulesProvider(
         stop: stop,
         date: selectedDate,
-        selectedRouteIds: selectedRouteIds,
       ),
     );
     final asyncRoutes = ref.watch(stopRoutesProvider(stop));
 
+    if (asyncRoutes.isLoading && !asyncRoutes.hasValue) {
+      return Center(
+        child: ExpressiveLoadingIndicator(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+      );
+    }
+
     return asyncSchedules.maybeWhen(
       skipLoadingOnRefresh: true,
-      data: (partitioned) => _buildContent(context, partitioned, asyncRoutes),
+      data: (partitioned) => _buildContent(
+        context,
+        partitioned,
+        asyncRoutes,
+        showOlderDepartures,
+      ),
       loading: () {
         if (asyncSchedules.hasValue) {
-          return _buildContent(context, asyncSchedules.value!, asyncRoutes);
+          return _buildContent(
+            context,
+            asyncSchedules.value!,
+            asyncRoutes,
+            showOlderDepartures,
+          );
         }
         return Center(
           child: ExpressiveLoadingIndicator(
@@ -58,13 +73,15 @@ class StopSchedulesList extends ConsumerWidget {
 
   Widget _buildContent(
     BuildContext context,
-    ({List<dynamic> future, List<dynamic> past}) partitioned,
+    ({List<Schedule> future, List<Schedule> past}) partitioned,
     AsyncValue<List<TransportRoute>> asyncRoutes,
+    bool showOlderDepartures,
   ) {
     final pastSchedules = partitioned.past;
     final futureSchedules = partitioned.future;
     final isToday = selectedDate.isToday();
-    final hasOlder = isToday && pastSchedules.isNotEmpty && !showOlderDepartures;
+    final hasOlder =
+        isToday && pastSchedules.isNotEmpty && !showOlderDepartures;
 
     if (futureSchedules.isEmpty && pastSchedules.isEmpty && !hasOlder) {
       return Center(
@@ -138,7 +155,7 @@ class StopSchedulesList extends ConsumerWidget {
   }
 
   Widget _buildSchedulesList(
-    List<dynamic> schedules,
+    List<Schedule> schedules,
     List<TransportRoute> routes,
     bool isToday, {
     required bool isPast,
@@ -163,7 +180,9 @@ class StopSchedulesList extends ConsumerWidget {
               orElse: () => routes.first,
             );
 
-            final departureTime = schedule.departureTime.toDateTime();
+            final departureTime = schedule.departureTime.toDateTime(
+              now: selectedDate,
+            );
 
             final card = DepartureCard(
               departure: DepartureInfo(

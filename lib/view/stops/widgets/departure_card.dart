@@ -4,7 +4,10 @@ import 'package:in_porto/model/departure_info.dart';
 import 'package:in_porto/view/common/route_badge.dart';
 import 'package:in_porto/utils.dart';
 
-class DepartureCard extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/viewmodel/stop_viewmodel.dart';
+
+class DepartureCard extends ConsumerWidget {
   const DepartureCard({
     super.key,
     required this.departure,
@@ -15,8 +18,10 @@ class DepartureCard extends StatelessWidget {
   final bool isToday;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final now = ref.watch(nowProvider).asData?.value ?? DateTime.now();
+    final isPast = departure.departureTime.isBefore(now);
     final title =
         departure.headsignOverride ??
         departure.schedule?.headsign ??
@@ -40,12 +45,17 @@ class DepartureCard extends StatelessWidget {
           ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
           overflow: TextOverflow.ellipsis,
         ),
-        trailing: _buildTrailing(context, l10n),
+        trailing: _buildTrailing(context, l10n, now, isPast),
       ),
     );
   }
 
-  Widget _buildTrailing(BuildContext context, AppLocalizations l10n) {
+  Widget _buildTrailing(
+    BuildContext context,
+    AppLocalizations l10n,
+    DateTime now,
+    bool isPast,
+  ) {
     if (departure.isRealtime) {
       final (color, label) = switch (departure.status) {
         'ON_TIME' => (Colors.green, l10n.onTime),
@@ -56,9 +66,9 @@ class DepartureCard extends StatelessWidget {
 
       final timeText =
           departure.realtimeMinutes != null &&
-                  departure.realtimeMinutes!.round() > 0
-              ? '${departure.realtimeMinutes!.round()} min'
-              : l10n.now;
+              departure.realtimeMinutes!.round() > 0
+          ? '${departure.realtimeMinutes!.round()} min'
+          : l10n.now;
 
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +105,7 @@ class DepartureCard extends StatelessWidget {
             context,
           ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
-        Text(l10n.scheduled),
+        if (!isPast) Text(l10n.scheduled),
       ],
     );
   }

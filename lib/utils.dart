@@ -25,11 +25,19 @@ extension DateTimeExtension on DateTime {
 
 extension TimeStringExtension on String {
   DateTime? toDateTime({DateTime? now}) {
-    final parts = split(':').map((e) => int.tryParse(e) ?? 0).toList();
+    final isYesterday = startsWith('Y:');
+    final rawTime = isYesterday ? substring(2) : this;
+
+    final parts = rawTime.split(':').map((e) => int.tryParse(e) ?? 0).toList();
     if (parts.length < 2) return null;
 
-    final reference = now ?? DateTime.now();
-    return DateTime(reference.year, reference.month, reference.day).add(
+    var reference = now ?? DateTime.now();
+    if (isYesterday) {
+      reference = reference.subtract(const Duration(days: 1));
+    }
+
+    final date = DateTime(reference.year, reference.month, reference.day);
+    return date.add(
       Duration(
         hours: parts[0],
         minutes: parts[1],
@@ -39,13 +47,17 @@ extension TimeStringExtension on String {
   }
 
   String normalizeTime() {
-    final parts = split(':');
-    if (parts.isEmpty) return this;
+    final rawTime = startsWith('Y:') ? substring(2) : this;
+    final parts = rawTime.split(':');
+    if (parts.isEmpty) return rawTime;
     final hour = (int.tryParse(parts[0]) ?? 0) % 24;
     return '${hour.toString().padLeft(2, '0')}:${parts.sublist(1).join(':')}';
   }
 
-  bool isLateNight() => (int.tryParse(split(':').first) ?? 0) >= 24;
+  bool isLateNight() {
+    final rawTime = startsWith('Y:') ? substring(2) : this;
+    return (int.tryParse(rawTime.split(':').first) ?? 0) >= 24;
+  }
 }
 
 extension StringExtension on String? {
