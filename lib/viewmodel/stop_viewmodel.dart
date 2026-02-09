@@ -93,6 +93,15 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
     } catch (e) {
       // Ignore errors fetching yesterday's schedules
     }
+  } else {
+    final yesterday = now.subtract(const Duration(days: 1));
+    final isYesterday =
+        targetDate.year == yesterday.year &&
+        targetDate.month == yesterday.month &&
+        targetDate.day == yesterday.day;
+    if (isYesterday) {
+      allSchedules.removeWhere((s) => TimeUtils.isLateNight(s.departureTime));
+    }
   }
 
   allSchedules.sort((a, b) => a.departureTime.compareTo(b.departureTime));
