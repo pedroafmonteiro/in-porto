@@ -30,6 +30,9 @@ class Trip {
   @JsonKey(name: 'arrival_minutes')
   final double? arrivalMinutes;
 
+  @JsonKey(name: 'status')
+  final String? status;
+
   const Trip({
     required this.id,
     this.routeShortName,
@@ -40,6 +43,7 @@ class Trip {
     this.scheduledArrivalTime,
     this.delay,
     this.arrivalMinutes,
+    this.status,
   });
 
   factory Trip.fromJson(Map<String, dynamic> json) {

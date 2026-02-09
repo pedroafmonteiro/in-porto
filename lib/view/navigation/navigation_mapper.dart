@@ -10,29 +10,30 @@ extension NavigationOverrideMapper on NavigationOverride? {
   ActionCenterOverride buildActionCenterOverride() {
     return switch (this) {
       null => ActionCenterOverride(
-          key: 'base',
-          closedBuilder: (context, {required onOpen, onClose, required onSelected}) =>
-              BaseActionCenter(
-            onSelected: onSelected,
-            onOpen: onOpen,
-            onClose: onClose,
-          ),
-          initialOpenBuilder: (context) => const SearchView(),
-        ),
+        key: 'base',
+        closedBuilder:
+            (context, {required onOpen, onClose, required onSelected}) =>
+                BaseActionCenter(
+                  onSelected: onSelected,
+                  onOpen: onOpen,
+                  onClose: onClose,
+                ),
+        initialOpenBuilder: (context) => const SearchView(),
+      ),
       Stop stop => ActionCenterOverride(
-          key: stop.id,
-          closedBuilder: (context, {required onOpen, onClose, required onSelected}) =>
-              StopOverview(
-            stopId: stop.id,
-            stopName: stop.name ?? 'Stop',
-            onOpen: onOpen,
-            onClose: onClose,
-            onSelected: onSelected,
-          ),
-          initialOpenBuilder: (context) => StopDetails(
-            stopId: stop.id,
-          ),
+        key: stop.id,
+        closedBuilder:
+            (context, {required onOpen, onClose, required onSelected}) =>
+                StopOverview(
+                  stop: stop,
+                  onOpen: onOpen,
+                  onClose: onClose,
+                  onSelected: onSelected,
+                ),
+        initialOpenBuilder: (context) => StopDetails(
+          stop: stop,
         ),
+      ),
       _ => throw UnimplementedError('No override for $this'),
     };
   }

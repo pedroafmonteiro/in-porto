@@ -313,6 +313,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// Label for the button to select today's date
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// Label for the button to select tomorrow's date
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// Label for the button to select yesterday's date
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// Label for the button to show older departures
+  ///
+  /// In en, this message translates to:
+  /// **'See older departures from today'**
+  String get olderDepartures;
+
+  /// Button text to indicate completion of an action
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// Label to indicate that a transportation departure is happening now
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get now;
+
+  /// Label to indicate that a transportation departure info is live/realtime
+  ///
+  /// In en, this message translates to:
+  /// **'Realtime'**
+  String get realtime;
+
+  /// Label to indicate that a transportation departure is scheduled for a future time
+  ///
+  /// In en, this message translates to:
+  /// **'scheduled'**
+  String get scheduled;
+
+  /// Label for the button to open the date picker
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDate;
+
+  /// Message shown when there are no more future departures for the current day
+  ///
+  /// In en, this message translates to:
+  /// **'No more trips today'**
+  String get noMoreTripsToday;
+
+  /// Message shown when no trips are found for a selected date
+  ///
+  /// In en, this message translates to:
+  /// **'No trips found'**
+  String get noTripsFound;
+
+  /// Message shown when there is an error loading trips
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load trips'**
+  String get errorLoadingTrips;
+
+  /// Label to indicate that a transportation departure is on time
+  ///
+  /// In en, this message translates to:
+  /// **'on time'**
+  String get onTime;
+
+  /// Label to indicate that a transportation departure is delayed
+  ///
+  /// In en, this message translates to:
+  /// **'delayed'**
+  String get delayed;
+
+  /// Label to indicate that a transportation departure is arriving at the stop
+  ///
+  /// In en, this message translates to:
+  /// **'arriving'**
+  String get arriving;
+
+  /// Label to indicate that the route of a transportation departure is unknown
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown route'**
+  String get unknownRoute;
+
+  /// Label for the section showing upcoming departures
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming departures'**
+  String get upcomingDepartures;
 }
 
 class _AppLocalizationsDelegate

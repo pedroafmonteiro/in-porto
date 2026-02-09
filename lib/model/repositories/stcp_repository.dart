@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/model/entities/schedule.dart';
 import 'package:in_porto/model/entities/trip.dart';
+import 'package:in_porto/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/infrastructure/cache.dart';
 import 'package:in_porto/model/infrastructure/network_providers.dart';
@@ -40,30 +43,114 @@ class STCPRepository {
     }
   }
 
-  Future<Stop> fetchStopDetails(String stopId) async {
-    final uri = Uri.parse('$_baseUrl/stops/$stopId');
+  Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/services').replace(
+      queryParameters: {
+        'date':
+            date?.toIso8601String().split('T').first ??
+            DateTime.now().toIso8601String().split('T').first,
+      },
+    );
     final response = await _client.get(uri);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      return Stop.fromJson(data);
+      return data['active_service_id'] as String;
     } else {
-      throw Exception('Failed to load stop $stopId: ${response.statusCode}');
+      throw Exception(
+        'Failed to load current service for stop ${stop.id}: ${response.statusCode}',
+      );
     }
   }
 
-  Future<List<Trip>> fetchStopRealtimeTrips(String stopId) async {
-    final uri = Uri.parse('$_baseUrl/stops/$stopId/realtime');
+  Future<List<TransportRoute>> fetchStopRoutes(Stop stop) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/routes');
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['dropdown_routes'];
+
+      return results.map((json) => TransportRoute.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load stop ${stop.id}: ${response.statusCode}');
+    }
+  }
+
+  Future<List<Schedule>> fetchStopRouteSchedules(
+    Stop stop,
+    TransportRoute route,
+    String serviceId,
+  ) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/schedule').replace(
+      queryParameters: {
+        'route_id': route.id,
+        'service_id': serviceId,
+        'direction_id': route.directionId?.toString(),
+      },
+    );
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<Schedule> schedules = [];
+
+      final dynamic scheduleData = data['schedule'];
+      final List<dynamic> hourlyGroups = [];
+      if (scheduleData is Map) {
+        hourlyGroups.addAll(scheduleData.values);
+      } else if (scheduleData is List) {
+        hourlyGroups.addAll(scheduleData);
+      }
+
+      for (final arrivalsByHour in hourlyGroups) {
+        if (arrivalsByHour is List) {
+          for (final arrivalData in arrivalsByHour) {
+            if (arrivalData is Map<String, dynamic> &&
+                arrivalData['departure_time'] != null) {
+              schedules.add(
+                Schedule.fromJson({
+                  'stop_id': stop.id,
+                  'route_id': route.id,
+                  'direction_id': route.directionId?.toString(),
+                  'service_id': serviceId,
+                  'departure_time': arrivalData['departure_time'],
+                  'headsign': (arrivalData['headsign'] as String?)
+                      .formatHeadsign(),
+                }),
+              );
+            }
+          }
+        }
+      }
+
+      return schedules;
+    } else {
+      throw Exception(
+        'Failed to load schedules for stop ${stop.id}: ${response.statusCode}',
+      );
+    }
+  }
+
+  Future<List<Trip>> fetchStopRealtimeTrips(Stop stop) async {
+    final uri = Uri.parse('$_baseUrl/stops/${stop.id}/realtime');
     final response = await _client.get(uri);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final List<dynamic> results = data['arrivals'];
 
-      return results.map((json) => Trip.fromJson(json)).toList();
+      return results.map((json) {
+        if (json is Map<String, dynamic> && json['trip_headsign'] != null) {
+          json['trip_headsign'] = (json['trip_headsign'] as String)
+              .formatHeadsign();
+        }
+        return Trip.fromJson(json);
+      }).toList();
     } else {
       throw Exception(
-        'Failed to load realtime routes for stop $stopId: ${response.statusCode}',
+        'Failed to load realtime routes for stop ${stop.id}: ${response.statusCode}',
       );
     }
   }

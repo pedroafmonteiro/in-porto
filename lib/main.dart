@@ -7,6 +7,7 @@ import 'package:in_porto/theme.dart';
 import 'l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'view/navigation/navigation_view.dart';
+import 'package:in_porto/service/deep_link_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +30,21 @@ void main() async {
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({super.key});
+
+  @override
+  ConsumerState<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends ConsumerState<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(deepLinkServiceProvider).init();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

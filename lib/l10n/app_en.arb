@@ -179,5 +179,90 @@
     "@search": {
         "description": "Placeholder text for the search input",
         "type": "text"
+    },
+    "today": "Today",
+    "@today": {
+        "description": "Label for the button to select today's date",
+        "type": "text"
+    },
+    "tomorrow": "Tomorrow",
+    "@tomorrow": {
+        "description": "Label for the button to select tomorrow's date",
+        "type": "text"
+    },
+    "yesterday": "Yesterday",
+    "@yesterday": {
+        "description": "Label for the button to select yesterday's date",
+        "type": "text"
+    },
+    "olderDepartures": "See older departures from today",
+    "@olderDepartures": {
+        "description": "Label for the button to show older departures",
+        "type": "text"
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Button text to indicate completion of an action",
+        "type": "text"
+    },
+    "now": "Now",
+    "@now": {
+        "description": "Label to indicate that a transportation departure is happening now",
+        "type": "text"
+    },
+    "realtime": "Realtime",
+    "@realtime": {
+        "description": "Label to indicate that a transportation departure info is live/realtime",
+        "type": "text"
+    },
+    "scheduled": "scheduled",
+    "@scheduled": {
+        "description": "Label to indicate that a transportation departure is scheduled for a future time",
+        "type": "text"
+    },
+    "selectDate": "Select date",
+    "@selectDate": {
+        "description": "Label for the button to open the date picker",
+        "type": "text"
+    },
+    "noMoreTripsToday": "No more trips today",
+    "@noMoreTripsToday": {
+        "description": "Message shown when there are no more future departures for the current day",
+        "type": "text"
+    },
+    "noTripsFound": "No trips found",
+    "@noTripsFound": {
+        "description": "Message shown when no trips are found for a selected date",
+        "type": "text"
+    },
+    "errorLoadingTrips": "Unable to load trips",
+    "@errorLoadingTrips": {
+        "description": "Message shown when there is an error loading trips",
+        "type": "text"
+    },
+    "onTime": "on time",
+    "@onTime": {
+        "description": "Label to indicate that a transportation departure is on time",
+        "type": "text"
+    },
+    "delayed": "delayed",
+    "@delayed": {
+        "description": "Label to indicate that a transportation departure is delayed",
+        "type": "text"
+    },
+    "arriving": "arriving",
+    "@arriving": {
+        "description": "Label to indicate that a transportation departure is arriving at the stop",
+        "type": "text"
+    },
+    "unknownRoute": "Unknown route",
+    "@unknownRoute": {
+        "description": "Label to indicate that the route of a transportation departure is unknown",
+        "type": "text"
+    },
+    "upcomingDepartures": "Upcoming departures",
+    "@upcomingDepartures": {
+        "description": "Label for the section showing upcoming departures",
+        "type": "text"
     }
 }

@@ -120,4 +120,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get tomorrow => 'Tomorrow';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String get olderDepartures => 'See older departures from today';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get now => 'Now';
+
+  @override
+  String get realtime => 'Realtime';
+
+  @override
+  String get scheduled => 'scheduled';
+
+  @override
+  String get selectDate => 'Select date';
+
+  @override
+  String get noMoreTripsToday => 'No more trips today';
+
+  @override
+  String get noTripsFound => 'No trips found';
+
+  @override
+  String get errorLoadingTrips => 'Unable to load trips';
+
+  @override
+  String get onTime => 'on time';
+
+  @override
+  String get delayed => 'delayed';
+
+  @override
+  String get arriving => 'arriving';
+
+  @override
+  String get unknownRoute => 'Unknown route';
+
+  @override
+  String get upcomingDepartures => 'Upcoming departures';
 }

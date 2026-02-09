@@ -5,36 +5,47 @@ part 'route.g.dart';
 
 @JsonSerializable()
 class TransportRoute implements NavigationOverride {
+  @JsonKey(name: 'route_id')
   final String id;
 
-  @JsonKey(name: 'number')
-  final String? number;
+  @JsonKey(name: 'direction_id')
+  final int? directionId;
 
-  @JsonKey(name: 'name')
-  final String? name;
+  @JsonKey(name: 'route_short_name')
+  final String? shortName;
 
-  @JsonKey(name: 'color')
+  @JsonKey(name: 'route_long_name')
+  final String? longName;
+
+  @JsonKey(name: 'display_name')
+  final String? displayName;
+
+  @JsonKey(name: 'direction_name')
+  final String? directionName;
+
+  @JsonKey(name: 'trip_headsign')
+  final String? tripHeadsign;
+
+  @JsonKey(name: 'route_color')
   final String? color;
 
-  @JsonKey(name: 'text_color')
+  @JsonKey(name: 'route_text_color')
   final String? textColor;
 
   const TransportRoute({
     required this.id,
-    this.number,
-    this.name,
+    this.shortName,
+    this.longName,
+    this.displayName,
+    this.directionName,
+    this.tripHeadsign,
+    this.directionId,
     this.color,
     this.textColor,
   });
 
-  factory TransportRoute.fromJson(Map<String, dynamic> json) {
-    final id = json['id'] ?? json['route_id'];
-
-    final modifiedJson = Map<String, dynamic>.from(json);
-    modifiedJson['id'] = id;
-
-    return _$TransportRouteFromJson(modifiedJson);
-  }
+  factory TransportRoute.fromJson(Map<String, dynamic> json) =>
+      _$TransportRouteFromJson(json);
 
   Map<String, dynamic> toJson() => _$TransportRouteToJson(this);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class StopDebugView extends ConsumerStatefulWidget {
@@ -39,7 +40,7 @@ class _StopDebugViewState extends ConsumerState<StopDebugView> {
                 'ID: ${stop.id} | Lat: ${stop.latitude ?? 'N/A'} | Lon: ${stop.longitude ?? 'N/A'}',
               ),
               trailing: const Icon(Icons.bug_report_outlined),
-              onTap: () => _showStopDetails(context, stop.id),
+              onTap: () => _showStopDetails(context, stop),
             );
           },
         ),
@@ -49,36 +50,39 @@ class _StopDebugViewState extends ConsumerState<StopDebugView> {
     );
   }
 
-  void _showStopDetails(BuildContext context, String stopId) {
+  void _showStopDetails(BuildContext context, Stop stop) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) => DraggableScrollableSheet(
         expand: false,
-        builder: (context, scrollController) =>
-            StopDetailContent(stopId: stopId),
+        builder: (context, scrollController) => StopDetailContent(
+          stop: stop,
+        ),
       ),
     );
   }
 }
 
 class StopDetailContent extends ConsumerWidget {
-  final String stopId;
-  const StopDetailContent({super.key, required this.stopId});
+  final Stop stop;
+  const StopDetailContent({super.key, required this.stop});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stopDetailsAsync = ref.watch(stopDetailsProvider(stopId));
+    final stopRoutesAsync = ref.watch(stopRoutesProvider(stop));
 
-    return stopDetailsAsync.when(
-      data: (stop) {
+    return stopRoutesAsync.when(
+      data: (routes) {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                stop.name ?? 'Unknown',
+                routes.isNotEmpty
+                    ? routes.first.displayName ?? 'Unknown'
+                    : 'Unknown',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Text(
@@ -88,7 +92,7 @@ class StopDetailContent extends ConsumerWidget {
               const Divider(),
               Expanded(
                 child: ListView(
-                  children: (stop.routes ?? [])
+                  children: (routes)
                       .map(
                         (r) => ListTile(
                           leading: CircleAvatar(
@@ -100,7 +104,7 @@ class StopDetailContent extends ConsumerWidget {
                                   )
                                 : Colors.grey,
                           ),
-                          title: Text('${r.number} - ${r.name}'),
+                          title: Text('${r.shortName} - ${r.displayName}'),
                         ),
                       )
                       .toList(),

@@ -179,5 +179,90 @@
     "@search": {
         "description": "Texto de espaço reservado para a entrada de pesquisa",
         "type": "text"
+    },
+    "today": "Hoje",
+    "@today": {
+        "description": "Texto para o botão de hoje",
+        "type": "text"
+    },
+    "tomorrow": "Amanhã",
+    "@tomorrow": {
+        "description": "Texto para o botão de amanhã",
+        "type": "text"
+    },
+    "yesterday": "Ontem",
+    "@yesterday": {
+        "description": "Texto para o botão de ontem",
+        "type": "text"
+    },
+    "olderDepartures": "Ver partidas anteriores de hoje",
+    "@olderDepartures": {
+        "description": "Texto para o botão de ver partidas anteriores",
+        "type": "text"
+    },
+    "done": "Concluído",
+    "@done": {
+        "description": "Texto do botão para indicar que a ação foi concluída",
+        "type": "text"
+    },
+    "now": "Agora",
+    "@now": {
+        "description": "Texto para indicar que uma partida de transporte está a acontecer agora",
+        "type": "text"
+    },
+    "realtime": "Tempo Real",
+    "@realtime": {
+        "description": "Texto para indicar que a informação de partida de transporte é em tempo real",
+        "type": "text"
+    },
+    "scheduled": "agendado",
+    "@scheduled": {
+        "description": "Texto para indicar que uma partida de transporte está agendada para um horário futuro",
+        "type": "text"
+    },
+    "selectDate": "Selecionar data",
+    "@selectDate": {
+        "description": "Texto para o botão de abrir o seletor de data",
+        "type": "text"
+    },
+    "noMoreTripsToday": "Não há mais viagens hoje",
+    "@noMoreTripsToday": {
+        "description": "Mensagem mostrada quando não há mais partidas futuras para o dia atual",
+        "type": "text"
+    },
+    "noTripsFound": "Nenhuma viagem encontrada",
+    "@noTripsFound": {
+        "description": "Mensagem mostrada quando não são encontradas viagens para uma data selecionada",
+        "type": "text"
+    },
+    "errorLoadingTrips": "Não foi possível carregar as viagens",
+    "@errorLoadingTrips": {
+        "description": "Mensagem mostrada quando ocorre um erro ao carregar as viagens",
+        "type": "text"
+    },
+    "onTime": "a horas",
+    "@onTime": {
+        "description": "Texto para indicar que uma partida de transporte está no horário",
+        "type": "text"
+    },
+    "delayed": "atrasado",
+    "@delayed": {
+        "description": "Texto para indicar que uma partida de transporte está atrasada",
+        "type": "text"
+    },
+    "arriving": "a chegar",
+    "@arriving": {
+        "description": "Texto para indicar que uma partida de transporte está a chegar à paragem",
+        "type": "text"
+    },
+    "unknownRoute": "Rota desconhecida",
+    "@unknownRoute": {
+        "description": "Texto para indicar que a rota de uma partida de transporte é desconhecida",
+        "type": "text"
+    },
+    "upcomingDepartures": "Próximas partidas",
+    "@upcomingDepartures": {
+        "description": "Texto para a seção que mostra as próximas partidas",
+        "type": "text"
     }
 }

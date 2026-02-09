@@ -1,40 +1,144 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
+import 'package:in_porto/model/entities/stop.dart';
+import 'package:in_porto/utils.dart';
+import 'package:in_porto/view/stops/widgets/stop_details_app_bar_title.dart';
+import 'package:in_porto/view/stops/widgets/stop_filter_bar.dart';
+import 'package:in_porto/view/stops/widgets/stop_schedules_list.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
-class StopDetails extends ConsumerWidget {
-  final String stopId;
+class StopDetails extends ConsumerStatefulWidget {
+  const StopDetails({super.key, required this.stop});
 
-  const StopDetails({super.key, required this.stopId});
+  final Stop stop;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final asyncStop = ref.watch(stopDetailsProvider(stopId));
+  ConsumerState<StopDetails> createState() => _StopDetailsState();
+}
+
+class _StopDetailsState extends ConsumerState<StopDetails> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showFab = false;
+  DateTime selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (!_scrollController.hasClients) return;
+      final isToday = selectedDate.isToday();
+
+      final isScrollingAway = _scrollController.offset.abs() > 200 && isToday;
+      if (isScrollingAway != _showFab) {
+        setState(() {
+          _showFab = isScrollingAway;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(nowProvider, (_, __) {
+      ref.invalidate(stopRealtimeTripsProvider(widget.stop));
+    });
+
+    final stop = widget.stop;
+    final asyncRoutes = ref.watch(stopRoutesProvider(stop));
+    final selectedRouteIds = ref.watch(selectedRouteIdsProvider);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: asyncStop.when(
-          data: (stop) => Text(stop.name ?? 'Stop'),
-          loading: () => const Text('Loading...'),
-          error: (e, st) => const Text('Unknown stop'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: StopDetailsAppBarTitle(stop: stop),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight - 16.0),
+          child: StopFilterBar(
+            asyncRoutes: asyncRoutes,
+            selectedRouteIds: selectedRouteIds,
+            selectedDate: selectedDate,
+            onRouteToggle: (routeId) {
+              ref.read(selectedRouteIdsProvider.notifier).toggle(routeId);
+              setState(() {
+                _showFab = false;
+              });
+            },
+            onClearFilters: () {
+              ref.read(selectedRouteIdsProvider.notifier).clear();
+              setState(() {
+                _showFab = false;
+              });
+            },
+            onDateChanged: (date) {
+              ref.read(showOlderDeparturesProvider.notifier).toggle(false);
+              setState(() {
+                selectedDate = date;
+                _showFab = false;
+              });
+            },
+          ),
         ),
       ),
-      body: Center(
-        child: asyncStop.when(
-          data: (stop) => Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              stop.name ?? 'No name available',
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
+      body: Column(
+        children: [
+          Expanded(
+            child: StopSchedulesList(
+              stop: stop,
+              selectedDate: selectedDate,
+              scrollController: _scrollController,
+              onShowOlderDepartures: () {
+                ref.read(showOlderDeparturesProvider.notifier).toggle(true);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (_scrollController.hasClients) {
+                    _scrollController.animateTo(
+                      -150.0,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeOutCubic,
+                    );
+                  }
+                });
+              },
             ),
           ),
-          loading: () => const CircularProgressIndicator(),
-          error: (e, st) => const Text('Failed to load stop'),
-        ),
+        ],
       ),
+      floatingActionButton: _showFab
+          ? FloatingActionButton.extended(
+              onPressed: () async {
+                if (!_scrollController.hasClients) return;
+                await _scrollController.animateTo(
+                  0,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
+                if (mounted &&
+                    _scrollController.hasClients &&
+                    _scrollController.offset.abs() < 1) {
+                  ref.read(showOlderDeparturesProvider.notifier).toggle(false);
+                }
+              },
+              label: Text(AppLocalizations.of(context)!.now),
+              icon: Icon(
+                (_scrollController.hasClients && _scrollController.offset > 0)
+                    ? Icons.arrow_upward_rounded
+                    : Icons.arrow_downward_rounded,
+              ),
+            )
+          : null,
     );
   }
 }
