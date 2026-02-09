@@ -28,7 +28,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
   @override
   void initState() {
     super.initState();
-    _refreshTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    _refreshTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
       if (mounted) {
         setState(() {});
       }

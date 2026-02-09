@@ -16,6 +16,7 @@ Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
   scheduledArrivalTime: json['scheduled_arrival_time'] as String?,
   delay: (json['delay_minutes'] as num?)?.toDouble(),
   arrivalMinutes: (json['arrival_minutes'] as num?)?.toDouble(),
+  status: json['status'] as String?,
 );
 
 Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{
@@ -28,4 +29,5 @@ Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{
   'scheduled_arrival_time': instance.scheduledArrivalTime,
   'delay_minutes': instance.delay,
   'arrival_minutes': instance.arrivalMinutes,
+  'status': instance.status,
 };

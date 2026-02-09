@@ -140,6 +140,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get now => 'Agora';
 
   @override
+  String get realtime => 'Tempo Real';
+
+  @override
   String get scheduled => 'Agendado';
 
   @override

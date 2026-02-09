@@ -2,9 +2,11 @@ import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
+import 'package:in_porto/model/departure_info.dart';
 import 'package:in_porto/model/entities/schedule.dart';
 import 'package:in_porto/model/entities/route.dart';
-import 'package:in_porto/view/stops/widgets/schedule_card.dart';
+import 'package:in_porto/view/stops/utils/stop_utils.dart';
+import 'package:in_porto/view/stops/widgets/departure_card.dart';
 import 'package:in_porto/view/stops/utils/stop_scroll_physics.dart';
 
 class StopSchedulesList extends StatelessWidget {
@@ -93,6 +95,14 @@ class StopSchedulesList extends StatelessWidget {
                               (r) => r.id == schedule.routeId,
                               orElse: () => routes.first,
                             );
+
+                      if (route == null) return const SizedBox.shrink();
+
+                      final departureTime = StopUtils.parseToDateTime(
+                        schedule.departureTime,
+                        now: now,
+                      );
+
                       return TweenAnimationBuilder<double>(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeOutCubic,
@@ -106,9 +116,13 @@ class StopSchedulesList extends StatelessWidget {
                             ),
                           );
                         },
-                        child: ScheduleCard(
-                          schedule: schedule,
-                          route: route,
+                        child: DepartureCard(
+                          departure: DepartureInfo(
+                            route: route,
+                            schedule: schedule,
+                            departureTime: departureTime ?? now,
+                            isRealtime: false,
+                          ),
                           isToday: isToday,
                         ),
                       );
@@ -149,11 +163,23 @@ class StopSchedulesList extends StatelessWidget {
                             (r) => r.id == schedule.routeId,
                             orElse: () => routes.first,
                           );
+
+                    if (route == null) return const SizedBox.shrink();
+
+                    final departureTime = StopUtils.parseToDateTime(
+                      schedule.departureTime,
+                      now: now,
+                    );
+
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: ScheduleCard(
-                        schedule: schedule,
-                        route: route,
+                      child: DepartureCard(
+                        departure: DepartureInfo(
+                          route: route,
+                          schedule: schedule,
+                          departureTime: departureTime ?? now,
+                          isRealtime: false,
+                        ),
                         isToday: isToday,
                       ),
                     );

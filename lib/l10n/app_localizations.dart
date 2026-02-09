@@ -350,6 +350,12 @@ abstract class AppLocalizations {
   /// **'Now'**
   String get now;
 
+  /// Label to indicate that a transportation departure info is live/realtime
+  ///
+  /// In en, this message translates to:
+  /// **'Realtime'**
+  String get realtime;
+
   /// Label to indicate that a transportation departure is scheduled for a future time
   ///
   /// In en, this message translates to:

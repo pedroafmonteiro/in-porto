@@ -30,6 +30,28 @@ class _MapViewState extends ConsumerState<MapView> {
   void _onMapCreated(GoogleMapController controller) {
     if (!mounted) return;
     _controller = controller;
+
+    // Check for initial selection
+    final selected = ref.read(selectedNavigationOverrideProvider);
+    if (selected is Stop) {
+      _animateToStop(selected);
+    }
+  }
+
+  Future<void> _animateToStop(Stop stop) async {
+    if (_controller == null ||
+        stop.latitude == null ||
+        stop.longitude == null) {
+      return;
+    }
+
+    final currentZoom = await _controller!.getZoomLevel();
+    _controller!.animateCamera(
+      CameraUpdate.newLatLngZoom(
+        LatLng(stop.latitude!, stop.longitude!),
+        currentZoom < 16 ? 16 : currentZoom,
+      ),
+    );
   }
 
   void _onCameraMove(CameraPosition position) async {
@@ -84,7 +106,7 @@ class _MapViewState extends ConsumerState<MapView> {
     }
   }
 
-  GoogleMap _buildGoogleMap() {
+  GoogleMap _buildGoogleMap(double bottomPadding) {
     return GoogleMap(
       onMapCreated: _onMapCreated,
       onCameraMove: _onCameraMove,
@@ -92,6 +114,7 @@ class _MapViewState extends ConsumerState<MapView> {
         ref.read(selectedNavigationOverrideProvider.notifier).clear();
       },
       markers: _markers,
+      padding: EdgeInsets.only(bottom: bottomPadding),
       tiltGesturesEnabled: false,
       buildingsEnabled: false,
       compassEnabled: false,
@@ -112,15 +135,22 @@ class _MapViewState extends ConsumerState<MapView> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(selectedNavigationOverrideProvider, (previous, next) {
+      if (next is Stop) {
+        _animateToStop(next);
+      }
+    });
+
     final stopsAsync = ref.watch(stopViewModelProvider);
+    final bottomPadding = MediaQuery.of(context).size.height * 0.5;
 
     return stopsAsync.when(
       data: (stops) {
         _updateMarkers(stops);
-        return _buildGoogleMap();
+        return _buildGoogleMap(bottomPadding);
       },
-      loading: () => _buildGoogleMap(),
-      error: (error, stack) => _buildGoogleMap(),
+      loading: () => _buildGoogleMap(bottomPadding),
+      error: (error, stack) => _buildGoogleMap(bottomPadding),
     );
   }
 }

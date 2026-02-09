@@ -340,7 +340,7 @@ final class StopSchedulesProvider
   }
 }
 
-String _$stopSchedulesHash() => r'55a8762cbbc3cd81a33a8e782bb20047b8065dcd';
+String _$stopSchedulesHash() => r'0de5c0c52dd7e959639ba8843fb169798bd01639';
 
 final class StopSchedulesFamily extends $Family
     with

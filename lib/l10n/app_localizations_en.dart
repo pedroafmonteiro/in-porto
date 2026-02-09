@@ -140,6 +140,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get now => 'Now';
 
   @override
+  String get realtime => 'Realtime';
+
+  @override
   String get scheduled => 'Scheduled';
 
   @override

@@ -210,6 +210,11 @@
         "description": "Label to indicate that a transportation departure is happening now",
         "type": "text"
     },
+    "realtime": "Realtime",
+    "@realtime": {
+        "description": "Label to indicate that a transportation departure info is live/realtime",
+        "type": "text"
+    },
     "scheduled": "Scheduled",
     "@scheduled": {
         "description": "Label to indicate that a transportation departure is scheduled for a future time",

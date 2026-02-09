@@ -210,6 +210,11 @@
         "description": "Texto para indicar que uma partida de transporte está a acontecer agora",
         "type": "text"
     },
+    "realtime": "Tempo Real",
+    "@realtime": {
+        "description": "Texto para indicar que a informação de partida de transporte é em tempo real",
+        "type": "text"
+    },
     "scheduled": "Agendado",
     "@scheduled": {
         "description": "Texto para indicar que uma partida de transporte está agendada para um horário futuro",
