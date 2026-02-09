@@ -37,7 +37,6 @@ class _StopOverviewDeparturesState
     _refreshTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
       if (mounted) {
         setState(() {});
-        // Invalidate the provider to force a fresh fetch from the network
         ref.invalidate(stopRealtimeTripsProvider(widget.stop));
       }
     });

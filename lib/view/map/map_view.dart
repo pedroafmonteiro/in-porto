@@ -31,7 +31,6 @@ class _MapViewState extends ConsumerState<MapView> {
     if (!mounted) return;
     _controller = controller;
 
-    // Check for initial selection
     final selected = ref.read(selectedNavigationOverrideProvider);
     if (selected is Stop) {
       _animateToStop(selected);

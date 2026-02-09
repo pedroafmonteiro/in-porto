@@ -359,7 +359,7 @@ abstract class AppLocalizations {
   /// Label to indicate that a transportation departure is scheduled for a future time
   ///
   /// In en, this message translates to:
-  /// **'Scheduled'**
+  /// **'scheduled'**
   String get scheduled;
 
   /// Label for the button to open the date picker
@@ -385,6 +385,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unable to load trips'**
   String get errorLoadingTrips;
+
+  /// Label to indicate that a transportation departure is on time
+  ///
+  /// In en, this message translates to:
+  /// **'on time'**
+  String get onTime;
+
+  /// Label to indicate that a transportation departure is delayed
+  ///
+  /// In en, this message translates to:
+  /// **'delayed'**
+  String get delayed;
+
+  /// Label to indicate that a transportation departure is arriving at the stop
+  ///
+  /// In en, this message translates to:
+  /// **'arriving'**
+  String get arriving;
+
+  /// Label to indicate that the route of a transportation departure is unknown
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown route'**
+  String get unknownRoute;
 }
 
 class _AppLocalizationsDelegate

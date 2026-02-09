@@ -215,7 +215,7 @@
         "description": "Label to indicate that a transportation departure info is live/realtime",
         "type": "text"
     },
-    "scheduled": "Scheduled",
+    "scheduled": "scheduled",
     "@scheduled": {
         "description": "Label to indicate that a transportation departure is scheduled for a future time",
         "type": "text"
@@ -238,6 +238,26 @@
     "errorLoadingTrips": "Unable to load trips",
     "@errorLoadingTrips": {
         "description": "Message shown when there is an error loading trips",
+        "type": "text"
+    },
+    "onTime": "on time",
+    "@onTime": {
+        "description": "Label to indicate that a transportation departure is on time",
+        "type": "text"
+    },
+    "delayed": "delayed",
+    "@delayed": {
+        "description": "Label to indicate that a transportation departure is delayed",
+        "type": "text"
+    },
+    "arriving": "arriving",
+    "@arriving": {
+        "description": "Label to indicate that a transportation departure is arriving at the stop",
+        "type": "text"
+    },
+    "unknownRoute": "Unknown route",
+    "@unknownRoute": {
+        "description": "Label to indicate that the route of a transportation departure is unknown",
         "type": "text"
     }
 }

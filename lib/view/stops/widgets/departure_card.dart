@@ -19,7 +19,7 @@ class DepartureCard extends StatelessWidget {
     final title =
         departure.headsignOverride ??
         departure.schedule?.headsign ??
-        'Unknown Route';
+        AppLocalizations.of(context)!.unknownRoute;
 
     Widget trailing;
     if (departure.isRealtime) {
@@ -43,10 +43,9 @@ class DepartureCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "On Time",
+                  AppLocalizations.of(context)!.onTime,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.green,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -66,10 +65,9 @@ class DepartureCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Delayed",
+                  AppLocalizations.of(context)!.delayed,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.orange,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -85,6 +83,12 @@ class DepartureCard extends StatelessWidget {
                       : AppLocalizations.of(context)!.now,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                Text(
+                  AppLocalizations.of(context)!.arriving,
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.green,
                   ),
                 ),

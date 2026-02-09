@@ -215,7 +215,7 @@
         "description": "Texto para indicar que a informação de partida de transporte é em tempo real",
         "type": "text"
     },
-    "scheduled": "Agendado",
+    "scheduled": "agendado",
     "@scheduled": {
         "description": "Texto para indicar que uma partida de transporte está agendada para um horário futuro",
         "type": "text"
@@ -238,6 +238,26 @@
     "errorLoadingTrips": "Não foi possível carregar as viagens",
     "@errorLoadingTrips": {
         "description": "Mensagem mostrada quando ocorre um erro ao carregar as viagens",
+        "type": "text"
+    },
+    "onTime": "a horas",
+    "@onTime": {
+        "description": "Texto para indicar que uma partida de transporte está no horário",
+        "type": "text"
+    },
+    "delayed": "atrasado",
+    "@delayed": {
+        "description": "Texto para indicar que uma partida de transporte está atrasada",
+        "type": "text"
+    },
+    "arriving": "a chegar",
+    "@arriving": {
+        "description": "Texto para indicar que uma partida de transporte está a chegar à paragem",
+        "type": "text"
+    },
+    "unknownRoute": "Rota desconhecida",
+    "@unknownRoute": {
+        "description": "Texto para indicar que a rota de uma partida de transporte é desconhecida",
         "type": "text"
     }
 }

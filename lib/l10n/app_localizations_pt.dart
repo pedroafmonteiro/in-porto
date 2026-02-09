@@ -143,7 +143,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get realtime => 'Tempo Real';
 
   @override
-  String get scheduled => 'Agendado';
+  String get scheduled => 'agendado';
 
   @override
   String get selectDate => 'Selecionar data';
@@ -156,4 +156,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get errorLoadingTrips => 'Não foi possível carregar as viagens';
+
+  @override
+  String get onTime => 'a horas';
+
+  @override
+  String get delayed => 'atrasado';
+
+  @override
+  String get arriving => 'a chegar';
+
+  @override
+  String get unknownRoute => 'Rota desconhecida';
 }
