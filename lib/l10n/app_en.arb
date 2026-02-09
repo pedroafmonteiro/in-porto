@@ -259,5 +259,10 @@
     "@unknownRoute": {
         "description": "Label to indicate that the route of a transportation departure is unknown",
         "type": "text"
+    },
+    "upcomingDepartures": "Upcoming departures",
+    "@upcomingDepartures": {
+        "description": "Label for the section showing upcoming departures",
+        "type": "text"
     }
 }

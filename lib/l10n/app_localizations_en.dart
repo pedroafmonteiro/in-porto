@@ -168,4 +168,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get unknownRoute => 'Unknown route';
+
+  @override
+  String get upcomingDepartures => 'Upcoming departures';
 }

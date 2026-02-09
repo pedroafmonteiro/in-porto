@@ -409,6 +409,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unknown route'**
   String get unknownRoute;
+
+  /// Label for the section showing upcoming departures
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming departures'**
+  String get upcomingDepartures;
 }
 
 class _AppLocalizationsDelegate

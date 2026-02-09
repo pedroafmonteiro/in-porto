@@ -340,7 +340,7 @@ final class StopSchedulesProvider
   }
 }
 
-String _$stopSchedulesHash() => r'0de5c0c52dd7e959639ba8843fb169798bd01639';
+String _$stopSchedulesHash() => r'ee113e8af70e3da8767f640007d519a7fb65ef9a';
 
 final class StopSchedulesFamily extends $Family
     with
@@ -434,3 +434,209 @@ final class StopRealtimeTripsFamily extends $Family
   @override
   String toString() => r'stopRealtimeTripsProvider';
 }
+
+@ProviderFor(stopDepartures)
+final stopDeparturesProvider = StopDeparturesFamily._();
+
+final class StopDeparturesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<DepartureInfo>>,
+          List<DepartureInfo>,
+          FutureOr<List<DepartureInfo>>
+        >
+    with
+        $FutureModifier<List<DepartureInfo>>,
+        $FutureProvider<List<DepartureInfo>> {
+  StopDeparturesProvider._({
+    required StopDeparturesFamily super.from,
+    required Stop super.argument,
+  }) : super(
+         retry: null,
+         name: r'stopDeparturesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$stopDeparturesHash();
+
+  @override
+  String toString() {
+    return r'stopDeparturesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<DepartureInfo>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<DepartureInfo>> create(Ref ref) {
+    final argument = this.argument as Stop;
+    return stopDepartures(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is StopDeparturesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$stopDeparturesHash() => r'3d0baf882922d69b79ba5afb0c8b59354cbe8f9d';
+
+final class StopDeparturesFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<DepartureInfo>>, Stop> {
+  StopDeparturesFamily._()
+    : super(
+        retry: null,
+        name: r'stopDeparturesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  StopDeparturesProvider call(Stop stop) =>
+      StopDeparturesProvider._(argument: stop, from: this);
+
+  @override
+  String toString() => r'stopDeparturesProvider';
+}
+
+@ProviderFor(filteredStopSchedules)
+final filteredStopSchedulesProvider = FilteredStopSchedulesFamily._();
+
+final class FilteredStopSchedulesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<({List<Schedule> future, List<Schedule> past})>,
+          ({List<Schedule> future, List<Schedule> past}),
+          FutureOr<({List<Schedule> future, List<Schedule> past})>
+        >
+    with
+        $FutureModifier<({List<Schedule> future, List<Schedule> past})>,
+        $FutureProvider<({List<Schedule> future, List<Schedule> past})> {
+  FilteredStopSchedulesProvider._({
+    required FilteredStopSchedulesFamily super.from,
+    required ({Stop stop, DateTime date, Set<String> selectedRouteIds})
+    super.argument,
+  }) : super(
+         retry: null,
+         name: r'filteredStopSchedulesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$filteredStopSchedulesHash();
+
+  @override
+  String toString() {
+    return r'filteredStopSchedulesProvider'
+        ''
+        '$argument';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<({List<Schedule> future, List<Schedule> past})>
+  $createElement($ProviderPointer pointer) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<({List<Schedule> future, List<Schedule> past})> create(Ref ref) {
+    final argument =
+        this.argument
+            as ({Stop stop, DateTime date, Set<String> selectedRouteIds});
+    return filteredStopSchedules(
+      ref,
+      stop: argument.stop,
+      date: argument.date,
+      selectedRouteIds: argument.selectedRouteIds,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FilteredStopSchedulesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$filteredStopSchedulesHash() =>
+    r'bb3faffe45c2fe5116c2b2b03ac588076e4d354a';
+
+final class FilteredStopSchedulesFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<({List<Schedule> future, List<Schedule> past})>,
+          ({Stop stop, DateTime date, Set<String> selectedRouteIds})
+        > {
+  FilteredStopSchedulesFamily._()
+    : super(
+        retry: null,
+        name: r'filteredStopSchedulesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FilteredStopSchedulesProvider call({
+    required Stop stop,
+    required DateTime date,
+    required Set<String> selectedRouteIds,
+  }) => FilteredStopSchedulesProvider._(
+    argument: (stop: stop, date: date, selectedRouteIds: selectedRouteIds),
+    from: this,
+  );
+
+  @override
+  String toString() => r'filteredStopSchedulesProvider';
+}
+
+@ProviderFor(now)
+final nowProvider = NowProvider._();
+
+final class NowProvider
+    extends
+        $FunctionalProvider<AsyncValue<DateTime>, DateTime, Stream<DateTime>>
+    with $FutureModifier<DateTime>, $StreamProvider<DateTime> {
+  NowProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'nowProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$nowHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<DateTime> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<DateTime> create(Ref ref) {
+    return now(ref);
+  }
+}
+
+String _$nowHash() => r'd2be8e4229a805ec4af53686e480000e63d4878e';

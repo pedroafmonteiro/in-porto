@@ -168,4 +168,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get unknownRoute => 'Rota desconhecida';
+
+  @override
+  String get upcomingDepartures => 'Próximas partidas';
 }

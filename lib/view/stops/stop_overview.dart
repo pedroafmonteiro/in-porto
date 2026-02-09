@@ -22,7 +22,6 @@ class StopOverview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncRoutes = ref.watch(stopRoutesProvider(stop));
-    final asyncSchedules = ref.watch(stopSchedulesProvider(stop, null));
     final totalMaxHeight = MediaQuery.of(context).size.height * 0.5;
 
     return ConstrainedBox(
@@ -41,8 +40,6 @@ class StopOverview extends ConsumerWidget {
             child: SingleChildScrollView(
               child: StopOverviewDepartures(
                 stop: stop,
-                asyncRoutes: asyncRoutes,
-                asyncSchedules: asyncSchedules,
               ),
             ),
           ),

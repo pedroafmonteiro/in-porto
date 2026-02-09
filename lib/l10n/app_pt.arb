@@ -259,5 +259,10 @@
     "@unknownRoute": {
         "description": "Texto para indicar que a rota de uma partida de transporte é desconhecida",
         "type": "text"
+    },
+    "upcomingDepartures": "Próximas partidas",
+    "@upcomingDepartures": {
+        "description": "Texto para a seção que mostra as próximas partidas",
+        "type": "text"
     }
 }

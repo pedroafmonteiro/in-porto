@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/model/entities/stop.dart';
+import 'package:in_porto/utils.dart';
 import 'package:in_porto/view/stops/widgets/stop_details_app_bar_title.dart';
 import 'package:in_porto/view/stops/widgets/stop_filter_bar.dart';
 import 'package:in_porto/view/stops/widgets/stop_schedules_list.dart';
@@ -19,7 +19,6 @@ class StopDetails extends ConsumerStatefulWidget {
 
 class _StopDetailsState extends ConsumerState<StopDetails> {
   final ScrollController _scrollController = ScrollController();
-  Timer? _refreshTimer;
   bool _showOlderDepartures = false;
   bool _showFab = false;
   Set<String> selectedRouteIds = {};
@@ -28,18 +27,9 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
   @override
   void initState() {
     super.initState();
-    _refreshTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
-      if (mounted) {
-        setState(() {});
-      }
-    });
     _scrollController.addListener(() {
       if (!_scrollController.hasClients) return;
-      final now = DateTime.now();
-      final isToday =
-          selectedDate.year == now.year &&
-          selectedDate.month == now.month &&
-          selectedDate.day == now.day;
+      final isToday = selectedDate.isToday();
 
       final isScrollingAway = _scrollController.offset.abs() > 200 && isToday;
       if (isScrollingAway != _showFab) {
@@ -52,21 +42,23 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
 
   @override
   void dispose() {
-    _refreshTimer?.cancel();
     _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(nowProvider, (_, __) {
+      ref.invalidate(stopRealtimeTripsProvider(widget.stop));
+    });
+
     final stop = widget.stop;
-    final asyncSchedules = ref.watch(stopSchedulesProvider(stop, selectedDate));
     final asyncRoutes = ref.watch(stopRoutesProvider(stop));
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
           ),
           onPressed: () {
@@ -82,18 +74,20 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
             selectedDate: selectedDate,
             onRouteToggle: (routeId) {
               setState(() {
-                if (selectedRouteIds.contains(routeId)) {
-                  selectedRouteIds.remove(routeId);
+                final newIds = Set<String>.from(selectedRouteIds);
+                if (newIds.contains(routeId)) {
+                  newIds.remove(routeId);
                 } else {
-                  selectedRouteIds.add(routeId);
+                  newIds.add(routeId);
                 }
+                selectedRouteIds = newIds;
                 _showOlderDepartures = false;
                 _showFab = false;
               });
             },
             onClearFilters: () {
               setState(() {
-                selectedRouteIds.clear();
+                selectedRouteIds = {};
                 _showOlderDepartures = false;
                 _showFab = false;
               });
@@ -112,8 +106,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
         children: [
           Expanded(
             child: StopSchedulesList(
-              asyncSchedules: asyncSchedules,
-              asyncRoutes: asyncRoutes,
+              stop: stop,
               selectedRouteIds: selectedRouteIds,
               selectedDate: selectedDate,
               showOlderDepartures: _showOlderDepartures,
