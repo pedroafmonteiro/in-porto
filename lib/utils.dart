@@ -24,17 +24,20 @@ extension StringExtension on String? {
       text = text.substring(1);
     }
 
-    return text.split(' ').map((word) {
-      if (word.isEmpty) return word;
+    return text
+        .split(' ')
+        .map((word) {
+          if (word.isEmpty) return word;
 
-      final firstLetterIdx = word.indexOf(
-        RegExp(r'[a-zA-ZáéíóúàèìòùâêîôûãõçÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÇ]'),
-      );
-      if (firstLetterIdx == -1) return word.toLowerCase();
+          final firstLetterIdx = word.indexOf(
+            RegExp(r'[a-zA-ZáéíóúàèìòùâêîôûãõçÁÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕÇ]'),
+          );
+          if (firstLetterIdx == -1) return word.toLowerCase();
 
-      return word.substring(0, firstLetterIdx).toLowerCase() +
-          word[firstLetterIdx].toUpperCase() +
-          word.substring(firstLetterIdx + 1).toLowerCase();
-    }).join(' ');
+          return word.substring(0, firstLetterIdx).toLowerCase() +
+              word[firstLetterIdx].toUpperCase() +
+              word.substring(firstLetterIdx + 1).toLowerCase();
+        })
+        .join(' ');
   }
 }

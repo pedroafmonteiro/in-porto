@@ -116,7 +116,8 @@ class STCPRepository {
                   'direction_id': route.directionId?.toString(),
                   'service_id': serviceId,
                   'departure_time': arrivalData['departure_time'],
-                  'headsign': (arrivalData['headsign'] as String?).formatHeadsign(),
+                  'headsign': (arrivalData['headsign'] as String?)
+                      .formatHeadsign(),
                 }),
               );
             }
@@ -142,8 +143,8 @@ class STCPRepository {
 
       return results.map((json) {
         if (json is Map<String, dynamic> && json['trip_headsign'] != null) {
-          json['trip_headsign'] =
-              (json['trip_headsign'] as String).formatHeadsign();
+          json['trip_headsign'] = (json['trip_headsign'] as String)
+              .formatHeadsign();
         }
         return Trip.fromJson(json);
       }).toList();
