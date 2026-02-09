@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.NFC" />
     <application
         android:label="in_porto"
         android:name="${applicationName}"
@@ -27,6 +28,62 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="explore.porto.pt" />
+                <data android:host="www.explore.porto.pt" />
+                <data android:host="v2.explore.porto.pt" />
+                <data android:host="www.v2.explore.porto.pt" />
+                
+                <data android:pathPrefix="/stops/" />
+                <data android:pathPrefix="/browse/stops/" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="t.porto.pt" />
+                
+                <data android:pathPattern="/.*" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="stcp.pt" />
+                <data android:host="www.stcp.pt" />
+                
+                <data android:pathPrefix="/pt/viajar/horarios/" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="explore.porto.pt" />
+                <data android:host="www.explore.porto.pt" />
+                <data android:host="v2.explore.porto.pt" />
+                <data android:host="www.v2.explore.porto.pt" />
+                <data android:host="t.porto.pt" />
+                
+                <data android:pathPattern="/.*" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

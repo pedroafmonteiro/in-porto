@@ -39,14 +39,16 @@ class _MapViewState extends ConsumerState<MapView> {
   }
 
   Future<void> _animateToStop(Stop stop) async {
-    if (_controller == null ||
-        stop.latitude == null ||
-        stop.longitude == null) {
+    if (stop.latitude == null || stop.longitude == null) {
+      return;
+    }
+
+    if (_controller == null) {
       return;
     }
 
     final currentZoom = await _controller!.getZoomLevel();
-    _controller!.animateCamera(
+    await _controller!.animateCamera(
       CameraUpdate.newLatLngZoom(
         LatLng(stop.latitude!, stop.longitude!),
         currentZoom < 16 ? 16 : currentZoom,
