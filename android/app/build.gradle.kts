@@ -57,18 +57,18 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             signingConfig = signingConfigs.getByName("release")
 
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
-        debug {
+        getByName("debug") {
             applicationIdSuffix = ".dev"
             signingConfig = signingConfigs.getByName("debug")
         }
 
-        profile {
+        getByName("profile") {
             applicationIdSuffix = ".profile"
             signingConfig = signingConfigs.getByName("debug")
         }
