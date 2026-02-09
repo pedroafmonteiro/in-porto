@@ -38,6 +38,7 @@ class StopOverview extends ConsumerWidget {
           ),
           Flexible(
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: StopOverviewDepartures(
                 stop: stop,
               ),
