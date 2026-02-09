@@ -28,6 +28,7 @@ dependencies:
   path: ^1.9.1
   expressive_loading_indicator: ^0.0.1
   app_links: ^7.0.0
+  firebase_core: ^4.4.0
 
 dev_dependencies:
   flutter_test:
