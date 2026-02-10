@@ -367,11 +367,13 @@ final stopRealtimeTripsProvider = StopRealtimeTripsFamily._();
 final class StopRealtimeTripsProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<Trip>>,
-          List<Trip>,
-          FutureOr<List<Trip>>
+          AsyncValue<(DateTime, List<Trip>)>,
+          (DateTime, List<Trip>),
+          FutureOr<(DateTime, List<Trip>)>
         >
-    with $FutureModifier<List<Trip>>, $FutureProvider<List<Trip>> {
+    with
+        $FutureModifier<(DateTime, List<Trip>)>,
+        $FutureProvider<(DateTime, List<Trip>)> {
   StopRealtimeTripsProvider._({
     required StopRealtimeTripsFamily super.from,
     required Stop super.argument,
@@ -395,11 +397,12 @@ final class StopRealtimeTripsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<Trip>> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<(DateTime, List<Trip>)> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<Trip>> create(Ref ref) {
+  FutureOr<(DateTime, List<Trip>)> create(Ref ref) {
     final argument = this.argument as Stop;
     return stopRealtimeTrips(ref, argument);
   }
@@ -415,10 +418,10 @@ final class StopRealtimeTripsProvider
   }
 }
 
-String _$stopRealtimeTripsHash() => r'3b9378a9f428e2f39c61a74b91169f75e1dc1698';
+String _$stopRealtimeTripsHash() => r'87ccc2b263bdb4a0c0942e1a665a8d503dbcdd6f';
 
 final class StopRealtimeTripsFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Trip>>, Stop> {
+    with $FunctionalFamilyOverride<FutureOr<(DateTime, List<Trip>)>, Stop> {
   StopRealtimeTripsFamily._()
     : super(
         retry: null,

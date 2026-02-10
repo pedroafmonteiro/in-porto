@@ -314,5 +314,10 @@
     "@tryAgain": {
         "description": "Button text to try granting a permission again",
         "type": "text"
+    },
+    "lastUpdated": "Last updated: ",
+    "@lastUpdated": {
+        "description": "Label to indicate the last time the realtime data was updated. The {time} placeholder will be replaced with the actual time.",
+        "type": "text"
     }
 }

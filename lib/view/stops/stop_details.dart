@@ -46,7 +46,7 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(nowProvider, (_, __) {
+    ref.listen(nowProvider, (_, _) {
       ref.invalidate(stopRealtimeTripsProvider(widget.stop));
     });
 

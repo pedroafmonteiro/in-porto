@@ -206,4 +206,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tryAgain => 'Tentar novamente';
+
+  @override
+  String get lastUpdated => 'Última atualização: ';
 }

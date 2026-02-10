@@ -475,6 +475,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get tryAgain;
+
+  /// Label to indicate the last time the realtime data was updated. The {time} placeholder will be replaced with the actual time.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: '**
+  String get lastUpdated;
 }
 
 class _AppLocalizationsDelegate

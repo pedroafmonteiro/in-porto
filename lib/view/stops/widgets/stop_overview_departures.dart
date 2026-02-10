@@ -1,6 +1,7 @@
 import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/view/stops/widgets/departure_card.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
@@ -20,6 +21,10 @@ class StopOverviewDepartures extends ConsumerWidget {
     });
 
     final asyncDepartures = ref.watch(stopDeparturesProvider(stop));
+    final realtimeLastUpdated = ref
+        .watch(stopRealtimeTripsProvider(stop))
+        .value
+        ?.$1;
 
     return asyncDepartures.maybeWhen(
       skipLoadingOnRefresh: true,
@@ -30,9 +35,15 @@ class StopOverviewDepartures extends ConsumerWidget {
 
         return Column(
           spacing: 8.0,
-          children: departures
-              .map((info) => DepartureCard(departure: info))
-              .toList(),
+          children: [
+            ...departures.map(
+              (info) => DepartureCard(departure: info),
+            ),
+            Text(
+              '${AppLocalizations.of(context)!.lastUpdated} ${realtimeLastUpdated != null ? '${TimeOfDay.fromDateTime(realtimeLastUpdated).format(context)}:${realtimeLastUpdated.second.toString().padLeft(2, '0')}' : 'N/A'}',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
         );
       },
       loading: () {
@@ -41,9 +52,15 @@ class StopOverviewDepartures extends ConsumerWidget {
           if (departures.isEmpty) return _buildEmptyState(context);
           return Column(
             spacing: 8.0,
-            children: departures
-                .map((info) => DepartureCard(departure: info))
-                .toList(),
+            children: [
+              ...departures.map(
+                (info) => DepartureCard(departure: info),
+              ),
+              Text(
+                '${AppLocalizations.of(context)!.lastUpdated} ${realtimeLastUpdated != null ? '${TimeOfDay.fromDateTime(realtimeLastUpdated).format(context)}:${realtimeLastUpdated.second.toString().padLeft(2, '0')}' : 'N/A'}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
           );
         }
         return Container(

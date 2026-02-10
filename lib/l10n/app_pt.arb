@@ -314,5 +314,10 @@
     "@tryAgain": {
         "description": "Texto do botão para tentar novamente uma ação",
         "type": "text"
+    },
+    "lastUpdated": "Última atualização: ",
+    "@lastUpdated": {
+        "description": "Texto para mostrar a última vez que as informações de partida foram atualizadas",
+        "type": "text"
     }
 }

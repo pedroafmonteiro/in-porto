@@ -133,21 +133,25 @@ class STCPRepository {
     }
   }
 
-  Future<List<Trip>> fetchStopRealtimeTrips(Stop stop) async {
+  Future<(DateTime, List<Trip>)> fetchStopRealtimeTrips(Stop stop) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/realtime');
     final response = await _client.get(uri);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
+      final DateTime lastUpdated = DateTime.parse(data['last_updated']);
       final List<dynamic> results = data['arrivals'];
 
-      return results.map((json) {
-        if (json is Map<String, dynamic> && json['trip_headsign'] != null) {
-          json['trip_headsign'] = (json['trip_headsign'] as String)
-              .formatHeadsign();
-        }
-        return Trip.fromJson(json);
-      }).toList();
+      return (
+        lastUpdated,
+        results.map((json) {
+          if (json is Map<String, dynamic> && json['trip_headsign'] != null) {
+            json['trip_headsign'] = (json['trip_headsign'] as String)
+                .formatHeadsign();
+          }
+          return Trip.fromJson(json);
+        }).toList(),
+      );
     } else {
       throw Exception(
         'Failed to load realtime routes for stop ${stop.id}: ${response.statusCode}',
