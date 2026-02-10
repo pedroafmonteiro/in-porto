@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -17,12 +18,16 @@ class MapAnimationManager {
   }
 
   void moveTo(double latitude, double longitude, {bool animated = true}) {
-    final bounds = mapController.camera.visibleBounds;
-    final latSpan = bounds.north - bounds.south;
-    final centerLat = latitude - (latSpan * 0.20);
-    final destZoom = mapController.camera.zoom < 16
-        ? 16.0
-        : mapController.camera.zoom;
+    final camera = mapController.camera;
+    final currentZoom = camera.zoom;
+    final destZoom = currentZoom < 16 ? 16.0 : currentZoom;
+
+    final zoomDiff = destZoom - currentZoom;
+    final latSpanAtDest =
+        (camera.visibleBounds.north - camera.visibleBounds.south) /
+        math.pow(2, zoomDiff);
+
+    final centerLat = latitude - (latSpanAtDest * 0.20);
 
     if (animated) {
       _animatedMapMove(LatLng(centerLat, longitude), destZoom);
