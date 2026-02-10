@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:in_porto/viewmodel/location_viewmodel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
 import 'package:in_porto/viewmodel/map_viewmodel.dart';
@@ -39,12 +40,17 @@ class _MapViewState extends ConsumerState<MapView>
 
   @override
   Widget build(BuildContext context) {
+    final asyncUserLocation = ref.watch(userLocationProvider);
+    final userLocation = asyncUserLocation.whenData((data) => data).value;
+
     return Stack(
       children: [
         FlutterMap(
           mapController: _controller,
           options: MapOptions(
-            initialCenter: const LatLng(41.14961, -8.61099),
+            initialCenter: userLocation != null
+                ? LatLng(userLocation.latitude, userLocation.longitude)
+                : const LatLng(41.14961, -8.61099),
             initialZoom: 12,
             minZoom: 10,
             maxZoom: 18,

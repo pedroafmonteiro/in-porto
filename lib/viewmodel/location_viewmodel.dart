@@ -48,6 +48,11 @@ Stream<Position> userLocation(Ref ref) async* {
       return;
     }
 
+    final lastPosition = await Geolocator.getLastKnownPosition();
+    if (lastPosition != null) {
+      yield lastPosition;
+    }
+
     yield* Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.high,

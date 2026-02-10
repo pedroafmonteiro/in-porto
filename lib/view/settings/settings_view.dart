@@ -28,18 +28,21 @@ class SettingsView extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               itemBuilder: (context, index) {
                 final entry = SettingsEntries.entries(context)[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(entry.title),
-                    leading: entry.leadingIcon,
-                    trailing: Icon(Icons.chevron_right),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => entry.page,
-                        ),
-                      );
-                    },
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(entry.title),
+                      leading: entry.leadingIcon,
+                      trailing: Icon(Icons.chevron_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => entry.page,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               },

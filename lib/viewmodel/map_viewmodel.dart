@@ -28,7 +28,7 @@ typedef MapStateData = ({LatLngBounds? bounds, double zoom, bool isFollowing});
 class MapStateController extends _$MapStateController {
   @override
   MapStateData build() {
-    return (bounds: null, zoom: 12.0, isFollowing: false);
+    return (bounds: null, zoom: 12.0, isFollowing: true);
   }
 
   void handleMapEvent(MapEvent event) {

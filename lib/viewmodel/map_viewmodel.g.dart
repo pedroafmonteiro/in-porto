@@ -108,7 +108,7 @@ final class MapStateControllerProvider
 }
 
 String _$mapStateControllerHash() =>
-    r'769ccafd28888a634395b5087a540ad5e0a984f5';
+    r'b1b7acc4167675e698f65bd00b3bbc5395930769';
 
 abstract class _$MapStateController extends $Notifier<MapStateData> {
   MapStateData build();

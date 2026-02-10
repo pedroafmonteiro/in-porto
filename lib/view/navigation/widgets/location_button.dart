@@ -114,7 +114,9 @@ class LocationButton extends ConsumerWidget {
       onPressed: () => _handleLocationAction(context, ref),
       child: Icon(
         locationIcon,
-        color: isFollowing ? Colors.blue : null,
+        color: isFollowing && (locationIcon == Icons.my_location)
+            ? Colors.blue
+            : null,
       ),
     );
   }
