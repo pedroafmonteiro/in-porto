@@ -19,9 +19,10 @@ class MapAnimationManager {
   void moveTo(double latitude, double longitude, {bool animated = true}) {
     final bounds = mapController.camera.visibleBounds;
     final latSpan = bounds.north - bounds.south;
-    final centerLat = latitude - (latSpan * 0.25);
-    final destZoom =
-        mapController.camera.zoom < 16 ? 16.0 : mapController.camera.zoom;
+    final centerLat = latitude - (latSpan * 0.20);
+    final destZoom = mapController.camera.zoom < 16
+        ? 16.0
+        : mapController.camera.zoom;
 
     if (animated) {
       _animatedMapMove(LatLng(centerLat, longitude), destZoom);

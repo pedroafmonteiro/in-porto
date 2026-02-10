@@ -22,7 +22,7 @@ class StopOverview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncRoutes = ref.watch(stopRoutesProvider(stop));
-    final totalMaxHeight = MediaQuery.of(context).size.height * 0.5;
+    final totalMaxHeight = MediaQuery.of(context).size.height * 0.4;
 
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: totalMaxHeight),
