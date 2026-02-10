@@ -415,6 +415,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upcoming departures'**
   String get upcomingDepartures;
+
+  /// Message shown when the user denies location permission
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission denied'**
+  String get locationPermissionDenied;
+
+  /// Message shown when the user denies location permission, explaining how to enable it
+  ///
+  /// In en, this message translates to:
+  /// **'To show nearby stops, please allow location access.'**
+  String get locationPermissionDeniedDescription;
+
+  /// Message shown when the user permanently denies location permission
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission permanently denied'**
+  String get locationPermissionDeniedForever;
+
+  /// Message shown when the user permanently denies location permission, explaining how to enable it
+  ///
+  /// In en, this message translates to:
+  /// **'To show nearby stops, please enable location access in your device settings.'**
+  String get locationPermissionDeniedForeverDescription;
+
+  /// Message shown when the user needs to grant precise location permission
+  ///
+  /// In en, this message translates to:
+  /// **'Precise location permission needed'**
+  String get preciseLocationNeeded;
+
+  /// Message shown when the user needs to grant precise location permission, explaining how to enable it
+  ///
+  /// In en, this message translates to:
+  /// **'To show your exact position on the map, please grant precise location access.'**
+  String get preciseLocationNeededDescription;
+
+  /// Button text to cancel an action
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button text to open the app settings
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get openSettings;
+
+  /// Button text to grant a permission
+  ///
+  /// In en, this message translates to:
+  /// **'Grant'**
+  String get grant;
+
+  /// Button text to try granting a permission again
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
 }
 
 class _AppLocalizationsDelegate

@@ -171,4 +171,39 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get upcomingDepartures => 'Próximas partidas';
+
+  @override
+  String get locationPermissionDenied => 'Permissão de localização negada';
+
+  @override
+  String get locationPermissionDeniedDescription =>
+      'Para mostrar paragens próximas, por favor permite o acesso à localização.';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'Permissão de localização negada permanentemente';
+
+  @override
+  String get locationPermissionDeniedForeverDescription =>
+      'Para mostrar paragens próximas, por favor permite o acesso à localização nas definições do teu dispositivo.';
+
+  @override
+  String get preciseLocationNeeded =>
+      'Permissão de localização precisa necessária';
+
+  @override
+  String get preciseLocationNeededDescription =>
+      'Para mostrar a tua posição exata no mapa, por favor concede acesso à localização precisa.';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get openSettings => 'Abrir definições';
+
+  @override
+  String get grant => 'Conceder';
+
+  @override
+  String get tryAgain => 'Tentar novamente';
 }

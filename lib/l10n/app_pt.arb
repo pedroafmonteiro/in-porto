@@ -264,5 +264,55 @@
     "@upcomingDepartures": {
         "description": "Texto para a seção que mostra as próximas partidas",
         "type": "text"
+    },
+    "locationPermissionDenied": "Permissão de localização negada",
+    "@locationPermissionDenied": {
+        "description": "Mensagem mostrada quando o utilizador nega a permissão de localização",
+        "type": "text"
+    },
+    "locationPermissionDeniedDescription": "Para mostrar paragens próximas, por favor permite o acesso à localização.",
+    "@locationPermissionDeniedDescription": {
+        "description": "Mensagem mostrada quando o utilizador nega a permissão de localização, explicando como habilitá-la",
+        "type": "text"
+    },
+    "locationPermissionDeniedForever": "Permissão de localização negada permanentemente",
+    "@locationPermissionDeniedForever": {
+        "description": "Mensagem mostrada quando o utilizador nega permanentemente a permissão de localização",
+        "type": "text"
+    },
+    "locationPermissionDeniedForeverDescription": "Para mostrar paragens próximas, por favor permite o acesso à localização nas definições do teu dispositivo.",
+    "@locationPermissionDeniedForeverDescription": {
+        "description": "Mensagem mostrada quando o utilizador nega permanentemente a permissão de localização, explicando como habilitá-la",
+        "type": "text"
+    },
+    "preciseLocationNeeded": "Permissão de localização precisa necessária",
+    "@preciseLocationNeeded": {
+        "description": "Mensagem mostrada quando o utilizador precisa conceder permissão de localização precisa",
+        "type": "text"
+    },
+    "preciseLocationNeededDescription": "Para mostrar a tua posição exata no mapa, por favor concede acesso à localização precisa.",
+    "@preciseLocationNeededDescription": {
+        "description": "Mensagem mostrada quando o utilizador precisa conceder permissão de localização precisa, explicando como habilitá-la",
+        "type": "text"
+    },
+    "cancel": "Cancelar",
+    "@cancel": {
+        "description": "Texto do botão para cancelar uma ação",
+        "type": "text"
+    },
+    "openSettings": "Abrir definições",
+    "@openSettings": {
+        "description": "Texto do botão para abrir as definições do dispositivo",
+        "type": "text"
+    },
+    "grant": "Conceder",
+    "@grant": {
+        "description": "Texto do botão para conceder uma permissão",
+        "type": "text"
+    },
+    "tryAgain": "Tentar novamente",
+    "@tryAgain": {
+        "description": "Texto do botão para tentar novamente uma ação",
+        "type": "text"
     }
 }
