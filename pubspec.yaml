@@ -10,7 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   animations: ^2.0.11
-  google_maps_flutter: ^2.12.3
+  flutter_map: ^8.0.0
+  latlong2: ^0.9.1
   google_fonts: ^8.0.0
   shared_preferences: ^2.5.3
   provider: ^6.1.5
