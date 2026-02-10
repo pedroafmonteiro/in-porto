@@ -35,6 +35,7 @@ class LanguageSettingsView extends StatelessWidget {
               },
             ),
           ),
+          SizedBox(height: 8.0),
           Card(
             child: ListTile(
               title: Text(AppLocalizations.of(context)!.portuguese),
@@ -48,6 +49,7 @@ class LanguageSettingsView extends StatelessWidget {
               },
             ),
           ),
+          SizedBox(height: 8.0),
           Card(
             color: Theme.of(context).colorScheme.surfaceContainer,
             child: ListTile(
