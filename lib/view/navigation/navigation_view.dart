@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/view/map/map_view.dart';
 import 'package:in_porto/view/navigation/navigation_mapper.dart';
 import 'package:in_porto/view/navigation/widgets/action_center.dart';
+import 'package:in_porto/view/navigation/widgets/location_button.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
 
 class NavigationView extends ConsumerWidget {
@@ -21,6 +22,11 @@ class NavigationView extends ConsumerWidget {
         onCloseOverride: () =>
             ref.read(selectedNavigationOverrideProvider.notifier).clear(),
       ),
+      floatingActionButton: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
+        child: LocationButton(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
       body: const MapView(),
     );
   }

@@ -13,12 +13,12 @@ class AppTheme {
         color: const Color(0xFFE9EDF3),
         margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       iconTheme: const IconThemeData(
@@ -41,9 +41,16 @@ class AppTheme {
           foregroundColor: const Color(0xFF1A1C1E),
           backgroundColor: const Color(0xFFE9EDF3),
           shape: RoundedSuperellipseBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(24.0),
           ),
         ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(24.0),
+        ),
+        backgroundColor: const Color(0xFFF5F7FA),
+        foregroundColor: const Color(0xFF1A1C1E),
       ),
       colorScheme: ColorScheme.light(
         surface: const Color(0xFFF5F7FA),
@@ -69,12 +76,12 @@ class AppTheme {
         color: const Color(0xFF23262B),
         margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       iconTheme: const IconThemeData(
@@ -97,9 +104,16 @@ class AppTheme {
           foregroundColor: const Color(0xFFF5F7FA),
           backgroundColor: const Color(0xFF23262B),
           shape: RoundedSuperellipseBorder(
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(24.0),
           ),
         ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(24.0),
+        ),
+        backgroundColor: const Color(0xFF181A20),
+        foregroundColor: const Color(0xFFF5F7FA),
       ),
       colorScheme: ColorScheme.dark(
         surface: const Color(0xFF181A20),

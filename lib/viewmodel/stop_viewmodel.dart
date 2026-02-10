@@ -111,7 +111,7 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
 }
 
 @riverpod
-Future<List<Trip>> stopRealtimeTrips(Ref ref, Stop stop) async {
+Future<(DateTime, List<Trip>)> stopRealtimeTrips(Ref ref, Stop stop) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
   return repository.fetchStopRealtimeTrips(stop);
 }
@@ -126,7 +126,7 @@ Future<List<DepartureInfo>> stopDepartures(Ref ref, Stop stop) async {
   final departures = <DepartureInfo>[];
 
   for (final route in routes) {
-    final routeRealtime = realtimeTrips
+    final routeRealtime = realtimeTrips.$2
         .where((t) => t.routeShortName == route.shortName)
         .toList();
 

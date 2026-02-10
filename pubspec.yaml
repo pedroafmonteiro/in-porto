@@ -30,6 +30,7 @@ dependencies:
   expressive_loading_indicator: ^0.0.1
   app_links: ^7.0.0
   firebase_core: ^4.4.0
+  geolocator: ^14.0.2
 
 dev_dependencies:
   flutter_test:

@@ -171,4 +171,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upcomingDepartures => 'Upcoming departures';
+
+  @override
+  String get locationPermissionDenied => 'Location permission denied';
+
+  @override
+  String get locationPermissionDeniedDescription =>
+      'To show nearby stops, please allow location access.';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'Location permission permanently denied';
+
+  @override
+  String get locationPermissionDeniedForeverDescription =>
+      'To show nearby stops, please enable location access in your device settings.';
+
+  @override
+  String get preciseLocationNeeded => 'Precise location permission needed';
+
+  @override
+  String get preciseLocationNeededDescription =>
+      'To show your exact position on the map, please grant precise location access.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get openSettings => 'Open settings';
+
+  @override
+  String get grant => 'Grant';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get lastUpdated => 'Last updated: ';
 }

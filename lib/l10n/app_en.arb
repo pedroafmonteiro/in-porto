@@ -264,5 +264,60 @@
     "@upcomingDepartures": {
         "description": "Label for the section showing upcoming departures",
         "type": "text"
+    },
+    "locationPermissionDenied": "Location permission denied",
+    "@locationPermissionDenied": {
+        "description": "Message shown when the user denies location permission",
+        "type": "text"
+    },
+    "locationPermissionDeniedDescription": "To show nearby stops, please allow location access.",
+    "@locationPermissionDeniedDescription": {
+        "description": "Message shown when the user denies location permission, explaining how to enable it",
+        "type": "text"
+    },
+    "locationPermissionDeniedForever": "Location permission permanently denied",
+    "@locationPermissionDeniedForever": {
+        "description": "Message shown when the user permanently denies location permission",
+        "type": "text"
+    },
+    "locationPermissionDeniedForeverDescription": "To show nearby stops, please enable location access in your device settings.",
+    "@locationPermissionDeniedForeverDescription": {
+        "description": "Message shown when the user permanently denies location permission, explaining how to enable it",
+        "type": "text"
+    },
+    "preciseLocationNeeded": "Precise location permission needed",
+    "@preciseLocationNeeded": {
+        "description": "Message shown when the user needs to grant precise location permission",
+        "type": "text"
+    },
+    "preciseLocationNeededDescription": "To show your exact position on the map, please grant precise location access.",
+    "@preciseLocationNeededDescription": {
+        "description": "Message shown when the user needs to grant precise location permission, explaining how to enable it",
+        "type": "text"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Button text to cancel an action",
+        "type": "text"
+    },
+    "openSettings": "Open settings",
+    "@openSettings": {
+        "description": "Button text to open the app settings",
+        "type": "text"
+    },
+    "grant": "Grant",
+    "@grant": {
+        "description": "Button text to grant a permission",
+        "type": "text"
+    },
+    "tryAgain": "Try again",
+    "@tryAgain": {
+        "description": "Button text to try granting a permission again",
+        "type": "text"
+    },
+    "lastUpdated": "Last updated: ",
+    "@lastUpdated": {
+        "description": "Label to indicate the last time the realtime data was updated. The {time} placeholder will be replaced with the actual time.",
+        "type": "text"
     }
 }

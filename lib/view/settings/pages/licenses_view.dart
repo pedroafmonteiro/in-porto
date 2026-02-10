@@ -64,55 +64,62 @@ class _LicensesViewState extends State<LicensesView> {
                 children: _packageLicenses.keys.map((pkg) {
                   final licenses = _packageLicenses[pkg]!;
                   final isExpanded = _expandedPackages.contains(pkg);
-                  return Card(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(pkg),
-                          subtitle: Text(
-                            '${licenses.length} ${AppLocalizations.of(context)!.license}${licenses.length > 1 ? 's' : ''}',
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Card(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text(pkg),
+                            subtitle: Text(
+                              '${licenses.length} ${AppLocalizations.of(context)!.license}${licenses.length > 1 ? 's' : ''}',
+                            ),
+                            trailing: Icon(
+                              isExpanded
+                                  ? Icons.expand_less
+                                  : Icons.expand_more,
+                            ),
+                            onTap: () {
+                              setState(() {
+                                if (isExpanded) {
+                                  _expandedPackages.remove(pkg);
+                                } else {
+                                  _expandedPackages.add(pkg);
+                                }
+                              });
+                            },
                           ),
-                          trailing: Icon(
-                            isExpanded ? Icons.expand_less : Icons.expand_more,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              if (isExpanded) {
-                                _expandedPackages.remove(pkg);
-                              } else {
-                                _expandedPackages.add(pkg);
-                              }
-                            });
-                          },
-                        ),
-                        if (isExpanded)
-                          ...licenses.map((licenseEntry) {
-                            final licenseText = licenseEntry.paragraphs
-                                .map((p) => p.text)
-                                .join('\n\n');
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 8.0,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  borderRadius: BorderRadius.circular(8.0),
+                          if (isExpanded)
+                            ...licenses.map((licenseEntry) {
+                              final licenseText = licenseEntry.paragraphs
+                                  .map((p) => p.text)
+                                  .join('\n\n');
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                  vertical: 8.0,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Text(
-                                    licenseText,
-                                    style: Theme.of(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(
                                       context,
-                                    ).textTheme.bodyMedium,
+                                    ).colorScheme.surface,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Text(
+                                      licenseText,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
-                      ],
+                              );
+                            }),
+                        ],
+                      ),
                     ),
                   );
                 }).toList(),

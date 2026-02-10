@@ -35,6 +35,7 @@ class AppearanceSettingsView extends StatelessWidget {
               },
             ),
           ),
+          SizedBox(height: 8.0),
           Card(
             child: ListTile(
               title: Text(AppLocalizations.of(context)!.lightMode),
@@ -49,6 +50,7 @@ class AppearanceSettingsView extends StatelessWidget {
               },
             ),
           ),
+          SizedBox(height: 8.0),
           Card(
             child: ListTile(
               title: Text(AppLocalizations.of(context)!.darkMode),
