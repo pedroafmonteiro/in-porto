@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
@@ -13,61 +14,37 @@ class MapView extends ConsumerStatefulWidget {
 }
 
 class _MapViewState extends ConsumerState<MapView> {
-  GoogleMapController? _controller;
+  final MapController _controller = MapController();
   LatLngBounds? _currentBounds;
   LatLngBounds? _previousBounds;
   double _currentZoom = 12;
   double _previousZoom = 12;
   final double _minZoomToShowStops = 16;
-  Set<Marker> _markers = {};
+  List<Marker> _markers = [];
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
-  void _onMapCreated(GoogleMapController controller) {
-    if (!mounted) return;
-    _controller = controller;
-
-    final selected = ref.read(selectedNavigationOverrideProvider);
-    if (selected is Stop) {
-      _animateToStop(selected);
-    }
+  void _onMapEvent(MapEvent event) {
+    setState(() {
+      _currentZoom = _controller.camera.zoom;
+      _currentBounds = _controller.camera.visibleBounds;
+    });
   }
 
-  Future<void> _animateToStop(Stop stop) async {
+  void _animateToStop(Stop stop) {
     if (stop.latitude == null || stop.longitude == null) {
       return;
     }
 
-    if (_controller == null) {
-      return;
-    }
-
-    final currentZoom = await _controller!.getZoomLevel();
-    await _controller!.animateCamera(
-      CameraUpdate.newLatLngZoom(
-        LatLng(stop.latitude!, stop.longitude!),
-        currentZoom < 16 ? 16 : currentZoom,
-      ),
+    final currentZoom = _controller.camera.zoom;
+    _controller.move(
+      LatLng(stop.latitude!, stop.longitude!),
+      currentZoom < 16 ? 16 : currentZoom,
     );
-  }
-
-  void _onCameraMove(CameraPosition position) async {
-    _currentZoom = position.zoom;
-
-    if (_controller == null) return;
-
-    try {
-      final bounds = await _controller!.getVisibleRegion();
-      setState(() {
-        _currentBounds = bounds;
-      });
-    } catch (e) {
-      // error getting bounds
-    }
   }
 
   void _updateMarkers(List<Stop> stops) {
@@ -83,54 +60,58 @@ class _MapViewState extends ConsumerState<MapView> {
                 _currentBounds != null &&
                 stop.latitude != null &&
                 stop.longitude != null &&
-                stop.latitude! >= _currentBounds!.southwest.latitude &&
-                stop.latitude! <= _currentBounds!.northeast.latitude &&
-                stop.longitude! >= _currentBounds!.southwest.longitude &&
-                stop.longitude! <= _currentBounds!.northeast.longitude &&
+                _currentBounds!.contains(LatLng(stop.latitude!, stop.longitude!)) &&
                 _currentZoom >= _minZoomToShowStops,
           )
           .map(
             (stop) => Marker(
-              markerId: MarkerId(stop.id),
-              position: LatLng(stop.latitude!, stop.longitude!),
-              onTap: () {
-                ref
-                    .read(selectedNavigationOverrideProvider.notifier)
-                    .select(stop);
-              },
+              point: LatLng(stop.latitude!, stop.longitude!),
+              width: 40,
+              height: 40,
+              child: GestureDetector(
+                onTap: () {
+                  ref
+                      .read(selectedNavigationOverrideProvider.notifier)
+                      .select(stop);
+                },
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
             ),
           )
-          .toSet();
+          .toList();
 
       _previousBounds = _currentBounds;
       _previousZoom = _currentZoom;
     }
   }
 
-  GoogleMap _buildGoogleMap(double bottomPadding) {
-    return GoogleMap(
-      onMapCreated: _onMapCreated,
-      onCameraMove: _onCameraMove,
-      onTap: (LatLng latlng) {
-        ref.read(selectedNavigationOverrideProvider.notifier).clear();
-      },
-      markers: _markers,
-      padding: EdgeInsets.only(bottom: bottomPadding),
-      tiltGesturesEnabled: false,
-      buildingsEnabled: false,
-      compassEnabled: false,
-      zoomControlsEnabled: false,
-      myLocationButtonEnabled: false,
-      mapToolbarEnabled: false,
-      rotateGesturesEnabled: false,
-      scrollGesturesEnabled: true,
-      zoomGesturesEnabled: true,
-      trafficEnabled: false,
-      minMaxZoomPreference: const MinMaxZoomPreference(10.0, 18.0),
-      initialCameraPosition: const CameraPosition(
-        target: LatLng(41.14961, -8.61099),
-        zoom: 12,
+  Widget _buildFlutterMap() {
+    return FlutterMap(
+      mapController: _controller,
+      options: MapOptions(
+        initialCenter: const LatLng(41.14961, -8.61099),
+        initialZoom: 12,
+        minZoom: 10,
+        maxZoom: 18,
+        onTap: (tapPosition, point) {
+          ref.read(selectedNavigationOverrideProvider.notifier).clear();
+        },
+        onMapEvent: _onMapEvent,
+        interactionOptions: const InteractionOptions(
+          flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        ),
       ),
+      children: [
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'pt.pedroafmonteiro.in_porto',
+        ),
+        MarkerLayer(markers: _markers),
+      ],
     );
   }
 
@@ -143,15 +124,14 @@ class _MapViewState extends ConsumerState<MapView> {
     });
 
     final stopsAsync = ref.watch(stopViewModelProvider);
-    final bottomPadding = MediaQuery.of(context).size.height * 0.5;
 
     return stopsAsync.when(
       data: (stops) {
         _updateMarkers(stops);
-        return _buildGoogleMap(bottomPadding);
+        return _buildFlutterMap();
       },
-      loading: () => _buildGoogleMap(bottomPadding),
-      error: (error, stack) => _buildGoogleMap(bottomPadding),
+      loading: () => _buildFlutterMap(),
+      error: (error, stack) => _buildFlutterMap(),
     );
   }
 }
