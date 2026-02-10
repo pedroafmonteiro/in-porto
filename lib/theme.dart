@@ -13,12 +13,12 @@ class AppTheme {
         color: const Color(0xFFE9EDF3),
         margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       iconTheme: const IconThemeData(
@@ -76,12 +76,12 @@ class AppTheme {
         color: const Color(0xFF23262B),
         margin: const EdgeInsets.all(0),
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       listTileTheme: ListTileThemeData(
         shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(24.0),
         ),
       ),
       iconTheme: const IconThemeData(
