@@ -3,34 +3,46 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'location_viewmodel.g.dart';
 
+typedef LocationState = ({
+  LocationPermission permission,
+  LocationAccuracyStatus accuracy,
+});
+
 @riverpod
 class LocationController extends _$LocationController {
   @override
-  FutureOr<LocationPermission> build() async {
-    return await Geolocator.checkPermission();
+  FutureOr<LocationState> build() async {
+    final permission = await Geolocator.checkPermission();
+    final accuracy = await Geolocator.getLocationAccuracy();
+    return (permission: permission, accuracy: accuracy);
   }
 
   Future<void> requestPermission() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final permission = await Geolocator.requestPermission();
-      return permission;
+      final accuracy = await Geolocator.getLocationAccuracy();
+      return (permission: permission, accuracy: accuracy);
     });
   }
 
   Future<void> updatePermission() async {
     state = await AsyncValue.guard(() async {
-      return await Geolocator.checkPermission();
+      final permission = await Geolocator.checkPermission();
+      final accuracy = await Geolocator.getLocationAccuracy();
+      return (permission: permission, accuracy: accuracy);
     });
   }
 }
 
 @riverpod
 Stream<Position> userLocation(Ref ref) async* {
-  final permission = ref.watch(locationControllerProvider).value;
+  final locationState = ref.watch(locationControllerProvider).value;
 
-  if (permission == LocationPermission.whileInUse ||
-      permission == LocationPermission.always) {
+  if (locationState != null &&
+      (locationState.permission == LocationPermission.whileInUse ||
+          locationState.permission == LocationPermission.always) &&
+      locationState.accuracy == LocationAccuracyStatus.precise) {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return;

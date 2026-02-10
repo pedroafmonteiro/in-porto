@@ -13,7 +13,7 @@ part of 'location_viewmodel.dart';
 final locationControllerProvider = LocationControllerProvider._();
 
 final class LocationControllerProvider
-    extends $AsyncNotifierProvider<LocationController, LocationPermission> {
+    extends $AsyncNotifierProvider<LocationController, LocationState> {
   LocationControllerProvider._()
     : super(
         from: null,
@@ -34,20 +34,19 @@ final class LocationControllerProvider
 }
 
 String _$locationControllerHash() =>
-    r'f782cd505dac2cb2f3f8b623bfaa126c862dbd6b';
+    r'7e2373d27d2f7453438e467617708f5ab89ad541';
 
-abstract class _$LocationController extends $AsyncNotifier<LocationPermission> {
-  FutureOr<LocationPermission> build();
+abstract class _$LocationController extends $AsyncNotifier<LocationState> {
+  FutureOr<LocationState> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref =
-        this.ref as $Ref<AsyncValue<LocationPermission>, LocationPermission>;
+    final ref = this.ref as $Ref<AsyncValue<LocationState>, LocationState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<LocationPermission>, LocationPermission>,
-              AsyncValue<LocationPermission>,
+              AnyNotifier<AsyncValue<LocationState>, LocationState>,
+              AsyncValue<LocationState>,
               Object?,
               Object?
             >;
@@ -87,4 +86,4 @@ final class UserLocationProvider
   }
 }
 
-String _$userLocationHash() => r'46ac1df9abace8bf1013c8e6e6dec7a7070bdb70';
+String _$userLocationHash() => r'2257af03dc8fe95b722348b5cfc031992a2fdacb';
