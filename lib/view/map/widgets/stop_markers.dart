@@ -25,11 +25,16 @@ class StopMarkers extends ConsumerWidget {
                       .read(selectedNavigationOverrideProvider.notifier)
                       .select(stop);
                 },
-                child: const Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                  size: 40,
-                ),
+                child: ref.watch(selectedNavigationOverrideProvider) == stop
+                    ? const Icon(
+                        Icons.location_on,
+                        size: 32,
+                        color: Colors.red,
+                      )
+                    : const Icon(
+                        Icons.directions_bus_filled_rounded,
+                        size: 24,
+                      ),
               ),
             ),
           )
