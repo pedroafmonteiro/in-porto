@@ -66,8 +66,13 @@ class _MapViewState extends ConsumerState<MapView>
           ),
           children: [
             TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              urlTemplate:
+                  'https://basemaps.cartocdn.com/${Theme.of(context).brightness == Brightness.dark ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png',
               userAgentPackageName: 'pt.pedroafmonteiro.in_porto',
+              tileProvider: NetworkTileProvider(
+                cachingProvider:
+                    BuiltInMapCachingProvider.getOrCreateInstance(),
+              ),
             ),
             const StopMarkers(),
             const UserLocationMarker(),

@@ -51,6 +51,7 @@ class AppTheme {
         ),
         backgroundColor: const Color(0xFFF5F7FA),
         foregroundColor: const Color(0xFF1A1C1E),
+        elevation: 2,
       ),
       colorScheme: ColorScheme.light(
         surface: const Color(0xFFF5F7FA),
@@ -114,6 +115,7 @@ class AppTheme {
         ),
         backgroundColor: const Color(0xFF181A20),
         foregroundColor: const Color(0xFFF5F7FA),
+        elevation: 2,
       ),
       colorScheme: ColorScheme.dark(
         surface: const Color(0xFF181A20),
