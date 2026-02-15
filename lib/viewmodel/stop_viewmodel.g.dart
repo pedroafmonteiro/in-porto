@@ -495,7 +495,7 @@ final class StopDeparturesProvider
   }
 }
 
-String _$stopDeparturesHash() => r'159021806ed6cec972f31bf4b5dff093294516ba';
+String _$stopDeparturesHash() => r'666bd726d39d52e51face7cff2a5b7913ca1e1e6';
 
 final class StopDeparturesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<DepartureInfo>>, Stop> {

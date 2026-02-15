@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/schedule.dart';
+import 'package:in_porto/model/entities/shape_coordinates.dart';
 import 'package:in_porto/model/entities/trip.dart';
 import 'package:in_porto/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -155,6 +156,37 @@ class STCPRepository {
     } else {
       throw Exception(
         'Failed to load realtime routes for stop ${stop.id}: ${response.statusCode}',
+      );
+    }
+  }
+
+  Future<List<ShapeCoordinates>> fetchRouteShapeCoordinates(
+    TransportRoute route,
+  ) async {
+    final uri = Uri.parse('$_baseUrl/route/${route.id}/shape').replace(
+      queryParameters: {
+        'direction_id': route.directionId?.toString(),
+      },
+    );
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['coordinates'];
+
+      return results
+          .map(
+            (json) => ShapeCoordinates.fromJson({
+              'route_id': route.id,
+              'direction_id': route.directionId,
+              ...json,
+            }),
+          )
+          .toList();
+    } else {
+      throw Exception(
+        'Failed to load shape coordinates for route ${route.id}: ${response.statusCode}',
       );
     }
   }
