@@ -1,6 +1,7 @@
 import 'package:in_porto/model/departure_info.dart';
 import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/schedule.dart';
+import 'package:in_porto/model/entities/shape_coordinates.dart';
 import 'package:in_porto/model/entities/trip.dart';
 import 'package:in_porto/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -102,8 +103,9 @@ Future<List<Schedule>> stopSchedules(Ref ref, Stop stop, DateTime? date) async {
   allSchedules.sort((a, b) {
     final aTime = a.departureTime.toDateTime(now: targetDate);
     final bTime = b.departureTime.toDateTime(now: targetDate);
-    if (aTime == null || bTime == null)
+    if (aTime == null || bTime == null) {
       return a.departureTime.compareTo(b.departureTime);
+    }
     return aTime.compareTo(bTime);
   });
 
@@ -243,4 +245,13 @@ Stream<DateTime> now(Ref ref) async* {
     const Duration(seconds: 15),
     (_) => DateTime.now(),
   );
+}
+
+@riverpod
+Future<List<ShapeCoordinates>> routeShapeCoordinates(
+  Ref ref,
+  TransportRoute route,
+) async {
+  final repository = await ref.read(stcpRepositoryProvider.future);
+  return repository.fetchRouteShapeCoordinates(route);
 }

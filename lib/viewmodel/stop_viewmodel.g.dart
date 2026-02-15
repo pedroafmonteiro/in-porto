@@ -340,7 +340,7 @@ final class StopSchedulesProvider
   }
 }
 
-String _$stopSchedulesHash() => r'd91708a0b1dc946c01bf21ff90f139d8cf39266d';
+String _$stopSchedulesHash() => r'f714d8ec587fb29e8870ad5428f5c391aca9210a';
 
 final class StopSchedulesFamily extends $Family
     with
@@ -739,3 +739,85 @@ final class NowProvider
 }
 
 String _$nowHash() => r'd2be8e4229a805ec4af53686e480000e63d4878e';
+
+@ProviderFor(routeShapeCoordinates)
+final routeShapeCoordinatesProvider = RouteShapeCoordinatesFamily._();
+
+final class RouteShapeCoordinatesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<ShapeCoordinates>>,
+          List<ShapeCoordinates>,
+          FutureOr<List<ShapeCoordinates>>
+        >
+    with
+        $FutureModifier<List<ShapeCoordinates>>,
+        $FutureProvider<List<ShapeCoordinates>> {
+  RouteShapeCoordinatesProvider._({
+    required RouteShapeCoordinatesFamily super.from,
+    required TransportRoute super.argument,
+  }) : super(
+         retry: null,
+         name: r'routeShapeCoordinatesProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$routeShapeCoordinatesHash();
+
+  @override
+  String toString() {
+    return r'routeShapeCoordinatesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<ShapeCoordinates>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<ShapeCoordinates>> create(Ref ref) {
+    final argument = this.argument as TransportRoute;
+    return routeShapeCoordinates(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RouteShapeCoordinatesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$routeShapeCoordinatesHash() =>
+    r'f6c4e74c48537dc91348acbaf6be78a35338a6a7';
+
+final class RouteShapeCoordinatesFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<List<ShapeCoordinates>>,
+          TransportRoute
+        > {
+  RouteShapeCoordinatesFamily._()
+    : super(
+        retry: null,
+        name: r'routeShapeCoordinatesProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RouteShapeCoordinatesProvider call(TransportRoute route) =>
+      RouteShapeCoordinatesProvider._(argument: route, from: this);
+
+  @override
+  String toString() => r'routeShapeCoordinatesProvider';
+}
