@@ -17,8 +17,9 @@ class STCPRepository {
   final http.Client _client;
   final String _baseUrl = 'https://stcp.pt/api';
   final PersistentCache<List<Stop>> _stopsCache;
+  final PersistentCache<List<TransportRoute>> _routesCache;
 
-  STCPRepository(this._client, this._stopsCache);
+  STCPRepository(this._client, this._stopsCache, this._routesCache);
 
   Future<List<Stop>> getStops({bool forceRefresh = false}) async {
     return _stopsCache.getOrFetch(
@@ -42,6 +43,26 @@ class STCPRepository {
     } else {
       throw Exception('Failed to get all stops: ${response.statusCode}');
     }
+  }
+
+  Future<List<TransportRoute>> getRoutes({bool forceRefresh = false}) async {
+    return _routesCache.getOrFetch(
+      fetcher: _fetchAllRoutesFromRemote,
+      forceRefresh: forceRefresh,
+    );
+  }
+
+  Future<List<TransportRoute>> _fetchAllRoutesFromRemote() async {
+    List<TransportRoute> allRoutes = [];
+    for (final stop in await getStops()) {
+      try {
+        await fetchStopRoutes(stop);
+        allRoutes.addAll(await fetchStopRoutes(stop));
+      } catch (e) {
+        // Ignore errors for individual stops
+      }
+    }
+    return allRoutes.toSet().toList();
   }
 
   Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
@@ -192,11 +213,12 @@ class STCPRepository {
   }
 
   Future<List<Stop>> fetchRouteStops(TransportRoute route) async {
-    final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction').replace(
-      queryParameters: {
-        'direction_id': route.directionId?.toString(),
-      },
-    );
+    final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction')
+        .replace(
+          queryParameters: {
+            'direction_id': route.directionId?.toString(),
+          },
+        );
 
     final response = await _client.get(uri);
 
@@ -216,6 +238,7 @@ class STCPRepository {
 @riverpod
 Future<STCPRepository> stcpRepository(Ref ref) async {
   final client = ref.watch(httpClientProvider);
-  final cache = await ref.watch(stopsCacheProvider.future);
-  return STCPRepository(client, cache);
+  final stopsCache = await ref.watch(stopsCacheProvider.future);
+  final routesCache = await ref.watch(routesCacheProvider.future);
+  return STCPRepository(client, stopsCache, routesCache);
 }

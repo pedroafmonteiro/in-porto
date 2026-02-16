@@ -46,4 +46,4 @@ final class StcpRepositoryProvider
   }
 }
 
-String _$stcpRepositoryHash() => r'021d1b472b4ce2b3ae012c183f9917f8f9d26516';
+String _$stcpRepositoryHash() => r'852f472074fe06ce316e179ca890a9ea84d4785a';
