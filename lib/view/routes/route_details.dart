@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/view/routes/widgets/route_details_header.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class RouteDetails extends ConsumerWidget {
@@ -29,10 +30,7 @@ class RouteDetails extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 8.0,
         children: [
-          Text(
-            'Route ${route.shortName} - ${route.longName}',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          RouteDetailsHeader(route: route),
           Flexible(
             child: asyncRouteShapes.when(
               data: (shapes) => ListView.builder(
