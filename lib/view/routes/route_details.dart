@@ -30,11 +30,8 @@ class RouteDetails extends ConsumerWidget {
         spacing: 8.0,
         children: [
           RouteDetailsHeader(route: route),
-          Flexible(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: RouteDetailsStops(route: route),
-            )
+          Expanded(
+            child: RouteDetailsStops(route: route),
           ),
         ],
       ),

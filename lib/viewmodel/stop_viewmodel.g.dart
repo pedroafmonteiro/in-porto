@@ -944,3 +944,78 @@ final class RouteStopsFamily extends $Family
   @override
   String toString() => r'routeStopsProvider';
 }
+
+@ProviderFor(routeInverse)
+final routeInverseProvider = RouteInverseFamily._();
+
+final class RouteInverseProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<TransportRoute?>,
+          TransportRoute?,
+          FutureOr<TransportRoute?>
+        >
+    with $FutureModifier<TransportRoute?>, $FutureProvider<TransportRoute?> {
+  RouteInverseProvider._({
+    required RouteInverseFamily super.from,
+    required TransportRoute super.argument,
+  }) : super(
+         retry: null,
+         name: r'routeInverseProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$routeInverseHash();
+
+  @override
+  String toString() {
+    return r'routeInverseProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<TransportRoute?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<TransportRoute?> create(Ref ref) {
+    final argument = this.argument as TransportRoute;
+    return routeInverse(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RouteInverseProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$routeInverseHash() => r'42d7a881bb738f775dd4cf8e5f26deff24a797c5';
+
+final class RouteInverseFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<TransportRoute?>, TransportRoute> {
+  RouteInverseFamily._()
+    : super(
+        retry: null,
+        name: r'routeInverseProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RouteInverseProvider call(TransportRoute route) =>
+      RouteInverseProvider._(argument: route, from: this);
+
+  @override
+  String toString() => r'routeInverseProvider';
+}

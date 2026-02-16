@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/view/common/route_badge.dart';
 import 'package:in_porto/viewmodel/map_viewmodel.dart';
+import 'package:in_porto/viewmodel/navigation_state.dart';
+import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class RouteDetailsHeader extends ConsumerWidget {
   const RouteDetailsHeader({super.key, required this.route});
@@ -11,6 +13,8 @@ class RouteDetailsHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final routeInverse = ref.watch(routeInverseProvider(route)).asData?.value;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -38,7 +42,7 @@ class RouteDetailsHeader extends ConsumerWidget {
                         .read(centerOnMarkerProvider.notifier)
                         .trigger(MapCenterTarget.route),
                     child: Text(
-                      route.longName?.toUpperCase() ?? 'Unknown Route',
+                      route.tripHeadsign?.toUpperCase() ?? 'Unknown Route',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -47,10 +51,20 @@ class RouteDetailsHeader extends ConsumerWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.swap_horiz_rounded),
-                  visualDensity: VisualDensity.compact,
+                Visibility(
+                  visible: routeInverse != null,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: IconButton(
+                    onPressed: routeInverse != null
+                        ? () => ref
+                              .read(selectedNavigationOverrideProvider.notifier)
+                              .select(routeInverse)
+                        : null,
+                    icon: const Icon(Icons.swap_horiz_rounded),
+                    visualDensity: VisualDensity.compact,
+                  ),
                 ),
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:in_porto/model/departure_info.dart';
 import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/schedule.dart';
@@ -277,4 +278,13 @@ Future<List<ShapeCoordinates>> routeShapeCoordinates(
 Future<List<Stop>> routeStops(Ref ref, TransportRoute route) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
   return repository.fetchRouteStops(route);
+}
+
+@riverpod
+Future<TransportRoute?> routeInverse(Ref ref, TransportRoute route) async {
+  final allRoutes = await ref.watch(routeViewModelProvider.future);
+  return allRoutes.firstWhereOrNull(
+    (TransportRoute r) =>
+        r.id == route.id && r.directionId != route.directionId,
+  );
 }
