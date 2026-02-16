@@ -34,7 +34,7 @@ class RouteStopCard extends ConsumerWidget {
             children: [
               if (!isFirst)
                 Positioned(
-                  top: -26,
+                  top: -34,
                   bottom: 0,
                   child: Container(
                     width: 2,
@@ -44,7 +44,7 @@ class RouteStopCard extends ConsumerWidget {
               if (!isLast)
                 Positioned(
                   top: 0,
-                  bottom: -26,
+                  bottom: -34,
                   child: Container(
                     width: 2,
                     color: Theme.of(context).colorScheme.outlineVariant,
@@ -66,6 +66,13 @@ class RouteStopCard extends ConsumerWidget {
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: Text(
+          stop.code ?? 'No code',
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall,
           overflow: TextOverflow.ellipsis,
         ),
       ),
