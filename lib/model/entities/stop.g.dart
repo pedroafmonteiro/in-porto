@@ -13,6 +13,7 @@ Stop _$StopFromJson(Map<String, dynamic> json) => Stop(
   latitude: (json['stop_lat'] as num?)?.toDouble(),
   longitude: (json['stop_lon'] as num?)?.toDouble(),
   zoneId: json['zone_id'] as String?,
+  sequence: (json['stop_sequence'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$StopToJson(Stop instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$StopToJson(Stop instance) => <String, dynamic>{
   'stop_lat': instance.latitude,
   'stop_lon': instance.longitude,
   'zone_id': instance.zoneId,
+  'stop_sequence': instance.sequence,
 };

@@ -190,6 +190,27 @@ class STCPRepository {
       );
     }
   }
+
+  Future<List<Stop>> fetchRouteStops(TransportRoute route) async {
+    final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction').replace(
+      queryParameters: {
+        'direction_id': route.directionId?.toString(),
+      },
+    );
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['stops'];
+
+      return results.map((json) => Stop.fromJson(json)).toList();
+    } else {
+      throw Exception(
+        'Failed to load stops for route ${route.id}: ${response.statusCode}',
+      );
+    }
+  }
 }
 
 @riverpod

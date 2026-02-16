@@ -821,3 +821,77 @@ final class RouteShapeCoordinatesFamily extends $Family
   @override
   String toString() => r'routeShapeCoordinatesProvider';
 }
+
+@ProviderFor(routeStops)
+final routeStopsProvider = RouteStopsFamily._();
+
+final class RouteStopsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Stop>>,
+          List<Stop>,
+          FutureOr<List<Stop>>
+        >
+    with $FutureModifier<List<Stop>>, $FutureProvider<List<Stop>> {
+  RouteStopsProvider._({
+    required RouteStopsFamily super.from,
+    required TransportRoute super.argument,
+  }) : super(
+         retry: null,
+         name: r'routeStopsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$routeStopsHash();
+
+  @override
+  String toString() {
+    return r'routeStopsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Stop>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Stop>> create(Ref ref) {
+    final argument = this.argument as TransportRoute;
+    return routeStops(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is RouteStopsProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$routeStopsHash() => r'363c1cb084200a0c5d5de72ffaf2ab5e02effd28';
+
+final class RouteStopsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Stop>>, TransportRoute> {
+  RouteStopsFamily._()
+    : super(
+        retry: null,
+        name: r'routeStopsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  RouteStopsProvider call(TransportRoute route) =>
+      RouteStopsProvider._(argument: route, from: this);
+
+  @override
+  String toString() => r'routeStopsProvider';
+}

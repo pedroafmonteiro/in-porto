@@ -255,3 +255,9 @@ Future<List<ShapeCoordinates>> routeShapeCoordinates(
   final repository = await ref.read(stcpRepositoryProvider.future);
   return repository.fetchRouteShapeCoordinates(route);
 }
+
+@riverpod
+Future<List<Stop>> routeStops(Ref ref, TransportRoute route) async {
+  final repository = await ref.read(stcpRepositoryProvider.future);
+  return repository.fetchRouteStops(route);
+}

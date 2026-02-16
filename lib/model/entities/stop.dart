@@ -23,6 +23,9 @@ class Stop implements NavigationOverride {
   @JsonKey(name: 'zone_id')
   final String? zoneId;
 
+  @JsonKey(name: 'stop_sequence') // when fetching stops from a specific route
+  final int? sequence;
+
   const Stop({
     required this.id,
     this.code,
@@ -30,6 +33,7 @@ class Stop implements NavigationOverride {
     this.latitude,
     this.longitude,
     this.zoneId,
+    this.sequence,
   });
 
   factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);
