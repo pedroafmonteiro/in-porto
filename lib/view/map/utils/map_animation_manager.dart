@@ -79,4 +79,54 @@ class MapAnimationManager {
 
     _animationController!.forward();
   }
+
+  void fitBounds(LatLngBounds bounds) {
+    _animationController?.stop();
+    _animationController?.dispose();
+
+    final destCamera = CameraFit.bounds(
+      bounds: bounds,
+      padding: const EdgeInsets.only(
+        top: 64.0,
+        left: 32.0,
+        right: 32.0,
+        bottom: 512.0,
+      ),
+    ).fit(mapController.camera);
+
+    final centerLatTween = Tween<double>(
+      begin: mapController.camera.center.latitude,
+      end: destCamera.center.latitude,
+    );
+    final centerLngTween = Tween<double>(
+      begin: mapController.camera.center.longitude,
+      end: destCamera.center.longitude,
+    );
+
+    final zoomTween = Tween<double>(
+      begin: mapController.camera.zoom,
+      end: destCamera.zoom,
+    );
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: vsync,
+    );
+    final animation = CurvedAnimation(
+      parent: _animationController!,
+      curve: Curves.fastOutSlowIn,
+    );
+
+    _animationController!.addListener(() {
+      mapController.move(
+        LatLng(
+          centerLatTween.evaluate(animation),
+          centerLngTween.evaluate(animation),
+        ),
+        zoomTween.evaluate(animation),
+      );
+    });
+
+    _animationController!.forward();
+  }
 }

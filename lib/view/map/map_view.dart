@@ -7,6 +7,7 @@ import 'package:in_porto/viewmodel/navigation_state.dart';
 import 'package:in_porto/viewmodel/map_viewmodel.dart';
 import 'package:in_porto/view/map/widgets/stop_markers.dart';
 import 'package:in_porto/view/map/widgets/user_location_marker.dart';
+import 'package:in_porto/view/map/widgets/route_polylines.dart';
 import 'package:in_porto/view/map/widgets/map_listener.dart';
 import 'package:in_porto/view/map/utils/map_animation_manager.dart';
 
@@ -74,6 +75,7 @@ class _MapViewState extends ConsumerState<MapView>
                     BuiltInMapCachingProvider.getOrCreateInstance(),
               ),
             ),
+            const RoutePolylines(),
             const StopMarkers(),
             const UserLocationMarker(),
           ],

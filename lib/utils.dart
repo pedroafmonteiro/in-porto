@@ -61,21 +61,34 @@ extension TimeStringExtension on String {
 }
 
 extension StringExtension on String? {
+  Color? toColor() {
+    if (this == null) return null;
+    final buffer = StringBuffer();
+    if (this!.length == 6 || this!.length == 7) buffer.write('ff');
+    buffer.write(this!.replaceFirst('#', ''));
+    final val = int.tryParse(buffer.toString(), radix: 16);
+    return val != null ? Color(val) : null;
+  }
+
   String formatHeadsign() {
     if (this == null || this!.isEmpty) return 'Unknown Route';
 
     final text = this!.startsWith('*') ? this!.substring(1) : this!;
-    return text.toLowerCase().split(' ').map((word) {
-      if (word.isEmpty) return word;
-      final firstLetterIdx = word.indexOf(
-        RegExp(r'[a-zà-ÿ]'),
-      );
-      if (firstLetterIdx == -1) return word;
-      return word.replaceRange(
-        firstLetterIdx,
-        firstLetterIdx + 1,
-        word[firstLetterIdx].toUpperCase(),
-      );
-    }).join(' ');
+    return text
+        .toLowerCase()
+        .split(' ')
+        .map((word) {
+          if (word.isEmpty) return word;
+          final firstLetterIdx = word.indexOf(
+            RegExp(r'[a-zà-ÿ]'),
+          );
+          if (firstLetterIdx == -1) return word;
+          return word.replaceRange(
+            firstLetterIdx,
+            firstLetterIdx + 1,
+            word[firstLetterIdx].toUpperCase(),
+          );
+        })
+        .join(' ');
   }
 }

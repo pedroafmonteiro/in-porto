@@ -168,3 +168,50 @@ final class VisibleStopsProvider
 }
 
 String _$visibleStopsHash() => r'9be44546f596951abd18d736e65d57aaac60f06e';
+
+@ProviderFor(visibleShapes)
+final visibleShapesProvider = VisibleShapesProvider._();
+
+final class VisibleShapesProvider
+    extends
+        $FunctionalProvider<
+          List<ShapeCoordinates>,
+          List<ShapeCoordinates>,
+          List<ShapeCoordinates>
+        >
+    with $Provider<List<ShapeCoordinates>> {
+  VisibleShapesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'visibleShapesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$visibleShapesHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<ShapeCoordinates>> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  List<ShapeCoordinates> create(Ref ref) {
+    return visibleShapes(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<ShapeCoordinates> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<ShapeCoordinates>>(value),
+    );
+  }
+}
+
+String _$visibleShapesHash() => r'942d2952d87b113170795c89548c72f5017892be';

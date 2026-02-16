@@ -1,7 +1,10 @@
 import 'package:flutter_map/flutter_map.dart';
+import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/model/entities/shape_coordinates.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/entities/stop.dart';
+import 'package:in_porto/viewmodel/navigation_state.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 part 'map_viewmodel.g.dart';
@@ -9,6 +12,7 @@ part 'map_viewmodel.g.dart';
 enum MapCenterTarget {
   user,
   stop,
+  route,
 }
 
 @riverpod
@@ -34,7 +38,8 @@ class MapStateController extends _$MapStateController {
   void handleMapEvent(MapEvent event) {
     if (!ref.mounted) return;
 
-    final isUserGesture = event.source == MapEventSource.dragStart ||
+    final isUserGesture =
+        event.source == MapEventSource.dragStart ||
         event.source == MapEventSource.onDrag ||
         event.source == MapEventSource.multiFingerGestureStart ||
         event.source == MapEventSource.onMultiFinger ||
@@ -74,11 +79,30 @@ List<Stop> visibleStops(Ref ref) {
       }
 
       return stops
-          .where((stop) =>
-              stop.latitude != null &&
-              stop.longitude != null &&
-              bounds.contains(LatLng(stop.latitude!, stop.longitude!)))
+          .where(
+            (stop) =>
+                stop.latitude != null &&
+                stop.longitude != null &&
+                bounds.contains(LatLng(stop.latitude!, stop.longitude!)),
+          )
           .toList();
+    },
+    orElse: () => [],
+  );
+}
+
+@riverpod
+List<ShapeCoordinates> visibleShapes(Ref ref) {
+  final navigation = ref.watch(selectedNavigationOverrideProvider);
+  if (navigation is! TransportRoute) return [];
+
+  final shapesAsync = ref.watch(routeShapeCoordinatesProvider(navigation));
+
+  return shapesAsync.maybeWhen(
+    data: (shapes) {
+      final sortedShapes = List<ShapeCoordinates>.from(shapes)
+        ..sort((a, b) => (a.sequence ?? 0).compareTo(b.sequence ?? 0));
+      return sortedShapes;
     },
     orElse: () => [],
   );
