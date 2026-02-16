@@ -53,6 +53,55 @@ abstract class _$StopViewModel extends $AsyncNotifier<List<Stop>> {
   }
 }
 
+@ProviderFor(RouteViewModel)
+final routeViewModelProvider = RouteViewModelProvider._();
+
+final class RouteViewModelProvider
+    extends $AsyncNotifierProvider<RouteViewModel, List<TransportRoute>> {
+  RouteViewModelProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'routeViewModelProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$routeViewModelHash();
+
+  @$internal
+  @override
+  RouteViewModel create() => RouteViewModel();
+}
+
+String _$routeViewModelHash() => r'7ddb26425227018925e6414e10885f166a8480b9';
+
+abstract class _$RouteViewModel extends $AsyncNotifier<List<TransportRoute>> {
+  FutureOr<List<TransportRoute>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<List<TransportRoute>>, List<TransportRoute>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<List<TransportRoute>>,
+                List<TransportRoute>
+              >,
+              AsyncValue<List<TransportRoute>>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(stopServiceId)
 final stopServiceIdProvider = StopServiceIdFamily._();
 

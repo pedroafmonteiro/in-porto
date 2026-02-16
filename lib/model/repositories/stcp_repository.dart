@@ -53,16 +53,38 @@ class STCPRepository {
   }
 
   Future<List<TransportRoute>> _fetchAllRoutesFromRemote() async {
-    List<TransportRoute> allRoutes = [];
-    for (final stop in await getStops()) {
-      try {
-        await fetchStopRoutes(stop);
-        allRoutes.addAll(await fetchStopRoutes(stop));
-      } catch (e) {
-        // Ignore errors for individual stops
+    final stops = await getStops();
+    final Map<String, TransportRoute> allRoutesMap = {};
+
+    const int batchSize = 30;
+    for (int i = 0; i < stops.length; i += batchSize) {
+      final end = (i + batchSize < stops.length) ? i + batchSize : stops.length;
+      final batch = stops.sublist(i, end);
+
+      final List<List<TransportRoute>> batchResults = await Future.wait(
+        batch.map(
+          (stop) => fetchStopRoutes(stop).catchError((_) => <TransportRoute>[]),
+        ),
+      );
+
+      for (final stopRoutes in batchResults) {
+        for (final route in stopRoutes) {
+          final key = '${route.id}_${route.directionId}';
+          if (!allRoutesMap.containsKey(key)) {
+            allRoutesMap[key] = route;
+          } else {
+            final existingRoute = allRoutesMap[key]!;
+            final stopId = route.stopIds.first;
+            if (stopId != null && !existingRoute.stopIds.contains(stopId)) {
+              allRoutesMap[key] = existingRoute.copyWith(
+                stopIds: [...existingRoute.stopIds, stopId],
+              );
+            }
+          }
+        }
       }
     }
-    return allRoutes.toSet().toList();
+    return allRoutesMap.values.toList();
   }
 
   Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
@@ -93,7 +115,12 @@ class STCPRepository {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final List<dynamic> results = data['dropdown_routes'];
 
-      return results.map((json) => TransportRoute.fromJson(json)).toList();
+      return results
+          .map(
+            (json) =>
+                TransportRoute.fromJson(json).copyWith(stopIds: [stop.id]),
+          )
+          .toList();
     } else {
       throw Exception('Failed to load stop ${stop.id}: ${response.statusCode}');
     }

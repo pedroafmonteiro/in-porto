@@ -41,7 +41,7 @@ final class CacheDatabaseProvider
   }
 }
 
-String _$cacheDatabaseHash() => r'4c9264245beff21acdbac9de149f1664c9393efa';
+String _$cacheDatabaseHash() => r'a0e39b20457dcf100a23f4503489fbf8dbd5ccbe';
 
 @ProviderFor(stopsCache)
 final stopsCacheProvider = StopsCacheProvider._();

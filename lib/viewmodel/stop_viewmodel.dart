@@ -28,6 +28,23 @@ class StopViewModel extends _$StopViewModel {
 }
 
 @riverpod
+class RouteViewModel extends _$RouteViewModel {
+  @override
+  Future<List<TransportRoute>> build() async {
+    final repository = await ref.watch(stcpRepositoryProvider.future);
+    return repository.getRoutes();
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final repository = await ref.read(stcpRepositoryProvider.future);
+      return repository.getRoutes(forceRefresh: true);
+    });
+  }
+}
+
+@riverpod
 Future<String> stopServiceId(Ref ref, Stop stop, DateTime? date) async {
   final repository = await ref.read(stcpRepositoryProvider.future);
   return repository.fetchStopServiceId(stop, date);

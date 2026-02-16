@@ -16,6 +16,7 @@ Future<Database> cacheDatabase(Ref ref) async {
     version: 1,
     onCreate: (db, version) async {
       await PersistentCache.initTable(db, 'stops_cache');
+      await PersistentCache.initTable(db, 'routes_cache');
     },
   );
   return db;
