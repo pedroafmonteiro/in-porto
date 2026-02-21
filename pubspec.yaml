@@ -31,6 +31,7 @@ dependencies:
   app_links: ^7.0.0
   firebase_core: ^4.4.0
   geolocator: ^14.0.2
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

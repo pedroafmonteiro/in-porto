@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:in_porto/model/entities/route.dart';
 import 'package:path/path.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,6 +16,7 @@ Future<Database> cacheDatabase(Ref ref) async {
     version: 1,
     onCreate: (db, version) async {
       await PersistentCache.initTable(db, 'stops_cache');
+      await PersistentCache.initTable(db, 'routes_cache');
     },
   );
   return db;
@@ -31,6 +33,23 @@ Future<PersistentCache<List<Stop>>> stopsCache(Ref ref) async {
       return list.map((e) => Stop.fromJson(e as Map<String, dynamic>)).toList();
     },
     serializer: (stops) => jsonEncode(stops.map((s) => s.toJson()).toList()),
+    defaultTtl: const Duration(days: 30),
+  );
+}
+
+@riverpod
+Future<PersistentCache<List<TransportRoute>>> routesCache(Ref ref) async {
+  final db = await ref.watch(cacheDatabaseProvider.future);
+  return PersistentCache(
+    db: db,
+    tableName: 'routes_cache',
+    deserializer: (json) {
+      final list = jsonDecode(json) as List;
+      return list
+          .map((e) => TransportRoute.fromJson(e as Map<String, dynamic>))
+          .toList();
+    },
+    serializer: (routes) => jsonEncode(routes.map((r) => r.toJson()).toList()),
     defaultTtl: const Duration(days: 30),
   );
 }

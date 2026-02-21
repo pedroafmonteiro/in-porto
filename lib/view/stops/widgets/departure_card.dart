@@ -5,6 +5,7 @@ import 'package:in_porto/view/common/route_badge.dart';
 import 'package:in_porto/utils.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_porto/viewmodel/navigation_state.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class DepartureCard extends ConsumerWidget {
@@ -27,25 +28,30 @@ class DepartureCard extends ConsumerWidget {
         departure.schedule?.headsign ??
         l10n.unknownRoute;
 
-    return Card(
-      elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: ListTile(
-        leading: RouteBadge(
-          number: departure.route.shortName,
-          color: departure.route.color,
-          textColor: departure.route.textColor,
+    return GestureDetector(
+      onTap: () => ref
+          .read(selectedNavigationOverrideProvider.notifier)
+          .select(departure.route),
+      child: Card(
+        elevation: 0.1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
         ),
-        title: Text(
-          title,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-          overflow: TextOverflow.ellipsis,
+        child: ListTile(
+          leading: RouteBadge(
+            number: departure.route.shortName,
+            color: departure.route.color,
+            textColor: departure.route.textColor,
+          ),
+          title: Text(
+            title,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: _buildTrailing(context, l10n, now, isPast),
         ),
-        trailing: _buildTrailing(context, l10n, now, isPast),
       ),
     );
   }

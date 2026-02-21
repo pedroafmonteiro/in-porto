@@ -3,6 +3,7 @@ import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/settings/pages/appearance_settings_view.dart';
 import 'package:in_porto/view/settings/pages/language_settings_view.dart';
 import 'package:in_porto/view/settings/pages/licenses_view.dart';
+import 'package:in_porto/view/settings/pages/route_debug_view.dart';
 import 'package:in_porto/view/settings/pages/stop_debug_view.dart';
 
 class SettingsEntries {
@@ -37,6 +38,11 @@ class SettingsEntries {
         title: 'STCP Stops',
         leadingIcon: Icon(Icons.directions_bus_rounded),
         page: StopDebugView(),
+      ),
+      SettingsEntries(
+        title: 'STCP Routes',
+        leadingIcon: Icon(Icons.route_rounded),
+        page: RouteDebugView(),
       ),
     ];
   }

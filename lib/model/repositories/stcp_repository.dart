@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/model/entities/schedule.dart';
+import 'package:in_porto/model/entities/shape_coordinates.dart';
 import 'package:in_porto/model/entities/trip.dart';
 import 'package:in_porto/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,8 +17,9 @@ class STCPRepository {
   final http.Client _client;
   final String _baseUrl = 'https://stcp.pt/api';
   final PersistentCache<List<Stop>> _stopsCache;
+  final PersistentCache<List<TransportRoute>> _routesCache;
 
-  STCPRepository(this._client, this._stopsCache);
+  STCPRepository(this._client, this._stopsCache, this._routesCache);
 
   Future<List<Stop>> getStops({bool forceRefresh = false}) async {
     return _stopsCache.getOrFetch(
@@ -41,6 +43,48 @@ class STCPRepository {
     } else {
       throw Exception('Failed to get all stops: ${response.statusCode}');
     }
+  }
+
+  Future<List<TransportRoute>> getRoutes({bool forceRefresh = false}) async {
+    return _routesCache.getOrFetch(
+      fetcher: _fetchAllRoutesFromRemote,
+      forceRefresh: forceRefresh,
+    );
+  }
+
+  Future<List<TransportRoute>> _fetchAllRoutesFromRemote() async {
+    final stops = await getStops();
+    final Map<String, TransportRoute> allRoutesMap = {};
+
+    const int batchSize = 30;
+    for (int i = 0; i < stops.length; i += batchSize) {
+      final end = (i + batchSize < stops.length) ? i + batchSize : stops.length;
+      final batch = stops.sublist(i, end);
+
+      final List<List<TransportRoute>> batchResults = await Future.wait(
+        batch.map(
+          (stop) => fetchStopRoutes(stop).catchError((_) => <TransportRoute>[]),
+        ),
+      );
+
+      for (final stopRoutes in batchResults) {
+        for (final route in stopRoutes) {
+          final key = '${route.id}_${route.directionId}';
+          if (!allRoutesMap.containsKey(key)) {
+            allRoutesMap[key] = route;
+          } else {
+            final existingRoute = allRoutesMap[key]!;
+            final stopId = route.stopIds.first;
+            if (stopId != null && !existingRoute.stopIds.contains(stopId)) {
+              allRoutesMap[key] = existingRoute.copyWith(
+                stopIds: [...existingRoute.stopIds, stopId],
+              );
+            }
+          }
+        }
+      }
+    }
+    return allRoutesMap.values.toList();
   }
 
   Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
@@ -71,7 +115,12 @@ class STCPRepository {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final List<dynamic> results = data['dropdown_routes'];
 
-      return results.map((json) => TransportRoute.fromJson(json)).toList();
+      return results
+          .map(
+            (json) =>
+                TransportRoute.fromJson(json).copyWith(stopIds: [stop.id]),
+          )
+          .toList();
     } else {
       throw Exception('Failed to load stop ${stop.id}: ${response.statusCode}');
     }
@@ -158,11 +207,65 @@ class STCPRepository {
       );
     }
   }
+
+  Future<List<ShapeCoordinates>> fetchRouteShapeCoordinates(
+    TransportRoute route,
+  ) async {
+    final uri = Uri.parse('$_baseUrl/route/${route.id}/shape').replace(
+      queryParameters: {
+        'direction_id': route.directionId?.toString(),
+      },
+    );
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['coordinates'];
+
+      return results
+          .map(
+            (json) => ShapeCoordinates.fromJson({
+              'route_id': route.id,
+              'direction_id': route.directionId,
+              ...json,
+            }),
+          )
+          .toList();
+    } else {
+      throw Exception(
+        'Failed to load shape coordinates for route ${route.id}: ${response.statusCode}',
+      );
+    }
+  }
+
+  Future<List<Stop>> fetchRouteStops(TransportRoute route) async {
+    final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction')
+        .replace(
+          queryParameters: {
+            'direction_id': route.directionId?.toString(),
+          },
+        );
+
+    final response = await _client.get(uri);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final List<dynamic> results = data['stops'];
+
+      return results.map((json) => Stop.fromJson(json)).toList();
+    } else {
+      throw Exception(
+        'Failed to load stops for route ${route.id}: ${response.statusCode}',
+      );
+    }
+  }
 }
 
 @riverpod
 Future<STCPRepository> stcpRepository(Ref ref) async {
   final client = ref.watch(httpClientProvider);
-  final cache = await ref.watch(stopsCacheProvider.future);
-  return STCPRepository(client, cache);
+  final stopsCache = await ref.watch(stopsCacheProvider.future);
+  final routesCache = await ref.watch(routesCacheProvider.future);
+  return STCPRepository(client, stopsCache, routesCache);
 }
