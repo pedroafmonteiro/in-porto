@@ -38,4 +38,12 @@ class Stop implements NavigationOverride {
 
   factory Stop.fromJson(Map<String, dynamic> json) => _$StopFromJson(json);
   Map<String, dynamic> toJson() => _$StopToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Stop && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

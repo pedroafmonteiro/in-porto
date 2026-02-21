@@ -52,6 +52,14 @@ class TransportRoute implements NavigationOverride {
 
   Map<String, dynamic> toJson() => _$TransportRouteToJson(this);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TransportRoute && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
   TransportRoute copyWith({
     String? id,
     int? directionId,
