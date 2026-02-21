@@ -55,10 +55,13 @@ class TransportRoute implements NavigationOverride {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TransportRoute && runtimeType == other.runtimeType && id == other.id;
+      other is TransportRoute &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          directionId == other.directionId;
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => Object.hash(id, directionId);
 
   TransportRoute copyWith({
     String? id,
