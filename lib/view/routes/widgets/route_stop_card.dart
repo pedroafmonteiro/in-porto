@@ -20,9 +20,6 @@ class RouteStopCard extends ConsumerWidget {
     return Card(
       elevation: 0.1,
       clipBehavior: Clip.none,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
       child: ListTile(
         onTap: () =>
             ref.read(selectedNavigationOverrideProvider.notifier).select(stop),
