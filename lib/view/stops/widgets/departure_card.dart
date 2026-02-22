@@ -6,7 +6,7 @@ import 'package:in_porto/utils.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
-import 'package:in_porto/viewmodel/stop_viewmodel.dart';
+import 'package:in_porto/viewmodel/state_viewmodel.dart';
 
 class DepartureCard extends ConsumerWidget {
   const DepartureCard({

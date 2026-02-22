@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/view/stops/widgets/departure_card.dart';
-import 'package:in_porto/viewmodel/stop_viewmodel.dart';
+import 'package:in_porto/viewmodel/departure_viewmodel.dart';
+import 'package:in_porto/viewmodel/state_viewmodel.dart';
 
 class StopOverviewDepartures extends ConsumerWidget {
   const StopOverviewDepartures({

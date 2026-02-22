@@ -7,6 +7,8 @@ import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/utils.dart';
 import 'package:in_porto/view/stops/widgets/departure_card.dart';
 import 'package:in_porto/view/stops/utils/stop_scroll_physics.dart';
+import 'package:in_porto/viewmodel/schedule_viewmodel.dart';
+import 'package:in_porto/viewmodel/state_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/model/entities/schedule.dart';

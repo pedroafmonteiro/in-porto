@@ -11,9 +11,11 @@ import 'package:in_porto/model/infrastructure/network_providers.dart';
 import 'package:in_porto/model/infrastructure/storage_providers.dart';
 import 'package:in_porto/model/entities/stop.dart';
 
+import 'package:in_porto/model/repositories/transport_agency_repository.dart';
+
 part 'stcp_repository.g.dart';
 
-class STCPRepository {
+class STCPRepository implements TransportAgencyRepository {
   final http.Client _client;
   final String _baseUrl = 'https://stcp.pt/api';
   final PersistentCache<List<Stop>> _stopsCache;
@@ -21,6 +23,7 @@ class STCPRepository {
 
   STCPRepository(this._client, this._stopsCache, this._routesCache);
 
+  @override
   Future<List<Stop>> getStops({bool forceRefresh = false}) async {
     return _stopsCache.getOrFetch(
       fetcher: _fetchAllStopsFromRemote,
@@ -45,6 +48,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<List<TransportRoute>> getRoutes({bool forceRefresh = false}) async {
     return _routesCache.getOrFetch(
       fetcher: _fetchAllRoutesFromRemote,
@@ -87,6 +91,7 @@ class STCPRepository {
     return allRoutesMap.values.toList();
   }
 
+  @override
   Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/services').replace(
       queryParameters: {
@@ -107,6 +112,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<List<TransportRoute>> fetchStopRoutes(Stop stop) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/routes');
     final response = await _client.get(uri);
@@ -126,6 +132,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<List<Schedule>> fetchStopRouteSchedules(
     Stop stop,
     TransportRoute route,
@@ -182,6 +189,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<(DateTime, List<Trip>)> fetchStopRealtimeTrips(Stop stop) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/realtime');
     final response = await _client.get(uri);
@@ -208,6 +216,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<List<ShapeCoordinates>> fetchRouteShapeCoordinates(
     TransportRoute route,
   ) async {
@@ -239,6 +248,7 @@ class STCPRepository {
     }
   }
 
+  @override
   Future<List<Stop>> fetchRouteStops(TransportRoute route) async {
     final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction')
         .replace(

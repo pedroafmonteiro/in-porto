@@ -59,5 +59,4 @@ class DefaultFirebaseOptions {
     projectId: 'in-porto',
     storageBucket: 'in-porto.firebasestorage.app',
   );
-
 }
