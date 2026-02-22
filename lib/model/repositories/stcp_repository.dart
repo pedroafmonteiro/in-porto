@@ -23,6 +23,7 @@ class STCPRepository implements TransportAgencyRepository {
 
   STCPRepository(this._client, this._stopsCache, this._routesCache);
 
+  @override
   Future<List<Stop>> getStops({bool forceRefresh = false}) async {
     return _stopsCache.getOrFetch(
       fetcher: _fetchAllStopsFromRemote,
@@ -47,6 +48,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<List<TransportRoute>> getRoutes({bool forceRefresh = false}) async {
     return _routesCache.getOrFetch(
       fetcher: _fetchAllRoutesFromRemote,
@@ -89,6 +91,7 @@ class STCPRepository implements TransportAgencyRepository {
     return allRoutesMap.values.toList();
   }
 
+  @override
   Future<String> fetchStopServiceId(Stop stop, DateTime? date) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/services').replace(
       queryParameters: {
@@ -109,6 +112,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<List<TransportRoute>> fetchStopRoutes(Stop stop) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/routes');
     final response = await _client.get(uri);
@@ -128,6 +132,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<List<Schedule>> fetchStopRouteSchedules(
     Stop stop,
     TransportRoute route,
@@ -184,6 +189,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<(DateTime, List<Trip>)> fetchStopRealtimeTrips(Stop stop) async {
     final uri = Uri.parse('$_baseUrl/stops/${stop.id}/realtime');
     final response = await _client.get(uri);
@@ -210,6 +216,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<List<ShapeCoordinates>> fetchRouteShapeCoordinates(
     TransportRoute route,
   ) async {
@@ -241,6 +248,7 @@ class STCPRepository implements TransportAgencyRepository {
     }
   }
 
+  @override
   Future<List<Stop>> fetchRouteStops(TransportRoute route) async {
     final uri = Uri.parse('$_baseUrl/route/${route.id}/stops/direction')
         .replace(
