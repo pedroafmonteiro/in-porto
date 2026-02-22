@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
+import 'package:in_porto/viewmodel/route_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 part 'map_viewmodel.g.dart';

@@ -4,7 +4,7 @@ import 'package:in_porto/model/entities/route.dart';
 import 'package:in_porto/view/common/route_badge.dart';
 import 'package:in_porto/viewmodel/map_viewmodel.dart';
 import 'package:in_porto/viewmodel/navigation_state.dart';
-import 'package:in_porto/viewmodel/stop_viewmodel.dart';
+import 'package:in_porto/viewmodel/route_viewmodel.dart';
 
 class RouteDetailsHeader extends ConsumerWidget {
   const RouteDetailsHeader({super.key, required this.route});

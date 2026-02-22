@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/model/entities/route.dart';
+import 'package:in_porto/viewmodel/route_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class RouteDebugView extends ConsumerStatefulWidget {

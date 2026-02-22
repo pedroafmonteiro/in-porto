@@ -6,6 +6,8 @@ import 'package:in_porto/utils.dart';
 import 'package:in_porto/view/stops/widgets/stop_details_app_bar_title.dart';
 import 'package:in_porto/view/stops/widgets/stop_filter_bar.dart';
 import 'package:in_porto/view/stops/widgets/stop_schedules_list.dart';
+import 'package:in_porto/viewmodel/departure_viewmodel.dart';
+import 'package:in_porto/viewmodel/state_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
 class StopDetails extends ConsumerStatefulWidget {

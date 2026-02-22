@@ -11,9 +11,11 @@ import 'package:in_porto/model/infrastructure/network_providers.dart';
 import 'package:in_porto/model/infrastructure/storage_providers.dart';
 import 'package:in_porto/model/entities/stop.dart';
 
+import 'package:in_porto/model/repositories/transport_agency_repository.dart';
+
 part 'stcp_repository.g.dart';
 
-class STCPRepository {
+class STCPRepository implements TransportAgencyRepository {
   final http.Client _client;
   final String _baseUrl = 'https://stcp.pt/api';
   final PersistentCache<List<Stop>> _stopsCache;
