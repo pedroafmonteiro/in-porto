@@ -74,6 +74,7 @@ class _MapViewState extends ConsumerState<MapView>
                 cachingProvider:
                     BuiltInMapCachingProvider.getOrCreateInstance(),
               ),
+              retinaMode: true,
             ),
             const RoutePolylines(),
             const StopMarkers(),
