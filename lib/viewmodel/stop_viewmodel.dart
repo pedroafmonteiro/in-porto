@@ -29,5 +29,8 @@ class StopViewModel extends _$StopViewModel {
 @riverpod
 Future<List<TransportRoute>> stopRoutes(Ref ref, Stop stop) async {
   final repository = await ref.read(transportAgencyRepositoryProvider.future);
-  return repository.fetchStopRoutes(stop);
+  final allRoutes = await repository.getRoutes();
+  final filteredRoutes = allRoutes.where((route) => route.stopIds.contains(stop.id)).toList();
+  filteredRoutes.sort((a, b) => a.color?.compareTo(b.color ?? '') ?? 0);
+  return filteredRoutes;
 }
