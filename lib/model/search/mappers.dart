@@ -38,10 +38,10 @@ class RouteSearchableItem implements SearchableItem {
   String get id => '${route.id}_${route.directionId}';
 
   @override
-  String get primaryLabel => route.shortName ?? '';
+  String get primaryLabel => route.tripHeadsign ?? route.longName ?? '';
 
   @override
-  String? get secondaryLabel => route.tripHeadsign ?? route.longName;
+  String? get secondaryLabel => null;
 
   @override
   List<String> get searchKeywords => [

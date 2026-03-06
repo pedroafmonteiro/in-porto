@@ -15,7 +15,7 @@ abstract class SearchableItem {
 class SearchResult {
   final String id;
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final SearchResultType type;
   final Object source;
   final int score;

@@ -32,7 +32,7 @@ class SearchIndex {
           SearchResult(
             id: item.id,
             title: item.primaryLabel,
-            subtitle: item.secondaryLabel ?? '',
+            subtitle: item.secondaryLabel,
             type: item.type,
             source: item.source,
             score: score,
