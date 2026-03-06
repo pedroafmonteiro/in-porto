@@ -209,4 +209,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get lastUpdated => 'Última atualização: ';
+
+  @override
+  String get no_results => 'Nenhum resultado encontrado';
 }

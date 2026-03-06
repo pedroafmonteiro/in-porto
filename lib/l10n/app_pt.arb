@@ -319,5 +319,10 @@
     "@lastUpdated": {
         "description": "Texto para mostrar a última vez que as informações de partida foram atualizadas",
         "type": "text"
+    },
+    "no_results": "Nenhum resultado encontrado",
+    "@no_results": {
+        "description": "Mensagem mostrada quando não são encontrados resultados de pesquisa",
+        "type": "text"
     }
 }

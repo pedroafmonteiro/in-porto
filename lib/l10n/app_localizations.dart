@@ -481,6 +481,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last updated: '**
   String get lastUpdated;
+
+  /// Message shown when no search results are found
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get no_results;
 }
 
 class _AppLocalizationsDelegate

@@ -319,5 +319,10 @@
     "@lastUpdated": {
         "description": "Label to indicate the last time the realtime data was updated. The {time} placeholder will be replaced with the actual time.",
         "type": "text"
+    },
+    "no_results": "No results found",
+    "@no_results": {
+        "description": "Message shown when no search results are found",
+        "type": "text"
     }
 }

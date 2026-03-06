@@ -208,4 +208,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lastUpdated => 'Last updated: ';
+
+  @override
+  String get no_results => 'No results found';
 }
