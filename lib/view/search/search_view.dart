@@ -1,3 +1,4 @@
+import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
@@ -38,25 +39,32 @@ class _SearchViewState extends ConsumerState<SearchView> {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+        title: Material(
+          shape: RoundedSuperellipseBorder(
+            borderRadius: BorderRadius.circular(16.0),
           ),
-        ],
-        title: TextField(
-          controller: _searchController,
-          focusNode: _focusNode,
-          onChanged: (value) {
-            ref.read(searchQueryProvider.notifier).update(value);
-          },
-          decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.search,
-            border: InputBorder.none,
+          elevation: 0.1,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: ShapeDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainer,
+              shape: RoundedSuperellipseBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+            ),
+            child: TextField(
+              controller: _searchController,
+              focusNode: _focusNode,
+              onChanged: (value) {
+                ref.read(searchQueryProvider.notifier).update(value);
+              },
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.search,
+                border: InputBorder.none,
+              ),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+            ),
           ),
-          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
         ),
       ),
       body: searchResultsAsync.when(
@@ -83,7 +91,11 @@ class _SearchViewState extends ConsumerState<SearchView> {
             },
           );
         },
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => Center(
+          child: ExpressiveLoadingIndicator(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
         error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );

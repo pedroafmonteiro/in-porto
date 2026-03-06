@@ -53,6 +53,11 @@ class AppTheme {
         foregroundColor: const Color(0xFF1A1C1E),
         elevation: 2,
       ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: const Color(0xFF1A1C1E),
+        selectionColor: const Color(0xFF1A1C1E).withValues(alpha: 0.25),
+        selectionHandleColor: const Color(0xFF1A1C1E),
+      ),
       colorScheme: ColorScheme.light(
         surface: const Color(0xFFF5F7FA),
         surfaceContainer: const Color(0xFFE9EDF3),
