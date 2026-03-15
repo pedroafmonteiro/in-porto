@@ -217,4 +217,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get route => 'Route';
+
+  @override
+  String get search_prompt => 'Start typing to search';
 }

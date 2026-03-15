@@ -218,4 +218,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get route => 'Linha';
+
+  @override
+  String get search_prompt => 'Comece a digitar para pesquisar';
 }

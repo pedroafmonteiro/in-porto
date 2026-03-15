@@ -334,5 +334,10 @@
     "@route": {
       "description": "Label for a transportation route",
       "type": "text"
+    },
+    "search_prompt": "Comece a digitar para pesquisar",
+    "@search_prompt": {
+      "description": "Prompt text shown in the search bar when the user hasn't entered enough characters to perform a search",
+      "type": "text"
     }
 }

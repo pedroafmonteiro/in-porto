@@ -499,6 +499,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Route'**
   String get route;
+
+  /// Prompt text shown in the search bar when the user hasn't entered enough characters to perform a search
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to search'**
+  String get search_prompt;
 }
 
 class _AppLocalizationsDelegate

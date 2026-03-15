@@ -81,7 +81,9 @@ class _SearchViewState extends ConsumerState<SearchView> {
           }
 
           if (_searchController.text.length < 2) {
-            return const SizedBox.shrink();
+            return Center(
+              child: Text(AppLocalizations.of(context)!.search_prompt),
+            );
           }
 
           return ListView.builder(
