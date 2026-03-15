@@ -211,4 +211,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_results => 'No results found';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get route => 'Route';
 }

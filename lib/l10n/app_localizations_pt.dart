@@ -212,4 +212,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get no_results => 'Nenhum resultado encontrado';
+
+  @override
+  String get stop => 'Paragem';
+
+  @override
+  String get route => 'Linha';
 }

@@ -60,6 +60,58 @@ abstract class _$SearchQuery extends $Notifier<String> {
   }
 }
 
+@ProviderFor(SearchFilters)
+final searchFiltersProvider = SearchFiltersProvider._();
+
+final class SearchFiltersProvider
+    extends $NotifierProvider<SearchFilters, SearchResultType?> {
+  SearchFiltersProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchFiltersProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$searchFiltersHash();
+
+  @$internal
+  @override
+  SearchFilters create() => SearchFilters();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SearchResultType? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SearchResultType?>(value),
+    );
+  }
+}
+
+String _$searchFiltersHash() => r'e38a06ecb6676d7809eea8321e656ed8a0db5deb';
+
+abstract class _$SearchFilters extends $Notifier<SearchResultType?> {
+  SearchResultType? build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<SearchResultType?, SearchResultType?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SearchResultType?, SearchResultType?>,
+              SearchResultType?,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(searchIndex)
 final searchIndexProvider = SearchIndexProvider._();
 
@@ -99,10 +151,10 @@ final class SearchIndexProvider
 
 String _$searchIndexHash() => r'44d907af40d2ebc670bb5cb07cd05e6acdc58fd1';
 
-@ProviderFor(searchResults)
-final searchResultsProvider = SearchResultsProvider._();
+@ProviderFor(rawSearchResults)
+final rawSearchResultsProvider = RawSearchResultsProvider._();
 
-final class SearchResultsProvider
+final class RawSearchResultsProvider
     extends
         $FunctionalProvider<
           AsyncValue<List<SearchResult>>,
@@ -112,6 +164,45 @@ final class SearchResultsProvider
     with
         $FutureModifier<List<SearchResult>>,
         $FutureProvider<List<SearchResult>> {
+  RawSearchResultsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'rawSearchResultsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$rawSearchResultsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<SearchResult>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<SearchResult>> create(Ref ref) {
+    return rawSearchResults(ref);
+  }
+}
+
+String _$rawSearchResultsHash() => r'8153a969e32c03fb5d4420114f60b11aaadc9653';
+
+@ProviderFor(searchResults)
+final searchResultsProvider = SearchResultsProvider._();
+
+final class SearchResultsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<SearchResult>>,
+          AsyncValue<List<SearchResult>>,
+          AsyncValue<List<SearchResult>>
+        >
+    with $Provider<AsyncValue<List<SearchResult>>> {
   SearchResultsProvider._()
     : super(
         from: null,
@@ -128,14 +219,24 @@ final class SearchResultsProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<SearchResult>> $createElement(
+  $ProviderElement<AsyncValue<List<SearchResult>>> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<List<SearchResult>> create(Ref ref) {
+  AsyncValue<List<SearchResult>> create(Ref ref) {
     return searchResults(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<List<SearchResult>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<List<SearchResult>>>(
+        value,
+      ),
+    );
   }
 }
 
-String _$searchResultsHash() => r'34cdb94b984a4ab2044d177e009b1eb2a03045cc';
+String _$searchResultsHash() => r'776b67249dbd91a9bbc20636286fcb26e369f43f';

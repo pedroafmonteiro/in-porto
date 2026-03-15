@@ -324,5 +324,15 @@
     "@no_results": {
         "description": "Message shown when no search results are found",
         "type": "text"
+    },
+    "stop": "Stop",
+    "@stop": {
+      "description": "Label for a transportation stop",
+      "type": "text"
+    },
+    "route": "Route",
+    "@route": {
+      "description": "Label for a transportation route",
+      "type": "text"
     }
 }

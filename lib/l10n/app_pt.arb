@@ -324,5 +324,15 @@
     "@no_results": {
         "description": "Mensagem mostrada quando não são encontrados resultados de pesquisa",
         "type": "text"
+    },
+    "stop": "Paragem",
+    "@stop": {
+      "description": "Label for a transportation stop",
+      "type": "text"
+    },
+    "route": "Linha",
+    "@route": {
+      "description": "Label for a transportation route",
+      "type": "text"
     }
 }

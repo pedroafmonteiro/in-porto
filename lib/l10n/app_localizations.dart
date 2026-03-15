@@ -487,6 +487,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No results found'**
   String get no_results;
+
+  /// Label for a transportation stop
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// Label for a transportation route
+  ///
+  /// In en, this message translates to:
+  /// **'Route'**
+  String get route;
 }
 
 class _AppLocalizationsDelegate

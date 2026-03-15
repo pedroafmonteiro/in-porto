@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
 import 'package:in_porto/view/search/widgets/results_card.dart';
+import 'package:in_porto/view/search/widgets/search_filter_bar.dart';
 import 'package:in_porto/viewmodel/search_viewmodel.dart';
 
 class SearchView extends ConsumerStatefulWidget {
@@ -66,6 +67,10 @@ class _SearchViewState extends ConsumerState<SearchView> {
             ),
           ),
         ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight - 16.0),
+          child: SearchFilterBar(),
+        ),
       ),
       body: searchResultsAsync.when(
         data: (results) {
@@ -80,7 +85,12 @@ class _SearchViewState extends ConsumerState<SearchView> {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+              top: 1,
+              bottom: 8.0,
+            ),
             itemCount: results.length,
             itemBuilder: (context, index) {
               final result = results[index];

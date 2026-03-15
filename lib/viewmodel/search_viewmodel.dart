@@ -17,6 +17,20 @@ class SearchQuery extends _$SearchQuery {
 }
 
 @riverpod
+class SearchFilters extends _$SearchFilters {
+  @override
+  SearchResultType? build() => null;
+
+  void toggle(SearchResultType type) {
+    if (state == type) {
+      state = null;
+    } else {
+      state = type;
+    }
+  }
+}
+
+@riverpod
 Future<SearchIndex> searchIndex(Ref ref) async {
   final repository = await ref.watch(transportAgencyRepositoryProvider.future);
   
@@ -32,7 +46,7 @@ Future<SearchIndex> searchIndex(Ref ref) async {
 }
 
 @riverpod
-Future<List<SearchResult>> searchResults(Ref ref) async {
+Future<List<SearchResult>> rawSearchResults(Ref ref) async {
   final query = ref.watch(searchQueryProvider);
   final index = await ref.watch(searchIndexProvider.future);
 
@@ -44,4 +58,15 @@ Future<List<SearchResult>> searchResults(Ref ref) async {
   }
 
   return index.search(query);
+}
+
+@riverpod
+AsyncValue<List<SearchResult>> searchResults(Ref ref) {
+  final rawResultsAsync = ref.watch(rawSearchResultsProvider);
+  final filter = ref.watch(searchFiltersProvider);
+
+  return rawResultsAsync.whenData((results) {
+    if (filter == null) return results;
+    return results.where((r) => r.type == filter).toList();
+  });
 }
