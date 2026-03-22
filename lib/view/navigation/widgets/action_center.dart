@@ -64,21 +64,28 @@ class _ActionCenterState extends State<ActionCenter> {
         ),
         closedColor: Theme.of(context).colorScheme.surface,
         openColor: Theme.of(context).colorScheme.surface,
-        closedBuilder: (context, action) => AnimatedSize(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOutCubicEmphasized,
-          alignment: Alignment.center,
-          child: ClipRSuperellipse(
-            key: ValueKey(widget.overrideContent.key),
-            borderRadius: BorderRadius.circular(24.0),
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              color: Theme.of(context).colorScheme.surface,
-              child: widget.overrideContent.closedBuilder(
-                context,
-                onOpen: action,
-                onClose: widget.onCloseOverride,
-                onSelected: (w) => setState(() => _selectedView = w),
+        closedBuilder: (context, action) => PopScope(
+          canPop: widget.onCloseOverride == null,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
+            widget.onCloseOverride?.call();
+          },
+          child: AnimatedSize(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOutCubicEmphasized,
+            alignment: Alignment.center,
+            child: ClipRSuperellipse(
+              key: ValueKey(widget.overrideContent.key),
+              borderRadius: BorderRadius.circular(24.0),
+              child: Container(
+                padding: const EdgeInsets.all(10.0),
+                color: Theme.of(context).colorScheme.surface,
+                child: widget.overrideContent.closedBuilder(
+                  context,
+                  onOpen: action,
+                  onClose: widget.onCloseOverride,
+                  onSelected: (w) => setState(() => _selectedView = w),
+                ),
               ),
             ),
           ),
