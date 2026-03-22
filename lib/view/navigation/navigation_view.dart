@@ -21,8 +21,7 @@ class NavigationView extends ConsumerWidget {
         overrideContent: override,
         onCloseOverride: selectedOverride == null
             ? null
-            : () =>
-                  ref.read(selectedNavigationOverrideProvider.notifier).clear(),
+            : () => ref.read(selectedNavigationOverrideProvider.notifier).pop(),
       ),
       floatingActionButton: const Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
