@@ -13,10 +13,12 @@ class DepartureCard extends ConsumerWidget {
     super.key,
     required this.departure,
     this.isToday = true,
+    this.fromSchedule = false,
   });
 
   final DepartureInfo departure;
   final bool isToday;
+  final bool fromSchedule;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,30 +30,37 @@ class DepartureCard extends ConsumerWidget {
         departure.schedule?.headsign ??
         l10n.unknownRoute;
 
-    return GestureDetector(
-      onTap: () => ref
-          .read(selectedNavigationOverrideProvider.notifier)
-          .select(departure.route),
-      child: Card(
-        elevation: 0.1,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
+    return Card(
+      elevation: 0.1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: ListTile(
+        leading: RouteBadge(
+          number: departure.route.shortName,
+          color: departure.route.color,
+          textColor: departure.route.textColor,
         ),
-        child: ListTile(
-          leading: RouteBadge(
-            number: departure.route.shortName,
-            color: departure.route.color,
-            textColor: departure.route.textColor,
-          ),
-          title: Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: _buildTrailing(context, l10n, now, isPast),
+        onTap: () {
+          if (fromSchedule) {
+            Navigator.of(context).pop();
+            ref
+                .read(selectedNavigationOverrideProvider.notifier)
+                .select(departure.route, delayed: true);
+          } else {
+            ref
+                .read(selectedNavigationOverrideProvider.notifier)
+                .select(departure.route);
+          }
+        },
+        title: Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          overflow: TextOverflow.ellipsis,
         ),
+        trailing: _buildTrailing(context, l10n, now, isPast),
       ),
     );
   }

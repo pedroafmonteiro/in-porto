@@ -110,7 +110,7 @@ final class StopRoutesProvider
   }
 }
 
-String _$stopRoutesHash() => r'42fca5f67953062264783acdac32d73c7d2f4ce4';
+String _$stopRoutesHash() => r'a9e4204aceb6a6a8b90ac53e01b96ea33ba47763';
 
 final class StopRoutesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<TransportRoute>>, Stop> {

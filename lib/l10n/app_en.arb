@@ -319,5 +319,25 @@
     "@lastUpdated": {
         "description": "Label to indicate the last time the realtime data was updated. The {time} placeholder will be replaced with the actual time.",
         "type": "text"
+    },
+    "no_results": "No results found",
+    "@no_results": {
+        "description": "Message shown when no search results are found",
+        "type": "text"
+    },
+    "stop": "Stop",
+    "@stop": {
+      "description": "Label for a transportation stop",
+      "type": "text"
+    },
+    "route": "Route",
+    "@route": {
+      "description": "Label for a transportation route",
+      "type": "text"
+    },
+    "search_prompt": "Start typing to search",
+    "@search_prompt": {
+      "description": "Prompt text shown in the search bar when the user hasn't entered enough characters to perform a search",
+      "type": "text"
     }
 }

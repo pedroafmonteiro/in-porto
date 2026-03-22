@@ -194,6 +194,7 @@ class StopSchedulesList extends ConsumerWidget {
                 isRealtime: false,
               ),
               isToday: isToday,
+              fromSchedule: true,
             );
 
             if (isPast) {

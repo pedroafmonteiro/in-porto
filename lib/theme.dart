@@ -53,6 +53,36 @@ class AppTheme {
         foregroundColor: const Color(0xFF1A1C1E),
         elevation: 2,
       ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: const Color(0xFF1A1C1E),
+        selectionColor: const Color(0xFF1A1C1E).withValues(alpha: 0.25),
+        selectionHandleColor: const Color(0xFF1A1C1E),
+      ),
+      chipTheme: ChipThemeData(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+        color: WidgetStateColor.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const Color(0xFF1A1C1E);
+            }
+            return const Color(0xFFE9EDF3);
+          },
+        ),
+        labelStyle: GoogleFonts.googleSansFlex(
+          color: WidgetStateColor.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const Color(0xFFE9EDF3);
+            }
+            return const Color(0xFF1A1C1E);
+          }),
+        ),
+        checkmarkColor: const Color(0xFFE9EDF3),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          side: BorderSide.none,
+        ),
+        side: BorderSide.none,
+      ),
       colorScheme: ColorScheme.light(
         surface: const Color(0xFFF5F7FA),
         surfaceContainer: const Color(0xFFE9EDF3),
@@ -116,6 +146,36 @@ class AppTheme {
         backgroundColor: const Color(0xFF181A20),
         foregroundColor: const Color(0xFFF5F7FA),
         elevation: 2,
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: const Color(0xFFF5F7FA),
+        selectionColor: const Color(0xFFF5F7FA).withValues(alpha: 0.25),
+        selectionHandleColor: const Color(0xFFF5F7FA),
+      ),
+      chipTheme: ChipThemeData(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+        color: WidgetStateColor.resolveWith(
+          (states) {
+            if (states.contains(WidgetState.selected)) {
+              return const Color(0xFFF5F7FA);
+            }
+            return const Color(0xFF23262B);
+          },
+        ),
+        labelStyle: GoogleFonts.googleSansFlex(
+          color: WidgetStateColor.resolveWith((states) {
+            if (states.contains(WidgetState.selected)) {
+              return const Color(0xFF23262B);
+            }
+            return const Color(0xFFF5F7FA);
+          }),
+        ),
+        checkmarkColor: const Color(0xFF23262B),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          side: BorderSide.none,
+        ),
+        side: BorderSide.none,
       ),
       colorScheme: ColorScheme.dark(
         surface: const Color(0xFF181A20),

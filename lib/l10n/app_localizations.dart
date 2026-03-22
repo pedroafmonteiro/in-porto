@@ -481,6 +481,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last updated: '**
   String get lastUpdated;
+
+  /// Message shown when no search results are found
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get no_results;
+
+  /// Label for a transportation stop
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// Label for a transportation route
+  ///
+  /// In en, this message translates to:
+  /// **'Route'**
+  String get route;
+
+  /// Prompt text shown in the search bar when the user hasn't entered enough characters to perform a search
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to search'**
+  String get search_prompt;
 }
 
 class _AppLocalizationsDelegate

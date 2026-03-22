@@ -208,4 +208,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lastUpdated => 'Last updated: ';
+
+  @override
+  String get no_results => 'No results found';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get route => 'Route';
+
+  @override
+  String get search_prompt => 'Start typing to search';
 }
