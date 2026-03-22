@@ -32,9 +32,6 @@ class DepartureCard extends ConsumerWidget {
 
     return Card(
       elevation: 0.1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
       child: ListTile(
         leading: RouteBadge(
           number: departure.route.shortName,
