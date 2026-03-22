@@ -93,6 +93,7 @@ class _SearchViewState extends ConsumerState<SearchView> {
               top: 1,
               bottom: 8.0,
             ),
+            physics: const BouncingScrollPhysics(),
             itemCount: results.length,
             itemBuilder: (context, index) {
               final result = results[index];
