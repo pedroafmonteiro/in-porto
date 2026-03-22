@@ -61,10 +61,16 @@ class ResultsCard extends ConsumerWidget {
   ) {
     if (result.type == SearchResultType.stop) {
       final stop = result.source as Stop;
-      ref.read(selectedNavigationOverrideProvider.notifier).select(stop);
+      Navigator.of(context).pop();
+      ref
+          .read(selectedNavigationOverrideProvider.notifier)
+          .select(stop, delayed: true);
     } else if (result.type == SearchResultType.route) {
       final route = result.source as TransportRoute;
-      ref.read(selectedNavigationOverrideProvider.notifier).select(route);
+      Navigator.of(context).pop();
+      ref
+          .read(selectedNavigationOverrideProvider.notifier)
+          .select(route, delayed: true);
     }
   }
 }
