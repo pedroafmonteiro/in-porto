@@ -1,6 +1,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'deep_link_service.dart';
+// ignore_for_file: type=lint
+
+part of '../deep_link_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator

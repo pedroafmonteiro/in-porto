@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'trip.g.dart';
+part 'generated/trip.g.dart';
 
 @JsonSerializable()
 class Trip {

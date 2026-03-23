@@ -1,7 +1,7 @@
 import 'package:in_porto/model/navigation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'route.g.dart';
+part 'generated/route.g.dart';
 
 @JsonSerializable()
 class TransportRoute implements NavigationOverride {

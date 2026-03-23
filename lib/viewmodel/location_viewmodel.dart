@@ -1,7 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'location_viewmodel.g.dart';
+part 'generated/location_viewmodel.g.dart';
 
 typedef LocationState = ({
   LocationPermission permission,

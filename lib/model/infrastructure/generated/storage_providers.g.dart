@@ -1,6 +1,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'storage_providers.dart';
+// ignore_for_file: type=lint
+
+part of '../storage_providers.dart';
 
 // **************************************************************************
 // RiverpodGenerator

@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:in_porto/model/infrastructure/cache.dart';
 import 'package:in_porto/model/entities/stop.dart';
 
-part 'storage_providers.g.dart';
+part 'generated/storage_providers.g.dart';
 
 @riverpod
 Future<Database> cacheDatabase(Ref ref) async {

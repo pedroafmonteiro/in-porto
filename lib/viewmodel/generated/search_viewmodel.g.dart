@@ -1,6 +1,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_viewmodel.dart';
+// ignore_for_file: type=lint
+
+part of '../search_viewmodel.dart';
 
 // **************************************************************************
 // RiverpodGenerator

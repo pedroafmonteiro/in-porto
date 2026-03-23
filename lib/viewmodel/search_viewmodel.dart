@@ -4,7 +4,7 @@ import 'package:in_porto/model/search/search_index.dart';
 import 'package:in_porto/model/search/searchable_item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'search_viewmodel.g.dart';
+part 'generated/search_viewmodel.g.dart';
 
 @riverpod
 class SearchQuery extends _$SearchQuery {
@@ -33,7 +33,7 @@ class SearchFilters extends _$SearchFilters {
 @riverpod
 Future<SearchIndex> searchIndex(Ref ref) async {
   final repository = await ref.watch(transportAgencyRepositoryProvider.future);
-  
+
   final stops = await repository.getStops();
   final routes = await repository.getRoutes();
 

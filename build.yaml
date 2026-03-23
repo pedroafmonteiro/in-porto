@@ -1,0 +1,23 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true
+          checked: true
+        generate_for:
+          - lib/**.dart
+
+      riverpod_generator:
+        options:
+          provider_family: true
+          provider_dependencies: true
+        generate_for:
+          - lib/**.dart
+
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+            - 'type=lint'
+          build_extensions:
+            '^lib/{{path}}/{{file}}.dart': 'lib/{{path}}/generated/{{file}}.g.dart'
