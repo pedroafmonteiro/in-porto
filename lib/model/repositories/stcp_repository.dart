@@ -13,7 +13,7 @@ import 'package:in_porto/model/entities/stop.dart';
 
 import 'package:in_porto/model/repositories/transport_agency_repository.dart';
 
-part 'stcp_repository.g.dart';
+part 'generated/stcp_repository.g.dart';
 
 class STCPRepository implements TransportAgencyRepository {
   final http.Client _client;

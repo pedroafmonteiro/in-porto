@@ -1,3 +1,4 @@
+import 'package:expressive_loading_indicator/expressive_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_porto/l10n/app_localizations.dart';
@@ -22,6 +23,9 @@ class StopDetails extends ConsumerStatefulWidget {
 class _StopDetailsState extends ConsumerState<StopDetails> {
   final ScrollController _scrollController = ScrollController();
   bool _showFab = false;
+  bool _animationComplete = false;
+  bool _animationListenerAdded = false;
+  bool _isClosing = false;
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -38,6 +42,35 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
         });
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final animation = ModalRoute.of(context)?.animation;
+    if (animation != null && !_animationComplete && !_animationListenerAdded) {
+      if (animation.status == AnimationStatus.completed) {
+        _animationComplete = true;
+      } else {
+        _animationListenerAdded = true;
+        animation.addStatusListener(_onAnimationStatus);
+      }
+    }
+  }
+
+  void _onAnimationStatus(AnimationStatus status) {
+    if (!mounted) return;
+    if (status == AnimationStatus.completed) {
+      setState(() {
+        _animationComplete = true;
+        _isClosing = false;
+      });
+    } else if (status == AnimationStatus.reverse) {
+      setState(() {
+        _animationComplete = false;
+        _isClosing = true;
+      });
+    }
   }
 
   @override
@@ -95,29 +128,39 @@ class _StopDetailsState extends ConsumerState<StopDetails> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StopSchedulesList(
-              stop: stop,
-              selectedDate: selectedDate,
-              scrollController: _scrollController,
-              onShowOlderDepartures: () {
-                ref.read(showOlderDeparturesProvider.notifier).toggle(true);
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (_scrollController.hasClients) {
-                    _scrollController.animateTo(
-                      -150.0,
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.easeOutCubic,
-                    );
-                  }
-                });
-              },
+      body: _animationComplete
+          ? Column(
+              children: [
+                Expanded(
+                  child: StopSchedulesList(
+                    stop: stop,
+                    selectedDate: selectedDate,
+                    scrollController: _scrollController,
+                    onShowOlderDepartures: () {
+                      ref
+                          .read(showOlderDeparturesProvider.notifier)
+                          .toggle(true);
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (_scrollController.hasClients) {
+                          _scrollController.animateTo(
+                            -150.0,
+                            duration: const Duration(milliseconds: 600),
+                            curve: Curves.easeOutCubic,
+                          );
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ],
+            )
+          : _isClosing
+          ? const SizedBox.expand()
+          : Center(
+              child: ExpressiveLoadingIndicator(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
-          ),
-        ],
-      ),
       floatingActionButton: _showFab
           ? FloatingActionButton.extended(
               onPressed: () async {

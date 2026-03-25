@@ -7,7 +7,7 @@ import 'package:in_porto/viewmodel/state_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'schedule_viewmodel.g.dart';
+part 'generated/schedule_viewmodel.g.dart';
 
 @riverpod
 Future<String> stopServiceId(Ref ref, Stop stop, DateTime? date) async {

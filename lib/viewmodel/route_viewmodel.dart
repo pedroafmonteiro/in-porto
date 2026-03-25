@@ -5,7 +5,7 @@ import 'package:in_porto/model/entities/stop.dart';
 import 'package:in_porto/model/repositories/repository_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'route_viewmodel.g.dart';
+part 'generated/route_viewmodel.g.dart';
 
 @riverpod
 class RouteViewModel extends _$RouteViewModel {

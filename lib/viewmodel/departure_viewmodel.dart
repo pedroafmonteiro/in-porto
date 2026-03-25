@@ -8,7 +8,7 @@ import 'package:in_porto/viewmodel/state_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'departure_viewmodel.g.dart';
+part 'generated/departure_viewmodel.g.dart';
 
 @riverpod
 Future<(DateTime, List<Trip>)> stopRealtimeTrips(Ref ref, Stop stop) async {

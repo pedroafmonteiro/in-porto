@@ -8,7 +8,7 @@ import 'package:in_porto/viewmodel/navigation_state.dart';
 import 'package:in_porto/viewmodel/route_viewmodel.dart';
 import 'package:in_porto/viewmodel/stop_viewmodel.dart';
 
-part 'map_viewmodel.g.dart';
+part 'generated/map_viewmodel.g.dart';
 
 enum MapCenterTarget {
   user,

@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'state_viewmodel.g.dart';
+part 'generated/state_viewmodel.g.dart';
 
 @riverpod
 class ShowOlderDepartures extends _$ShowOlderDepartures {

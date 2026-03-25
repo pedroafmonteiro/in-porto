@@ -7,16 +7,18 @@ class _SearchableItemInternal {
   final List<String> normalizedKeywords;
 
   _SearchableItemInternal(this.item)
-      : normalizedPrimary = item.primaryLabel.toLowerCase(),
-        normalizedSecondary = item.secondaryLabel?.toLowerCase(),
-        normalizedKeywords = item.searchKeywords.map((k) => k.toLowerCase()).toList();
+    : normalizedPrimary = item.primaryLabel.toLowerCase(),
+      normalizedSecondary = item.secondaryLabel?.toLowerCase(),
+      normalizedKeywords = item.searchKeywords
+          .map((k) => k.toLowerCase())
+          .toList();
 }
 
 class SearchIndex {
   final List<_SearchableItemInternal> _internalItems;
 
   SearchIndex({required List<SearchableItem> items})
-      : _internalItems = items.map((i) => _SearchableItemInternal(i)).toList();
+    : _internalItems = items.map((i) => _SearchableItemInternal(i)).toList();
 
   List<SearchResult> search(String query) {
     if (query.isEmpty) return [];
@@ -83,10 +85,12 @@ class SearchIndex {
     }
 
     if (score > 0) {
-      if (internal.item.type == SearchResultType.route && internal.normalizedPrimary == query) {
+      if (internal.item.type == SearchResultType.route &&
+          internal.normalizedPrimary == query) {
         score += 50;
       }
-      if (internal.item.type == SearchResultType.stop && internal.normalizedSecondary == query) {
+      if (internal.item.type == SearchResultType.stop &&
+          internal.normalizedSecondary == query) {
         score += 40;
       }
     }

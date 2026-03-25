@@ -3,7 +3,7 @@ import 'package:app_links/app_links.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:in_porto/service/deep_link_handlers.dart';
 
-part 'deep_link_service.g.dart';
+part 'generated/deep_link_service.g.dart';
 
 class DeepLinkService {
   final Ref _ref;

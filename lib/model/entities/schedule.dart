@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'schedule.g.dart';
+part 'generated/schedule.g.dart';
 
 @JsonSerializable()
 class Schedule {

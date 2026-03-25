@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'shape_coordinates.g.dart';
+part 'generated/shape_coordinates.g.dart';
 
 @JsonSerializable()
 class ShapeCoordinates {

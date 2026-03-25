@@ -1,7 +1,7 @@
 import 'package:in_porto/model/navigation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'stop.g.dart';
+part 'generated/stop.g.dart';
 
 @JsonSerializable()
 class Stop implements NavigationOverride {
