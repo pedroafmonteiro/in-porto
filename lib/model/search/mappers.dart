@@ -18,9 +18,9 @@ class StopSearchableItem implements SearchableItem {
 
   @override
   List<String> get searchKeywords => [
-        stop.name ?? '',
-        stop.code ?? '',
-      ];
+    stop.name ?? '',
+    stop.code ?? '',
+  ];
 
   @override
   SearchResultType get type => SearchResultType.stop;
@@ -45,12 +45,12 @@ class RouteSearchableItem implements SearchableItem {
 
   @override
   List<String> get searchKeywords => [
-        route.shortName ?? '',
-        route.longName ?? '',
-        route.displayName ?? '',
-        route.tripHeadsign ?? '',
-        route.directionName ?? '',
-      ];
+    route.shortName ?? '',
+    route.longName ?? '',
+    route.displayName ?? '',
+    route.tripHeadsign ?? '',
+    route.directionName ?? '',
+  ];
 
   @override
   SearchResultType get type => SearchResultType.route;
